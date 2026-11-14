@@ -1,5 +1,10 @@
 # personal page
 
+王舒悦（Shuyue Wang）的个人网站：近黑书封式的索引首页，四个入口；内页是纸底阅读版，`contact` 页集中 LinkedIn、GitHub 与驻足过的城市。
+
+- 线上站点：<https://shuyuew1991.github.io/personal-page/>
+- 稿件、批注、中间版本和书稿全文**不在这个仓库里**，规则见 [PUBLISHING.md](PUBLISHING.md)。
+
 ## 结构
 
 ```
@@ -16,7 +21,13 @@ python3 build.py                              # 生成 _site/
 cd _site && python3 -m http.server 8123
 ```
 
-`build.py --check` 只做校验：白名单文件齐全、页面引用的本地资源都存在、产物里没有稿件。
+`build.py --check` 只做校验：白名单文件齐全、页面引用的本地资源都存在、每页 canonical 正确、产物里没有稿件。
+
+## 搜索收录
+
+`robots.txt` 与 `sitemap.xml` 由 `build.py` 按 `PAGES` 现算，加页面不用手工维护；地址统一取自 `build.py` 顶部的 `SITE_URL`。
+
+`prototypes/v2/b-desk/googlefa66aa447ffb8c98.html` 是 Google Search Console 的所有权验证文件，文件名和内容都别改，也别从白名单里删掉。
 
 ## 版权
 

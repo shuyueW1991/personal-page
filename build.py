@@ -22,6 +22,10 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "prototypes" / "v2" / "b-desk"
 OUT = ROOT / "_site"
 
+# 站点公开地址。换域名或改仓库名时只改这一行：
+# canonical 标签、sitemap.xml、robots.txt 都从这里推出来。
+SITE_URL = "https://shuyuew1991.github.io/personal-page/"
+
 # 上线页面。新增页面时只改这里，别把草稿页一起带上去。
 PAGES = [
     "index.html",
@@ -57,6 +61,8 @@ STYLES = [
 EXTRAS = [
     "cover.js",
     "favicon.svg",
+    # Google Search Console 的所有权验证文件：文件名和内容都不能改。
+    "googlefa66aa447ffb8c98.html",
 ]
 
 ASSETS_DIR = "assets"
@@ -65,6 +71,31 @@ ASSETS_DIR = "assets"
 FORBIDDEN = re.compile(
     r"\.(docx?|pdf|xlsx?|pages|key|epub|indd|rtf|py|pyc|doc)$", re.IGNORECASE
 )
+
+# 每页都应声明同一套地址，否则同一个页面会被收录成好几份。
+CANONICAL = re.compile(r'<link\s+rel="canonical"\s+href="([^"]+)"')
+
+
+def page_url(name: str) -> str:
+    """首页统一用目录地址，避免 / 与 /index.html 各被收录一次。"""
+    return SITE_URL if name == "index.html" else f"{SITE_URL}{name}"
+
+
+def write_generated(out: Path) -> None:
+    """sitemap.xml 和 robots.txt 都由 PAGES / SITE_URL 现算，加页面不用手工维护。"""
+    urls = "".join(f"  <url><loc>{page_url(name)}</loc></url>\n" for name in PAGES)
+    (out / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}</urlset>\n",
+        encoding="utf-8",
+    )
+    (out / "robots.txt").write_text(
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"Sitemap: {SITE_URL}sitemap.xml\n",
+        encoding="utf-8",
+    )
 
 
 class Refs(HTMLParser):
@@ -108,16 +139,24 @@ def build(check_only: bool = False) -> int:
 
         shutil.copytree(SRC / ASSETS_DIR, OUT / ASSETS_DIR)
         (OUT / ".nojekyll").write_text("", encoding="utf-8")
+        write_generated(OUT)
 
     # 每页引用的本地资源都得真实存在，否则线上就是 404。
     for page in PAGES:
+        text = (SRC / page).read_text(encoding="utf-8")
         parser = Refs()
-        parser.feed((SRC / page).read_text(encoding="utf-8"))
+        parser.feed(text)
         for ref in sorted(parser.local):
             if ref in PAGES or ref in STYLES:
                 continue
             if not (SRC / ref).is_file():
                 problems.append(f"{page} 引用了不存在的 {ref}")
+
+        found = CANONICAL.search(text)
+        if not found:
+            problems.append(f"{page} 缺 canonical")
+        elif found.group(1) != page_url(page):
+            problems.append(f"{page} 的 canonical 指向 {found.group(1)}，应为 {page_url(page)}")
 
     # 兜底：生成结果里不允许出现稿件或脚本。
     if not check_only and OUT.exists():
