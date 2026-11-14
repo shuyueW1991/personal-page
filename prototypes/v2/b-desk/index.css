@@ -48,15 +48,6 @@
   color: var(--muted);
 }
 
-.rail-line {
-  margin: 22px 0 0;
-  font-family: var(--serif);
-  font-size: 13px;
-  line-height: 1.7;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-}
-
 .rail-bottom {
   margin-top: auto;
   padding-top: 40px;
@@ -66,12 +57,15 @@
   color: var(--muted);
 }
 
-.rail-links {
-  display: flex;
-  gap: 20px;
+.rail-mail {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
-.rail-links a { text-decoration: none; }
-.rail-links a:hover { color: var(--ink); }
+.rail-mail:hover { color: var(--ink); }
 
 .rail-copy {
   margin: 26px 0 0;
@@ -84,22 +78,12 @@
   padding: 4px 0 24px 64px;
 }
 
-.index-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--rule-strong);
-  font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
+/* 没有表头了，第一行自己立一条粗线。 */
+.row:first-child { border-top: 1px solid var(--rule-strong); }
 
 .row {
   display: grid;
-  grid-template-columns: 42px 128px minmax(0, 1fr) 26px;
+  grid-template-columns: 42px 200px minmax(0, 1fr) 26px;
   gap: 0 22px;
   align-items: baseline;
   padding: 22px 0 23px;
@@ -115,9 +99,9 @@
 }
 
 .row-section {
-  font-size: 26px;
+  font-size: 25px;
   line-height: 1.25;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.005em;
   color: var(--ink);
 }
 
@@ -126,6 +110,14 @@
   font-size: 15px;
   line-height: 1.8;
   color: var(--ink-soft);
+}
+
+.row-note {
+  margin-left: 12px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 
 .row-arrow {
@@ -147,18 +139,20 @@
 }
 .row-link:hover .row-arrow { color: var(--ink); }
 
-.row-articles {
-  grid-template-columns: 42px 128px minmax(0, 1fr);
-  gap: 0 22px;
+.row-empty .row-section,
+.row-empty .row-item { color: var(--muted); }
+
+.row-list {
+  grid-template-columns: 42px 200px minmax(0, 1fr);
 }
 
-.article-list {
+.item-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.article-list li {
+.item-list li {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -166,7 +160,8 @@
   padding: 3px 0 4px;
 }
 
-.article-list a {
+.item-list a,
+.item-list .item-text {
   font-size: 15px;
   line-height: 1.8;
   color: var(--ink-soft);
@@ -174,14 +169,14 @@
   transition: color 0.2s ease;
 }
 
-.article-list a:hover {
+.item-list a:hover {
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-color: var(--rule-strong);
 }
 
-.article-list span {
+.item-list span {
   font-family: var(--mono);
   font-size: 8px;
   letter-spacing: 0.08em;
@@ -198,8 +193,10 @@
   .home-rail { padding-right: 36px; }
   .home-index { padding-left: 44px; }
   .home-rail h1 { font-size: 54px; }
-  .row { grid-template-columns: 34px 104px minmax(0, 1fr) 22px; gap: 0 16px; }
-  .row-section { font-size: 23px; }
+  .row,
+  .row-list { grid-template-columns: 34px 168px minmax(0, 1fr); gap: 0 16px; }
+  .row { grid-template-columns: 34px 168px minmax(0, 1fr) 22px; }
+  .row-section { font-size: 22px; }
 }
 
 @media (max-width: 760px) {
@@ -217,7 +214,6 @@
   }
   .rail-kicker { margin-bottom: 14px; }
   .home-rail h1 { font-size: 48px; }
-  .rail-line { margin-top: 14px; }
   .rail-bottom {
     display: flex;
     justify-content: space-between;
@@ -227,16 +223,17 @@
     padding-top: 0;
   }
   .rail-copy { margin: 0; }
-  .home-index { padding: 28px 0 0; }
+  .home-index { padding: 0 0 8px; }
   .row,
-  .row-articles {
+  .row-list {
     grid-template-columns: 30px minmax(0, 1fr) 22px;
     gap: 5px 14px;
     padding: 17px 0 18px;
   }
-  .row-section { font-size: 21px; }
+  .row-section { font-size: 19px; }
   .row-item { grid-column: 2; }
   .row-arrow { grid-column: 3; grid-row: 1; }
-  .row-articles .article-list { grid-column: 2 / -1; margin-top: 7px; }
-  .article-list a { font-size: 14.5px; }
+  .item-list { grid-column: 2 / -1; margin-top: 7px; }
+  .item-list a,
+  .item-list .item-text { font-size: 14.5px; }
 }

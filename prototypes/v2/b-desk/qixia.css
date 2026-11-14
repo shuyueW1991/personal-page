@@ -1,0 +1,49 @@
+/* 栖霞三梦 · 短篇 */
+
+/* 三个小节的名字是作品号 + 标题，比「第一部分」长，缩小一号。 */
+.part-head.is-opus { margin-bottom: 22px; }
+
+.part-head.is-opus h2 {
+  font-size: 26px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.part-head.is-opus .opus {
+  margin-right: 8px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.epigraph { margin: 0 0 24px; }
+
+.epigraph p {
+  margin: 0 0 0.55em;
+  font-size: 13.5px;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+.figure-cap {
+  margin: 0 0 34px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+/* 第三节是分行写的，段落间距收紧。 */
+.novel-text p.verse {
+  margin: 0 0 0.42em;
+  text-indent: 0;
+}
+
+@media (max-width: 860px) {
+  .part-head.is-opus h2 { font-size: 21px; }
+  .part-head.is-opus .opus { display: block; margin: 0 0 6px; }
+  .epigraph p { font-size: 13px; }
+}

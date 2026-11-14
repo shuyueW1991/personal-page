@@ -1,6 +1,6 @@
 # mynamewebesite
 
-王舒悦的个人网站。纸底、索引式首页；小说、论文、技术、文章、页边各一页。
+王舒悦的个人网站。纸底、索引式首页；按 ideology / instrumentality / illusion / Initiatives 四类组织。
 
 - 线上站点：`https://shuyuew1991.github.io/wangshuyue/`
 - 稿件、批注、中间版本和书稿全文**不在这个仓库里**，发布规则见 [PUBLISHING.md](PUBLISHING.md)。
@@ -9,7 +9,7 @@
 
 ```
 build.py                       白名单装配 _site/，CI 也用同一个脚本
-prototypes/v2/b-desk/          上线页面（index / novel / papers / works / booklet / essay / quiet-tool / notes）
+prototypes/v2/b-desk/          上线页面（index / novel / qixia / papers / works / booklet / essay / quiet-tool / notes）
 prototypes/v1、v3              旧方案，存档对照，不部署
 vitrine/                       写作素材；其中小说与书稿已 gitignore，只留在本地
 ```

@@ -26,6 +26,7 @@ OUT = ROOT / "_site"
 PAGES = [
     "index.html",
     "novel.html",
+    "qixia.html",
     "papers.html",
     "works.html",
     "booklet.html",
@@ -38,6 +39,7 @@ STYLES = [
     "personal.css",
     "index.css",
     "novel.css",
+    "qixia.css",
     "papers.css",
     "workbench.css",
     "booklet.css",
