@@ -25,10 +25,12 @@ OUT = ROOT / "_site"
 # 上线页面。新增页面时只改这里，别把草稿页一起带上去。
 PAGES = [
     "index.html",
+    "works.html",
+    "illusion.html",
+    "initiatives.html",
     "novel.html",
     "qixia.html",
     "papers.html",
-    "works.html",
     "booklet.html",
     "essay.html",
     "quiet-tool.html",
@@ -41,7 +43,7 @@ STYLES = [
     "novel.css",
     "qixia.css",
     "papers.css",
-    "workbench.css",
+    "section.css",
     "booklet.css",
     "style.css",
     "notes.css",

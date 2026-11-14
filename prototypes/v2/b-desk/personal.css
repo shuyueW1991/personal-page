@@ -1,12 +1,14 @@
 /* 个人站 · 纸底共用 */
 :root {
-  --paper: #fbfaf6;
-  --ink: #181715;
-  --ink-soft: #45413a;
-  --muted: #716c63;
-  --rule: #e3e0d7;
-  --rule-strong: #c8c3b8;
-  --accent: #9a3b2c;
+  --paper: #f7f7f5;
+  --ink: #0d0d0c;
+  --ink-soft: #33332d;
+  --muted: #82827a;
+  --rule: #e3e3dd;
+  --rule-strong: #c5c5bd;
+  --accent: #ac3a2e;
+
+  --display: "Helvetica Neue", "Inter", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   --serif: "Iowan Old Style", "Palatino Linotype", "Charter", "Georgia", "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "SimSun", serif;
   --sans: "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --mono: "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -27,7 +29,7 @@ body {
 
 a { color: inherit; }
 
-::selection { background: rgba(24, 23, 21, 0.1); }
+::selection { background: rgba(13, 13, 12, 0.12); }
 
 :focus-visible { outline: 1px solid var(--ink); outline-offset: 4px; }
 
@@ -62,14 +64,14 @@ a { color: inherit; }
   gap: 24px;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 26px 64px;
+  padding: 22px 64px;
   border-bottom: 1px solid var(--rule-strong);
 }
 
 .page-top .back {
   font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  letter-spacing: 0.02em;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s ease;
@@ -77,9 +79,9 @@ a { color: inherit; }
 .page-top .back:hover { color: var(--ink); }
 
 .page-top .label {
-  font-family: var(--sans);
+  font-family: var(--mono);
   font-size: 9px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--muted);
 }
 
@@ -90,6 +92,7 @@ a { color: inherit; }
 }
 
 .page-foot {
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -99,8 +102,8 @@ a { color: inherit; }
   padding: 18px 64px 44px;
   border-top: 1px solid var(--rule);
   font-family: var(--mono);
-  font-size: 8.5px;
-  letter-spacing: 0.06em;
+  font-size: 9px;
+  letter-spacing: 0.04em;
   color: var(--muted);
 }
 
@@ -109,7 +112,7 @@ a { color: inherit; }
 .page-foot a:hover { color: var(--ink); }
 
 @media (max-width: 860px) {
-  .page-top { padding: 20px 24px; }
+  .page-top { padding: 18px 24px; }
   .page-shell { padding: 0 24px; }
   .page-foot { padding: 18px 24px 34px; flex-wrap: wrap; }
 }

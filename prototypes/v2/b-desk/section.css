@@ -1,0 +1,76 @@
+/* 分类页 · 条目列表 */
+
+.section-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 44px 64px 96px;
+  min-height: calc(100vh - 126px);
+}
+
+.entry-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.entry { border-bottom: 1px solid var(--rule); }
+
+.entry > a,
+.entry > .row-static {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) 26px;
+  gap: 0 20px;
+  align-items: baseline;
+  padding: 20px 0 22px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.k {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.t {
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  transition: transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.t[lang="en"] { letter-spacing: -0.006em; }
+
+.entry .arrow {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1;
+  text-align: right;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.28s ease, transform 0.42s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.entry > a:hover .t { transform: translateX(10px); }
+.entry > a:hover .arrow { opacity: 1; transform: translateX(0); }
+
+.entry > .row-static .t { color: var(--muted); }
+.entry > .row-static .arrow { opacity: 1; transform: none; }
+
+@media (max-width: 860px) {
+  .section-shell { padding: 32px 24px 64px; }
+  .entry > a,
+  .entry > .row-static {
+    grid-template-columns: 62px minmax(0, 1fr) 22px;
+    gap: 0 14px;
+    padding: 16px 0 18px;
+  }
+  .t { font-size: 18px; }
+  .entry .arrow { opacity: 1; transform: none; }
+}

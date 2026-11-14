@@ -9,7 +9,7 @@
 
 ```
 build.py                       白名单装配 _site/，CI 也用同一个脚本
-prototypes/v2/b-desk/          上线页面（index / novel / qixia / papers / works / booklet / essay / quiet-tool / notes）
+prototypes/v2/b-desk/          上线页面：首页 + 三个分类页（works / illusion / initiatives）+ 内容页
 prototypes/v1、v3              旧方案，存档对照，不部署
 vitrine/                       写作素材；其中小说与书稿已 gitignore，只留在本地
 ```
