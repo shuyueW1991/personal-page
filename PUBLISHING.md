@@ -45,7 +45,7 @@ python3 build.py --check
 1. 推到 `main`。
 2. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
    （workflow 里带了 `enablement: true`，通常第一次跑就会自动开；没开就手动点一下。）
-3. 等 Action 变绿，站点地址：`https://shuyuew1991.github.io/mynamewebesite/`
+3. 等 Action 变绿，站点地址：`https://shuyuew1991.github.io/wangshuyue/`
    所有链接都是相对路径，挂在子路径下不会坏。
 
 之后每次 `git push` 到 `main` 自动重新发布；本地预览用 `python3 build.py && cd _site && python3 -m http.server`。

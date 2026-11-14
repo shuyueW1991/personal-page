@@ -2,7 +2,7 @@
 
 王舒悦的个人网站。纸底、索引式首页；小说、论文、技术、文章、页边各一页。
 
-- 线上站点：`https://shuyuew1991.github.io/mynamewebesite/`
+- 线上站点：`https://shuyuew1991.github.io/wangshuyue/`
 - 稿件、批注、中间版本和书稿全文**不在这个仓库里**，发布规则见 [PUBLISHING.md](PUBLISHING.md)。
 
 ## 结构
