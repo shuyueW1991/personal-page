@@ -1,9 +1,4 @@
-# mynamewebesite
-
-王舒悦的个人网站：近黑书封式的索引首页，四个入口；内页是纸底阅读版，`contact` 页集中邮箱、LinkedIn 与 GitHub。
-
-- 线上站点：<https://shuyuew1991.github.io/wangshuyue/>
-- 稿件、批注、中间版本和书稿全文**不在这个仓库里**，发布规则见 [PUBLISHING.md](PUBLISHING.md)。
+# personal page
 
 ## 结构
 
