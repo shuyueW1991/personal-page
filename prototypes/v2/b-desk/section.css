@@ -58,7 +58,7 @@
 }
 
 .entry > a:hover .t { transform: translateX(10px); }
-.entry > a:hover .arrow { opacity: 1; transform: translateX(0); }
+.entry > a:hover .arrow { opacity: 1; transform: translateX(0); color: var(--ink); }
 
 .entry > .row-static .t { color: var(--muted); }
 .entry > .row-static .arrow { opacity: 1; transform: none; }

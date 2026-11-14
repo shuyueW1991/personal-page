@@ -85,7 +85,7 @@
 }
 
 a.row:hover .word { transform: translateX(14px); }
-a.row:hover .arrow { opacity: 1; transform: translateX(0); }
+a.row:hover .arrow { opacity: 1; transform: translateX(0); color: var(--ink); }
 
 /* 空的一类：不假装是链接 */
 .row.is-static .word { color: var(--muted); }
