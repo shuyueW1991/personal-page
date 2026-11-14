@@ -1,0 +1,994 @@
+{
+ "papers": [
+  {
+   "year": 2025,
+   "title": "Artificial intelligence assisted identification of newborn auricular deformities via smartphone application",
+   "venue": "eClinicalMedicine 81, 103124 · 2025",
+   "short": "eClinMed",
+   "cites": 5,
+   "doi": "https://doi.org/10.1016/j.eclinm.2025.103124",
+   "zh": false
+  },
+  {
+   "year": 2024,
+   "title": "An Application of Data Driven Reward of Deep Reinforcement Learning by Dynamic Mode Decomposition in Active Flow Control",
+   "venue": "Computational and Experimental Simulations in Engineering (Mechanisms and Machine Science), 1195–1217 · 2024",
+   "short": "Springer",
+   "cites": 22,
+   "doi": "https://doi.org/10.1007/978-3-031-44947-5_92",
+   "zh": false
+  },
+  {
+   "year": 2024,
+   "title": "TREB: a BERT attempt for imputing tabular data imputation",
+   "venue": "arXiv:2410.00022 [cs.LG] · 2024",
+   "short": "arXiv",
+   "cites": 3,
+   "doi": "https://doi.org/10.48550/arXiv.2410.00022",
+   "zh": false
+  },
+  {
+   "year": 2024,
+   "title": "Large Language Model-Enhanced Interactive Agent for Public Education on Newborn Auricular Deformities",
+   "venue": "arXiv:2409.12984 [cs.CY] · 2024",
+   "short": "arXiv",
+   "cites": 2,
+   "doi": "https://doi.org/10.48550/arXiv.2409.12984",
+   "zh": false
+  },
+  {
+   "year": 2024,
+   "title": "A Novel Metric-Based Geometric Parameterization Approach with Performance Filtration",
+   "venue": "Journal of Aerospace Engineering 37(4), 04024042 · 2024",
+   "short": "JOAE",
+   "cites": 1,
+   "doi": "https://doi.org/10.1061/JAEEEEZ.ASENG-4947",
+   "zh": false
+  },
+  {
+   "year": 2023,
+   "title": "A Brief Summary of Prompting in Using GPT Models",
+   "venue": "Qeios (preprint) · 2023",
+   "short": "Qeios",
+   "cites": 17,
+   "doi": "https://doi.org/10.32388/IMZI2Q",
+   "zh": false
+  },
+  {
+   "year": 2023,
+   "title": "A Preliminary Attempt of Deploying AIGC in Autodriving Scenario Generation: Via LLM",
+   "venue": "Proceedings of the 2023 3rd Guangdong-Hong Kong-Macao Greater Bay Area Artificial Intelligence and Big Data Forum (AIBDF 2023), 86–91 · 2023",
+   "short": "AIBDF",
+   "cites": 3,
+   "doi": "https://doi.org/10.1145/3660395.3660411",
+   "zh": false
+  },
+  {
+   "year": 2023,
+   "title": "Application of “Objective Space Filtration” on Nacelle Cowl Design Variable Generation",
+   "venue": "Journal of Aerospace Engineering 36(1), 06022003 · 2023（在线 2022）",
+   "short": "JOAE",
+   "cites": 1,
+   "doi": "https://doi.org/10.1061/(ASCE",
+   "zh": false
+  },
+  {
+   "year": 2023,
+   "title": "A New Circular Section Control for Streamwise Profiles in Aeroengine Nacelle Cowl Design and Optimization",
+   "venue": "Journal of Aerospace Engineering 36(5), 04023038 · 2023",
+   "short": "JOAE",
+   "cites": 0,
+   "doi": "https://doi.org/10.1061/JAEEEEZ.ASENG-4758",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "Framework of nacelle inverse design method based on improved generative adversarial networks",
+   "venue": "Aerospace Science and Technology 121, 107365 · 2022",
+   "short": "AST",
+   "cites": 36,
+   "doi": "https://doi.org/10.1016/j.ast.2022.107365",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "A boundary surrogate model for micro/nano grooved surface structure applied in turbulence flow control over airfoil",
+   "venue": "Chinese Journal of Aeronautics 35(2), 62–73 · 2022（在线 2021）",
+   "short": "CJA",
+   "cites": 22,
+   "doi": "https://doi.org/10.1016/j.cja.2021.04.026",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "Aerodynamic surrogate model based on deep long short-term memory network: An application on high-lift device control",
+   "venue": "Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering 236(6), 1081–1097 · 2022（在线 2021）",
+   "short": "PIMechE G",
+   "cites": 12,
+   "doi": "https://doi.org/10.1177/09544100211027023",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "A novel ANN-Based boundary strategy for modeling micro/nanopatterns on airfoil with improved aerodynamic performances",
+   "venue": "Aerospace Science and Technology 121, 107347 · 2022",
+   "short": "AST",
+   "cites": 10,
+   "doi": "https://doi.org/10.1016/j.ast.2022.107347",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "Nacelle Inlet Optimization at High Angles of Attack Based on the Ensemble Indicator Method",
+   "venue": "Journal of Aerospace Engineering 35(2), 06022001 · 2022",
+   "short": "JOAE",
+   "cites": 4,
+   "doi": "https://doi.org/10.1061/(ASCE",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "An approach of Proper Orthogonal Decomposition-aided Free-form Deformation with application in compressor blade design",
+   "venue": "Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering 236(14), 3073–3088 · 2022",
+   "short": "PIMechE G",
+   "cites": 4,
+   "doi": "https://doi.org/10.1177/09544100221075071",
+   "zh": false
+  },
+  {
+   "year": 2022,
+   "title": "New approach of inverse design of transonic compressor rotor blade via prescribed isentropic Mach distributions without modification of governing equations",
+   "venue": "Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering 236(7), 1422–1438 · 2022（在线 2021）",
+   "short": "PIMechE G",
+   "cites": 1,
+   "doi": "https://doi.org/10.1177/09544100211032489",
+   "zh": false
+  },
+  {
+   "year": 2021,
+   "title": "Multi-Objective Optimization of Cascade Blade Profile Based on Reinforcement Learning",
+   "venue": "Applied Sciences 11(1), 106 · 2021（在线 2020）",
+   "short": "Appl. Sci.",
+   "cites": 41,
+   "doi": "https://doi.org/10.3390/app11010106",
+   "zh": false
+  },
+  {
+   "year": 2021,
+   "title": "Design and analysis of micro-nano scale nested-grooved surface structure for drag reduction based on ‘Vortex-Driven Design’",
+   "venue": "European Journal of Mechanics - B/Fluids 85, 335–350 · 2021",
+   "short": "EJM-B",
+   "cites": 32,
+   "doi": "https://doi.org/10.1016/j.euromechflu.2020.10.007",
+   "zh": false
+  },
+  {
+   "year": 2021,
+   "title": "A nacelle inlet design approach with more three-dimensional geometric consideration",
+   "venue": "Aerospace Science and Technology 112, 106624 · 2021",
+   "short": "AST",
+   "cites": 18,
+   "doi": "https://doi.org/10.1016/j.ast.2021.106624",
+   "zh": false
+  },
+  {
+   "year": 2021,
+   "title": "人工智能在气动设计中的应用与展望",
+   "venue": "《民用飞机设计与研究》2021(3), 1–9 · 2021",
+   "short": "民用飞机",
+   "cites": 11,
+   "doi": "",
+   "zh": true
+  },
+  {
+   "year": 2021,
+   "title": "Modifications of class-shape transformation driven by aerodynamic concerns over leading-edge region",
+   "venue": "Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering 235(13), 1930–1938 · 2021",
+   "short": "PIMechE G",
+   "cites": 4,
+   "doi": "https://doi.org/10.1177/0954410020984570",
+   "zh": false
+  },
+  {
+   "year": 2021,
+   "title": "A new moving mass control method for fluid structure interaction problems",
+   "venue": "Physics of Fluids 33(12), 123102 · 2021",
+   "short": "PoF",
+   "cites": 1,
+   "doi": "https://doi.org/10.1063/5.0070267",
+   "zh": false
+  },
+  {
+   "year": 2020,
+   "title": "The Objective Space and the Formulation of Design Requirement in Natural Laminar Flow Optimization",
+   "venue": "Applied Sciences 10(17), 5943 · 2020",
+   "short": "Appl. Sci.",
+   "cites": 10,
+   "doi": "https://doi.org/10.3390/app10175943",
+   "zh": false
+  },
+  {
+   "year": 2019,
+   "title": "A review of the artificial neural network surrogate modeling in aerodynamic design",
+   "venue": "Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering 233(16), 5863–5872 · 2019",
+   "short": "PIMechE G",
+   "cites": 190,
+   "doi": "https://doi.org/10.1177/0954410019864485",
+   "zh": false
+  },
+  {
+   "year": 2019,
+   "title": "Natural Laminar Flow Optimization of Transonic Nacelle Based on Differential Evolution Algorithm",
+   "venue": "Journal of Aerospace Engineering 32(4), 06019001 · 2019",
+   "short": "JOAE",
+   "cites": 12,
+   "doi": "https://doi.org/10.1061/(ASCE",
+   "zh": false
+  },
+  {
+   "year": 2019,
+   "title": "Laminar Transition over Airfoil: Numerical Simulation of Turbulence Models and Experiment Validation",
+   "venue": "The Proceedings of the 2018 Asia-Pacific International Symposium on Aerospace Technology (APISAT 2018), Lecture Notes in Electrical Engineering 459, 1623–1632 · 2019",
+   "short": "APISAT",
+   "cites": 4,
+   "doi": "https://doi.org/10.1007/978-981-13-3305-7_130",
+   "zh": false
+  },
+  {
+   "year": 2018,
+   "title": "A PCA–ANN-based inverse design model of stall lift robustness for high-lift device",
+   "venue": "Aerospace Science and Technology 81, 272–283 · 2018",
+   "short": "AST",
+   "cites": 33,
+   "doi": "https://doi.org/10.1016/j.ast.2018.08.019",
+   "zh": false
+  },
+  {
+   "year": 2018,
+   "title": "Database self-expansion based on artificial neural network: An approach in aircraft design",
+   "venue": "Aerospace Science and Technology 72, 77–83 · 2018（在线 2017）",
+   "short": "AST",
+   "cites": 33,
+   "doi": "https://doi.org/10.1016/j.ast.2017.10.037",
+   "zh": false
+  },
+  {
+   "year": 2015,
+   "title": "Artificial neural network based inverse design: Airfoils and wings",
+   "venue": "Aerospace Science and Technology 42, 415–428 · 2015",
+   "short": "AST",
+   "cites": 130,
+   "doi": "https://doi.org/10.1016/j.ast.2015.01.030",
+   "zh": false
+  },
+  {
+   "year": 2014,
+   "title": "基于人工神经网络的机翼外形预测",
+   "venue": "《力学季刊》35(3), 482–490 · 2014",
+   "short": "力学季刊",
+   "cites": 0,
+   "doi": "",
+   "zh": true
+  }
+ ],
+ "videos": [
+  {
+   "n": 1,
+   "date": "2026-08-09",
+   "type": "视频",
+   "series": "Agents orchestrator",
+   "title": "Agents manufacturing orchestrator - retrieval",
+   "duration": "0:05",
+   "views": 0,
+   "id": "Oj4gX6yE1LE"
+  },
+  {
+   "n": 2,
+   "date": "2026-08-09",
+   "type": "视频",
+   "series": "Agents orchestrator",
+   "title": "Agents manufacturing orchestrator - annotations",
+   "duration": "0:16",
+   "views": 0,
+   "id": "B4K9754Ir0U"
+  },
+  {
+   "n": 3,
+   "date": "2026-08-09",
+   "type": "视频",
+   "series": "Agents orchestrator",
+   "title": "Agents manufacturing orchestrator - a petit demo",
+   "duration": "0:27",
+   "views": 0,
+   "id": "7wGljTk_nfc"
+  },
+  {
+   "n": 4,
+   "date": "2026-04-27",
+   "type": "直播",
+   "series": "rurussian",
+   "title": "rurussian usage: review saved words and sentences and memorize them.",
+   "duration": "1:09:59",
+   "views": 0,
+   "id": "-9gQBBmQ9BI"
+  },
+  {
+   "n": 5,
+   "date": "2026-04-25",
+   "type": "直播",
+   "series": "rurussian",
+   "title": "Learn russian by Rurussian, with videomp3word!",
+   "duration": "1:02:16",
+   "views": 6,
+   "id": "Ki8mbvS51JQ"
+  },
+  {
+   "n": 6,
+   "date": "2026-04-23",
+   "type": "直播",
+   "series": "rurussian",
+   "title": "rurussian.com for russian learning",
+   "duration": "1:50:26",
+   "views": 1,
+   "id": "85uo30iZGWA"
+  },
+  {
+   "n": 7,
+   "date": "2026-04-12",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "rurussian.com --- new look on April 12th, 20206.",
+   "duration": "1:15",
+   "views": 6,
+   "id": "v7ZNM4xx0fg"
+  },
+  {
+   "n": 8,
+   "date": "2026-04-01",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "rurussian - where RUSVIBE awaits for you!",
+   "duration": "2:17",
+   "views": 3,
+   "id": "z-JDbf60n5Q"
+  },
+  {
+   "n": 9,
+   "date": "2026-03-31",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "rurussian --- an open dictionary by wikitionary with forum",
+   "duration": "0:33",
+   "views": 8,
+   "id": "YsDKGzmFVs4"
+  },
+  {
+   "n": 10,
+   "date": "2026-03-31",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "rurussian --- log in and enjoy example sentence generated by AI ！",
+   "duration": "1:06",
+   "views": 1,
+   "id": "Tm64ezxNxRc"
+  },
+  {
+   "n": 11,
+   "date": "2026-03-21",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "rurussian - a tutorial guide",
+   "duration": "0:52",
+   "views": 5,
+   "id": "tGqv55Lf8sU"
+  },
+  {
+   "n": 12,
+   "date": "2026-03-15",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "enjoy video-to-word, enjoy videomp3word #productivity #transcribe #videototext…",
+   "duration": "0:10",
+   "views": 10,
+   "id": "KSkydb2tFNU"
+  },
+  {
+   "n": 13,
+   "date": "2026-03-12",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "Happy Int'l Working Women's day, from videomp3word! #productivity #videomp3wor…",
+   "duration": "0:10",
+   "views": 20,
+   "id": "eYZPRk-9l2k"
+  },
+  {
+   "n": 14,
+   "date": "2026-03-08",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "video to mp3 is done by ffmpeg in videomp3word, technically #ai #productivity …",
+   "duration": "0:10",
+   "views": 199,
+   "id": "mESBtm7nIxA"
+  },
+  {
+   "n": 15,
+   "date": "2026-03-08",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "videomp3word! #productivity #ai #transcribe #videotoaudio #efficiency",
+   "duration": "0:10",
+   "views": 180,
+   "id": "dTq4SzPDBv4"
+  },
+  {
+   "n": 16,
+   "date": "2026-03-08",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "video-to-word in videomp3word! #productivity #ai #transcribe #video",
+   "duration": "0:10",
+   "views": 8,
+   "id": "Fp6H15IWYsM"
+  },
+  {
+   "n": 17,
+   "date": "2026-03-07",
+   "type": "Shorts",
+   "series": "videomp3word",
+   "title": "Use mp3-to-word in videomp3word! #productivity #ai #transcribe #audiolyrics  #…",
+   "duration": "0:10",
+   "views": 545,
+   "id": "Sx8R8YAaTfo"
+  },
+  {
+   "n": 18,
+   "date": "2026-03-01",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "videomp3word is now with PWA: iPhone via Safari #productivity #ai #video #audi…",
+   "duration": "0:27",
+   "views": 7,
+   "id": "u66SIGRbV0E"
+  },
+  {
+   "n": 19,
+   "date": "2026-03-01",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "videomp3word is now with PWA: Mac via chrome.#productivity #ai #transcription …",
+   "duration": "0:13",
+   "views": 1,
+   "id": "9Dje7__uTIA"
+  },
+  {
+   "n": 20,
+   "date": "2026-02-28",
+   "type": "Shorts",
+   "series": "rurussian",
+   "title": "rurussian can now be on your iphone #productivity #russianlanguage #ai",
+   "duration": "0:41",
+   "views": 69,
+   "id": "jlGRw0OA5FQ"
+  },
+  {
+   "n": 21,
+   "date": "2026-02-23",
+   "type": "视频",
+   "series": "rurussian",
+   "title": "russian learning helper: rurussian! #productivity #russianlanguage #ai #russia…",
+   "duration": "1:14",
+   "views": 10,
+   "id": "M_Lr46j5d6U"
+  },
+  {
+   "n": 22,
+   "date": "2026-02-11",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "videomp3word vs. turboscribe #productivity #ai #transcribe",
+   "duration": "7:04",
+   "views": 5,
+   "id": "kAEGo2Gw5yg"
+  },
+  {
+   "n": 23,
+   "date": "2026-02-10",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Deconstructing videomp3word.com: a thorough introduction #productivity #ai#not…",
+   "duration": "5:35",
+   "views": 4,
+   "id": "Jxj1nTQbBQU"
+  },
+  {
+   "n": 24,
+   "date": "2026-02-09",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "More powerful video to mp3 to word by videomp3word today!#productivity #transc…",
+   "duration": "3:33",
+   "views": 10,
+   "id": "hXgh_hmzbnI"
+  },
+  {
+   "n": 25,
+   "date": "2026-02-07",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "videomp3word beats Gemini in this YouTube  transcribing mission#productivity#v…",
+   "duration": "2:00",
+   "views": 4,
+   "id": "BqksDJd5ibQ"
+  },
+  {
+   "n": 26,
+   "date": "2026-02-07",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Outperforms ChatGPT!: extracting Audio from TED using videomp3word #productivi…",
+   "duration": "1:51",
+   "views": 1,
+   "id": "5Uwimi41ffI"
+  },
+  {
+   "n": 27,
+   "date": "2026-02-06",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Outperforms Gemini! Extract Audio from YouTube via videomp3word #productivity …",
+   "duration": "2:26",
+   "views": 5,
+   "id": "XjkSJQ9GRT4"
+  },
+  {
+   "n": 28,
+   "date": "2026-02-01",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Transcribe skeet skeet bang bang borat with videomp3word  #transcribe #videomp…",
+   "duration": "4:25",
+   "views": 8,
+   "id": "ymxeUri3UJs"
+  },
+  {
+   "n": 29,
+   "date": "2026-02-01",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Learn foreign language through Video to Mp3 to Word #productivity #ai #videomp…",
+   "duration": "4:07",
+   "views": 8,
+   "id": "oxR_KbovNrc"
+  },
+  {
+   "n": 30,
+   "date": "2026-01-31",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Extracting Text from a Borat Clip Using VideoMp3Word #ai #productivity #transc…",
+   "duration": "2:14",
+   "views": 1,
+   "id": "H-aypHMzZMA"
+  },
+  {
+   "n": 31,
+   "date": "2026-01-30",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Drive your car by extracting audio from Rick Ross Youtube MV via videomp3word …",
+   "duration": "3:53",
+   "views": 4,
+   "id": "G1-NiL91FPI"
+  },
+  {
+   "n": 32,
+   "date": "2026-01-28",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Extracting Word from MP3 via videomp3word 🎤#ai #productivity #transcribe #audi…",
+   "duration": "3:01",
+   "views": 25,
+   "id": "9KNF0l6Kpes"
+  },
+  {
+   "n": 33,
+   "date": "2026-01-26",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "How to Purchase Tokens for videomp3word.com🎥 #ai  #videomp3word #stripe  #cred…",
+   "duration": "1:25",
+   "views": 2,
+   "id": "vfoRWUCFz4c"
+  },
+  {
+   "n": 34,
+   "date": "2026-01-26",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Exploring the Word to MP3 of videomp3word!🎤#ai #productivity #tts #texttospeec…",
+   "duration": "2:17",
+   "views": 3,
+   "id": "GNrWo7nucU4"
+  },
+  {
+   "n": 35,
+   "date": "2026-01-25",
+   "type": "视频",
+   "series": "videomp3word",
+   "title": "Video to Audio & Text from YouTube by videomp3word  #ai #transcribe #videotoau…",
+   "duration": "3:29",
+   "views": 69,
+   "id": "kCsQJWa53AA"
+  }
+ ],
+ "novel": {
+  "title": "青年讲师",
+  "pen": "M·贺六浑",
+  "status": "未刊",
+  "words": 34484,
+  "files": 45,
+  "readers": 4,
+  "stages": [
+   {
+    "stage": "一稿",
+    "date": "11.19–11.28",
+    "title": "《课题组谋杀嫌疑犯》→《讲师陶吕之死》→《课题组之死》",
+    "words": "2.2–2.6 万（分日）",
+    "change": "—",
+    "note": "13 份分日手稿"
+   },
+   {
+    "stage": "二稿",
+    "date": "11 月末",
+    "title": "《青年讲师》",
+    "words": 30867,
+    "change": "—",
+    "note": "第一次完整成篇"
+   },
+   {
+    "stage": "三稿",
+    "date": "12.02",
+    "title": "《青年讲师》",
+    "words": 33730,
+    "change": "11%",
+    "note": "另有微调版 33,755 字"
+   },
+   {
+    "stage": "四稿",
+    "date": "12.03",
+    "title": "青年讲师",
+    "words": 34060,
+    "change": "5%",
+    "note": "另有调整版 35,039 字"
+   },
+   {
+    "stage": "五稿",
+    "date": "12.06",
+    "title": "青年讲师",
+    "words": 35052,
+    "change": "2%",
+    "note": ""
+   },
+   {
+    "stage": "六稿",
+    "date": "12.11",
+    "title": "青年讲师 · M·贺六浑",
+    "words": 34704,
+    "change": "4%",
+    "note": "首次署名"
+   },
+   {
+    "stage": "七稿",
+    "date": "12.11 后",
+    "title": "青年讲师 · 一个虚构的故事",
+    "words": 34484,
+    "change": "1%",
+    "note": "“为了通过审查”版"
+   }
+  ],
+  "titles": [
+   "《课题组谋杀嫌疑犯》",
+   "《讲师陶吕之死》",
+   "《课题组之死》",
+   "《青年讲师》"
+  ],
+  "readers_data": [
+   {
+    "label": "读者 A",
+    "medium": "PDF 批注",
+    "count": 15,
+    "date": "12.05",
+    "quote": "？？？这转变太突然了",
+    "quote2": "每个牌子都写出来，像郭敬明的《小时代》2333"
+   },
+   {
+    "label": "读者 B",
+    "medium": "PDF 批注",
+    "count": 60,
+    "date": "12.03–12.06",
+    "quote": "病句",
+    "quote2": "读起来别别扭扭的"
+   },
+   {
+    "label": "读者 C",
+    "medium": "PDF 批注",
+    "count": 55,
+    "date": "12.02",
+    "quote": "警察姐姐看上杰哥了？",
+    "quote2": "这显得警察姐姐很没钱！"
+   },
+   {
+    "label": "读者 D",
+    "medium": "Word 修订",
+    "count": 172,
+    "date": "12 月",
+    "quote": "作者的构思非常巧妙，文本、现实、梦境、自己、女友等视角不断切换交织",
+    "quote2": "佩服作者的执行力，可以在主业之外有自己的想法，并且付诸实践写成文，而且修改七稿"
+   }
+  ],
+  "groups": [
+   {
+    "name": "框架",
+    "n": 6,
+    "note": "一份表格、五版线性框架，11.04–11.27",
+    "files": [
+     "框架20211104.xlsx",
+     "线性框架20211106.docx",
+     "线性框架20211111.docx",
+     "线性框架20211112.docx",
+     "线性框架20211113.docx",
+     "线性框架20211127.docx"
+    ]
+   },
+   {
+    "name": "分日手稿",
+    "n": 13,
+    "note": "11.19–11.28，按天推进的片段与整章",
+    "files": [
+     "稿20211119.docx",
+     "稿20211120.docx",
+     "稿20211121.docx",
+     "稿20211123.docx",
+     "稿20211124.docx",
+     "稿20211125.docx",
+     "稿20211125.pdf",
+     "稿20211127-〇一.docx",
+     "稿20211127-〇二.docx",
+     "稿20211127-〇三.docx",
+     "稿20211127-〇四.docx",
+     "稿20211128-〇五.docx",
+     "稿20211128-〇六.docx"
+    ]
+   },
+   {
+    "name": "完整稿",
+    "n": 13,
+    "note": "二稿至七稿；含 PDF 与微调/调整版",
+    "files": [
+     "第二稿.docx",
+     "第三稿.docx",
+     "第三稿-微调.docx",
+     "第三稿.pdf",
+     "第三稿-微调-没加密.pdf",
+     "第四稿.docx",
+     "第四稿-调整.docx",
+     "第四稿.pdf",
+     "第五稿.docx",
+     "第五稿.pdf",
+     "第六稿.docx",
+     "第六稿.pdf",
+     "第七稿（审查版）.docx"
+    ]
+   },
+   {
+    "name": "读者批注",
+    "n": 4,
+    "note": "三位读者在 PDF 上批注，一位在 Word 里修订；姓名从文件名里拿掉",
+    "files": [
+     "第四稿评论 · 读者 A.pdf",
+     "第四稿批注 · 读者 B.pdf",
+     "第三稿改动 · 读者 C.pdf",
+     "第七稿修订 · 读者 D.docx"
+    ]
+   },
+   {
+    "name": "副文本",
+    "n": 3,
+    "note": "写作目的、作品简介、语段与 idea 库",
+    "files": [
+     "写作目的与致谢.docx",
+     "作品简介20-300.docx",
+     "语段和idea库.docx"
+    ]
+   },
+   {
+    "name": "片段",
+    "n": 3,
+    "note": "审讯、事后、开篇三个早期片段",
+    "files": [
+     "0.docx",
+     "1.docx",
+     "2.docx"
+    ]
+   },
+   {
+    "name": "背景",
+    "n": 3,
+    "note": "真实事件材料与外界评论；暂不公开",
+    "files": [
+     "真实事件材料（未公开）.docx",
+     "外界评价（未公开）.docx",
+     "20201110-paper.docx"
+    ]
+   }
+  ],
+  "excerpt": [
+   "Z：我们先走个流程，做下笔录，你说的和我们讲的都会在这个东西里记录。",
+   "辛子杰：好的，警官。",
+   "Z：说话说得响一点。否则可能录音不到位会要你重说。",
+   "辛子杰：咳咳……好的。",
+   "Z：姓名？",
+   "辛子杰：辛子杰。"
+  ],
+  "purpose_quote": "每个人在自己的角度都没有错，但大家聚在一起就拉开悲剧的序幕。",
+  "synopsis": "一所顶尖高校。一场震动学术界的谋杀。一个才华横溢但心生疲倦的青年讲师。他坐在课题组组会里，几个小时，他拿着刀出现在实验室。"
+ },
+ "booklet": {
+  "title_en": "A Preliminary Mathematical Exegesis of Diffusion Models",
+  "subtitle_en": "Gaining Clarity From True Understanding",
+  "title_zh": "扩散模型的一个初步数学阐释",
+  "place": "比什凯克",
+  "date": "2025.06",
+  "words": 20251,
+  "chapters": [
+   {
+    "no": "序",
+    "title": "Preface",
+    "zh": "为什么写这本小册",
+    "words": 829,
+    "summary": "为什么写、写给谁，以及四个 deus ex machina。"
+   },
+   {
+    "no": "I",
+    "title": "The High-Dimensional Structure of True Data",
+    "zh": "真实数据的高维结构",
+    "words": 3868,
+    "summary": "自然图像在高维空间里的低维结构；把生成建模写成密度估计。"
+   },
+   {
+    "no": "II",
+    "title": "The ELBO Paradigm",
+    "zh": "ELBO 范式",
+    "words": 3150,
+    "summary": "引入隐变量与 KL，推出 ELBO，把不可算的 log p(x) 变成可优化的代理目标。"
+   },
+   {
+    "no": "III",
+    "title": "Dissecting the ELBO",
+    "zh": "拆开 ELBO",
+    "words": 11234,
+    "summary": "从 ELBO 走到分布迁移、score matching 与 SDE；扩散模型的骨架。"
+   },
+   {
+    "no": "IV",
+    "title": "Implementation on machine",
+    "zh": "在机器上实现",
+    "words": 1170,
+    "summary": "把前向/反向过程写成可执行代码；文末仍然开放。"
+   }
+  ],
+  "plates": [
+   {
+    "src": "assets/plate-01.jpg",
+    "no": "I",
+    "zh": "观星",
+    "en": "Looking Up",
+    "note": "一个人站在石壁的开口前，看星星。"
+   },
+   {
+    "src": "assets/plate-02.jpg",
+    "no": "II",
+    "zh": "制陶",
+    "en": "Making",
+    "note": "两个人，一只还没有烧的陶罐。"
+   },
+   {
+    "src": "assets/plate-03.jpg",
+    "no": "III",
+    "zh": "通道",
+    "en": "Passage",
+    "note": "一道向里延伸的拱门，光在入口，暗在深处。"
+   },
+   {
+    "src": "assets/plate-04.jpg",
+    "no": "IV",
+    "zh": "收获",
+    "en": "Harvest",
+    "note": "太阳、镰刀和麦穗，刻在石头上。"
+   }
+  ],
+  "quote": "The math is precise by my best, but I hope it feels more like following a story than reading a textbook.",
+  "quote2": "Nothing’s introduced without context, and no idea exists just for show."
+ },
+ "patents": [
+  {
+   "no": "CN113343347B",
+   "title": "一种翼型前缘CST的垂直补偿修正方法及装置",
+   "year": 2022,
+   "status": "授权"
+  },
+  {
+   "no": "CN112417785B",
+   "title": "基于微纳米沟槽壁面滑移效应的跨尺度数值模拟方法",
+   "year": 2022,
+   "status": "授权"
+  },
+  {
+   "no": "CN112580151B",
+   "title": "基于目标空间的自然层流翼型的优化问题指标获取方法",
+   "year": 2022,
+   "status": "授权"
+  },
+  {
+   "no": "CN112989718A",
+   "title": "一种翼型前缘CST的全局转换修正方法及装置",
+   "year": 2021,
+   "status": "驳回"
+  },
+  {
+   "no": "CN112800663A",
+   "title": "基于神经网络的航空发动机压气机转子叶片的反设计方法",
+   "year": 2021,
+   "status": "申请"
+  },
+  {
+   "no": "CN106189631B",
+   "title": "一种基于微纳米涂层的飞机机翼转捩延迟方法",
+   "year": 2019,
+   "status": "授权"
+  },
+  {
+   "no": "CN104778327B",
+   "title": "基于人工神经网络的飞机翼型优化设计方法",
+   "year": 2018,
+   "status": "授权"
+  },
+  {
+   "no": "CN104834772B",
+   "title": "基于人工神经网络的飞机翼型/机翼反设计方法",
+   "year": 2018,
+   "status": "授权"
+  }
+ ],
+ "video_series": [
+  {
+   "name": "videomp3word",
+   "n": 22,
+   "span": "2026.01–03",
+   "note": "视频 / 音频 / 文字互转工具的产品说明。"
+  },
+  {
+   "name": "rurussian",
+   "n": 10,
+   "span": "2026.02–04",
+   "note": "AI 俄语学习工作台；含三场直播。"
+  },
+  {
+   "name": "Agents orchestrator",
+   "n": 3,
+   "span": "2026.08",
+   "note": "工作相关的技术切片，5–27 秒。"
+  }
+ ],
+ "totals": {
+  "papers": 30,
+  "cites": 662,
+  "patents": 8,
+  "videos": 35,
+  "video_hours": 5.0,
+  "novel_files": 45,
+  "booklet_words": 20251
+ }
+}

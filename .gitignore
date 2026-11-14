@@ -1,0 +1,34 @@
+# ── 系统与工具 ──────────────────────────────────────────
+.DS_Store
+node_modules/
+.npm/
+.chrome-*/
+__pycache__/
+*.pyc
+
+# ── 原始稿件：永久不入库 ────────────────────────────────
+# 按扩展名兜底，不依赖目录名：就算以后把稿子挪到别处，
+# 也不会被顺手 git add 进来。要放行单个文件用 git add -f。
+*.docx
+*.doc
+*.pdf
+*.xlsx
+*.xls
+*.pages
+*.key
+*.epub
+*.indd
+*.rtf
+
+# ── 未刊章节与写作素材 ──────────────────────────────────
+# 小说各稿、书稿全文、批注、外界评价：只留在本地磁盘。
+# 注意 .gitignore 不会删除文件，本地照常用。
+vitrine/novel*/
+vitrine/exegesis_of_diffusion/
+
+# ── 构建产物 ────────────────────────────────────────────
+# _site/ 由 build.py 生成，Pages 用 Actions artifact 部署。
+_site/
+
+# 预览截图
+.preview/

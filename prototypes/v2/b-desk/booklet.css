@@ -1,0 +1,128 @@
+/* 技术书籍 · 图版 + 序言 + 五章 */
+
+.book-shell {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 64px 80px;
+}
+
+.book-title {
+  margin: 58px 0 0;
+  max-width: 18em;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.book-sub {
+  margin: 16px 0 0;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.book-plates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 38px;
+  border: 1px solid var(--rule-strong);
+  background: var(--rule-strong);
+}
+
+.book-plate {
+  margin: 0;
+  background: var(--paper);
+}
+
+.book-plate img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.book-plate figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 10px 9px;
+  font-family: var(--mono);
+  font-size: 8px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.book-plate figcaption span:last-child { font-size: 7.5px; }
+
+.book-preface {
+  max-width: 720px;
+  margin: 56px 0 0;
+}
+
+.book-preface p {
+  margin: 0 0 1.1em;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.82;
+  letter-spacing: 0.005em;
+  color: var(--ink-soft);
+}
+
+.book-chapters {
+  max-width: 720px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.book-chapters li {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 190px;
+  gap: 0 18px;
+  align-items: baseline;
+  padding: 11px 0 12px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.book-ch-no {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--muted);
+}
+
+.book-ch-title {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.book-ch-zh {
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  text-align: right;
+}
+
+@media (max-width: 860px) {
+  .book-shell { padding: 0 24px 60px; }
+  .book-title { margin-top: 40px; font-size: 34px; }
+  .book-sub { font-size: 8px; }
+  .book-plates { grid-template-columns: 1fr; margin-top: 28px; }
+  .book-preface { margin-top: 40px; }
+  .book-preface p { font-size: 14.5px; }
+  .book-chapters { margin-top: 36px; }
+  .book-chapters li {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 2px 12px;
+  }
+  .book-ch-zh { grid-column: 2; text-align: left; }
+}

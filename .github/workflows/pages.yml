@@ -1,0 +1,53 @@
+name: Deploy site
+
+# 只在 main 上构建；_site/ 是 build.py 现场装配出来的，
+# 不进仓库，所以线上内容和白名单永远一致。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble _site
+        run: python3 build.py
+
+      - name: Verify nothing private got in
+        # 双保险：artifact 里只要出现稿件/脚本，这一步就红。
+        run: |
+          if find _site -type f \( -iname '*.docx' -o -iname '*.doc' -o -iname '*.pdf' \
+               -o -iname '*.xlsx' -o -iname '*.py' -o -iname '*.pyc' \) | grep .; then
+            echo "::error::_site 里出现了不该上线的文件"
+            exit 1
+          fi
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

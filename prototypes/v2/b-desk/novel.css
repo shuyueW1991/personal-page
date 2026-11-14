@@ -1,0 +1,260 @@
+/* 青年讲师 · 纸面全本 + 水印 */
+
+.novel-title {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  max-width: 1180px;
+  min-height: 66vh;
+  margin: 0 auto;
+  padding: 0 64px 54px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.title-main { padding-bottom: 4px; }
+
+.title-kicker {
+  margin: 0 0 24px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.novel-title h1 {
+  margin: 0;
+  font-size: clamp(72px, 9.5vw, 118px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.title-sub {
+  margin: 22px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.title-pen {
+  margin: 8px 0 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.title-stamp {
+  flex: none;
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  font-family: var(--mono);
+  font-size: 8px;
+  line-height: 1.8;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--accent);
+  transform: rotate(-2deg);
+}
+
+.page-wm {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.page-wm .wm-rot {
+  position: absolute;
+  inset: -70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 150px;
+  transform: rotate(-27deg);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  color: rgba(24, 23, 21, 0.025);
+}
+
+.novel-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 660px) 1fr;
+  gap: 0 60px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 64px 110px;
+}
+
+.part-nav {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding-top: 8px;
+  border-left: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.part-nav a {
+  padding-left: 13px;
+  text-decoration: none;
+}
+.part-nav a:hover { color: var(--ink); }
+
+.novel-text {
+  max-width: 660px;
+  font-family: var(--serif);
+  font-size: 17.5px;
+  line-height: 1.98;
+  letter-spacing: 0.012em;
+  color: #211f19;
+}
+
+.part { margin: 0 0 104px; }
+.part:last-child { margin-bottom: 36px; }
+
+.part-head {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin: 0 0 40px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.part:first-child .part-head {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.part-no {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.part-head h2 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.sub-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 50px 0 20px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rule);
+}
+
+.sub-no {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.sub-head.is-frag {
+  font-family: var(--sans);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.novel-text p {
+  margin: 0 0 0.95em;
+  text-wrap: pretty;
+}
+
+.novel-text p.dialogue {
+  margin-bottom: 0.5em;
+  padding-left: 2.5em;
+  text-indent: -2.5em;
+}
+
+.novel-end {
+  margin: 88px 0 0 !important;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+@media (max-width: 1080px) {
+  .novel-title { padding: 0 48px 44px; }
+  .novel-main {
+    grid-template-columns: 58px minmax(0, 620px) 1fr;
+    gap: 0 42px;
+    padding: 70px 48px 90px;
+  }
+  .part-head h2 { font-size: 36px; }
+}
+
+@media (max-width: 860px) {
+  .novel-title {
+    display: block;
+    min-height: 58vh;
+    padding: 0 24px 40px;
+  }
+  .novel-title h1 { font-size: 54px; }
+  .title-kicker { margin-bottom: 18px; }
+  .title-stamp {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 9px 11px;
+  }
+  .novel-main {
+    display: block;
+    padding: 0 24px 64px;
+  }
+  .part-nav {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    flex-direction: row;
+    gap: 22px;
+    margin: 0 -24px 40px;
+    padding: 12px 24px;
+    border-left: 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .part-nav a { padding-left: 0; }
+  .novel-text { max-width: 100%; font-size: 16.5px; line-height: 1.95; }
+  .part { margin-bottom: 76px; }
+  .part-head { margin-bottom: 30px; }
+  .part-head h2 { font-size: 32px; }
+  .sub-head { margin: 40px 0 17px; }
+  .page-wm .wm-rot { font-size: 24px; gap: 110px; }
+}
+
+@media (max-width: 520px) {
+  .novel-title h1 { font-size: 48px; }
+  .novel-text { font-size: 16px; line-height: 1.92; }
+  .part-head h2 { font-size: 28px; }
+  .novel-text p.dialogue { padding-left: 1.7em; text-indent: -1.7em; }
+}

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>新的一条 — 页边</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="compose.css">
+</head>
+<body>
+  <div class="compose-shell">
+    <header class="compose-top">
+      <a class="close" href="notes.html" aria-label="关闭">×</a>
+      <span class="title">新的一条</span>
+      <span class="draft">草稿</span>
+    </header>
+
+    <main class="compose-main">
+      <p class="compose-date">
+        <time id="compose-date">2026.11.13</time>
+        <span class="place">页边</span>
+      </p>
+
+      <form id="note-form">
+        <label class="sr-only" for="note-body">正文</label>
+        <textarea id="note-body" name="body" rows="5" placeholder="写一句，或者一段…" required></textarea>
+
+        <div class="types" role="group" aria-label="笔记类型">
+          <button type="button" data-type="fragment" aria-pressed="true">记</button>
+          <button type="button" data-type="quote" aria-pressed="false">引</button>
+          <button type="button" data-type="lang" aria-pressed="false">语</button>
+          <button type="button" data-type="event" aria-pressed="false">事</button>
+        </div>
+
+        <div class="extra" data-extra="fragment">
+          <p class="hint">不需要标题。写完就放上去。</p>
+        </div>
+
+        <div class="extra" data-extra="quote" hidden>
+          <label for="quote-source">出处</label>
+          <input id="quote-source" name="source" type="text" placeholder="书名、页码或链接">
+        </div>
+
+        <div class="extra" data-extra="lang" hidden>
+          <div class="lang-picks" role="group" aria-label="语言">
+            <button type="button" data-lang="EN" aria-pressed="true">EN</button>
+            <button type="button" data-lang="FR" aria-pressed="false">FR</button>
+            <button type="button" data-lang="RU" aria-pressed="false">RU</button>
+            <button type="button" data-lang="中" aria-pressed="false">中</button>
+          </div>
+          <label for="lang-translation">译文</label>
+          <input id="lang-translation" name="translation" type="text" placeholder="一行译文，或一条语法笔记">
+        </div>
+
+        <div class="extra" data-extra="event" hidden>
+          <div class="event-fields">
+            <label for="event-when">时间</label>
+            <input id="event-when" name="when" type="text" placeholder="11.29 周日 14:00">
+            <label for="event-place">地点</label>
+            <input id="event-place" name="place" type="text" placeholder="城市书房 · 二楼">
+            <label for="event-link">链接（可选）</label>
+            <input id="event-link" name="link" type="url" placeholder="报名或详情链接">
+          </div>
+        </div>
+
+        <div class="compose-actions">
+          <span class="hint">公开 · 约一分钟上线</span>
+          <button class="publish" type="submit">放上去</button>
+        </div>
+      </form>
+
+      <section class="done" hidden aria-live="polite">
+        <p class="done-label">已放进页边</p>
+        <p class="done-copy">约一分钟上线。可以先关掉这一页。</p>
+        <div class="done-links">
+          <a href="notes.html">看一眼 →</a>
+          <button type="button" id="again">再写一条</button>
+        </div>
+      </section>
+
+      <p class="compose-note">预览：还没有连接发布接口。真正上线后，这个页面会从手机主屏直接打开，或由快捷指令把选中的句子送到这里。</p>
+    </main>
+  </div>
+
+  <script>
+   (() => {
+      const form = document.getElementById("note-form");
+      const done = document.querySelector(".done");
+      const body = document.getElementById("note-body");
+      const typeButtons = Array.from(document.querySelectorAll(".types button"));
+      const extras = Array.from(document.querySelectorAll(".extra"));
+      const langButtons = Array.from(document.querySelectorAll(".lang-picks button"));
+      const date = document.getElementById("compose-date");
+      const again = document.getElementById("again");
+
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      date.textContent = `${now.getFullYear()}.${pad(now.getMonth() + 1)}.${pad(now.getDate())}`;
+
+      function setType(type) {
+        typeButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.type === type));
+        });
+        extras.forEach((extra) => {
+          extra.hidden = extra.dataset.extra !== type;
+        });
+      }
+
+      typeButtons.forEach((button) => {
+        button.addEventListener("click", () => setType(button.dataset.type));
+      });
+
+      langButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          langButtons.forEach((other) => {
+            other.setAttribute("aria-pressed", String(other === button));
+          });
+        });
+      });
+
+      body.addEventListener("input", () => {
+        body.style.height = "auto";
+        body.style.height = `${Math.max(150, body.scrollHeight)}px`;
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (!body.value.trim()) {
+          body.focus();
+          return;
+        }
+        form.hidden = true;
+        done.hidden = false;
+      });
+
+      again.addEventListener("click", () => {
+        form.reset();
+        body.style.height = "";
+        setType("fragment");
+        langButtons.forEach((button, index) => {
+          button.setAttribute("aria-pressed", String(index === 0));
+        });
+        done.hidden = true;
+        form.hidden = false;
+        body.focus();
+      });
+    })();
+  </script>
+</body>
+</html>
