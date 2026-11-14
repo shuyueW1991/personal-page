@@ -62,6 +62,7 @@
 
 .entry > .row-static .t { color: var(--muted); }
 .entry > .row-static .arrow { opacity: 1; transform: none; }
+.entry > a.is-index .arrow { opacity: 1; transform: none; }
 
 @media (max-width: 860px) {
   .section-shell { padding: 32px 24px 64px; }

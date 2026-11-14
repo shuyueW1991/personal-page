@@ -1,0 +1,135 @@
+/* Initiatives · 卡片 */
+
+.initiatives-shell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 44px 64px 96px;
+  min-height: calc(100vh - 126px);
+}
+
+.initiative-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.initiative-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(300px, 40vh, 420px);
+  padding: 22px 22px 18px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.initiative-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+a.initiative-card:hover,
+a.initiative-card:focus-visible {
+  background: #fbfaf6;
+  border-color: var(--rule-strong);
+  transform: translateY(-4px);
+}
+
+a.initiative-card:hover::before,
+a.initiative-card:focus-visible::before { transform: scaleX(1); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.card-title {
+  margin: clamp(54px, 9vh, 96px) 0 0;
+  font-family: var(--display);
+  font-size: clamp(28px, 2.5vw, 36px);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.card-title.is-long {
+  font-size: clamp(26px, 2.1vw, 31px);
+  letter-spacing: -0.025em;
+}
+
+.card-desc {
+  max-width: 30ch;
+  margin: 14px 0 0;
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.card-arrow {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.3s ease, transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+a.initiative-card:hover .card-arrow,
+a.initiative-card:focus-visible .card-arrow {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 980px) {
+  .initiative-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .initiative-card:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 860px) {
+  .initiatives-shell { padding: 32px 24px 64px; }
+}
+
+@media (max-width: 620px) {
+  .initiative-grid { grid-template-columns: 1fr; gap: 14px; }
+  .initiative-card { min-height: 250px; padding: 18px 18px 16px; }
+  .initiative-card:last-child { grid-column: auto; }
+  .card-title { margin-top: 42px; font-size: 32px; }
+  .card-desc { font-size: 13.5px; }
+}

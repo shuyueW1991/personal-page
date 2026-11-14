@@ -85,7 +85,7 @@
 
 .book-chapters li {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) 190px;
+  grid-template-columns: 36px minmax(0, 1fr);
   gap: 0 18px;
   align-items: baseline;
   padding: 11px 0 12px;
@@ -104,14 +104,6 @@
   color: var(--ink-soft);
 }
 
-.book-ch-zh {
-  font-family: var(--sans);
-  font-size: 9px;
-  letter-spacing: 0.03em;
-  color: var(--muted);
-  text-align: right;
-}
-
 @media (max-width: 860px) {
   .book-shell { padding: 0 24px 60px; }
   .book-title { margin-top: 40px; font-size: 34px; }
@@ -124,5 +116,4 @@
     grid-template-columns: 28px minmax(0, 1fr);
     gap: 2px 12px;
   }
-  .book-ch-zh { grid-column: 2; text-align: left; }
 }

@@ -9,7 +9,7 @@
 
 | 进仓库 | 说明 |
 |---|---|
-| `prototypes/v2/b-desk/*.html`、`*.css`、`assets/` | 上线页面、样式、图版 |
+| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版 |
 | `build.py` | 白名单装配 `_site/` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
 

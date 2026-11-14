@@ -1,60 +1,98 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="zh-Hans" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>王舒悦</title>
+  <title>王舒悦 — Shuyue Wang</title>
   <meta name="description" content="王舒悦：ideology、instrumentality、illusion、Initiatives。">
-  <link rel="stylesheet" href="personal.css">
+  <meta name="theme-color" content="#0b0b0a">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:title" content="王舒悦 — Shuyue Wang">
+  <meta property="og:description" content="ideology、instrumentality、illusion、Initiatives。">
+  <meta property="og:type" content="website">
+  <script>document.documentElement.classList.remove("no-js");</script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="cover.css">
   <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body class="cover">
   <a class="skip" href="#main">跳到正文</a>
 
-  <div class="home">
-    <header class="masthead">
-      <p class="kicker">PERSONAL SITE</p>
-      <h1>王舒悦</h1>
-      <p class="latin">Shuyue Wang</p>
+  <div class="cover-shell">
+    <header class="cover-top">
+      <p class="brand" lang="en"><span class="mark" aria-hidden="true"></span>PERSONAL SITE</p>
+      <p class="place" lang="en">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="city">SHANGHAI</span>
+        <time data-clock>--:--:--</time>
+      </p>
     </header>
 
-    <main id="main" class="index-wrap">
-      <ol class="index">
+    <main id="main" class="index-main">
+      <h1 class="sr-only">王舒悦 — 个人网站</h1>
+      <ol class="index" aria-label="站点索引">
         <li>
-          <div class="row is-static" aria-label="ideology，暂无内容">
+          <div class="row is-empty" aria-label="ideology，暂时空着">
             <span class="no">01</span>
-            <span class="word">ideology</span>
-            <span class="arrow">—</span>
+            <span class="word" lang="en">ideology</span>
+            <span class="meta" lang="en">empty, for now</span>
+            <span class="arrow" aria-hidden="true">—</span>
           </div>
         </li>
         <li>
-          <a class="row" href="works.html">
+          <a class="row" href="instrumentality.html">
             <span class="no">02</span>
-            <span class="word">instrumentality</span>
-            <span class="arrow">↗</span>
+            <span class="word" lang="en">instrumentality</span>
+            <span class="meta" lang="en">book · papers</span>
+            <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
         <li>
           <a class="row" href="illusion.html">
             <span class="no">03</span>
-            <span class="word">illusion</span>
-            <span class="arrow">↗</span>
+            <span class="word" lang="en">illusion</span>
+            <span class="meta" lang="en">novel · essay</span>
+            <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
         <li>
           <a class="row" href="initiatives.html">
             <span class="no">04</span>
-            <span class="word">Initiatives</span>
-            <span class="arrow">↗</span>
+            <span class="word" lang="en">Initiatives</span>
+            <span class="meta" lang="en">company · sites</span>
+            <span class="arrow" aria-hidden="true">↗</span>
           </a>
         </li>
       </ol>
     </main>
 
-    <footer class="foot">
-      <a class="mail" href="mailto:shuyuew1991@gmail.com">shuyuew1991@gmail.com</a>
-      <span class="copy">© 2026</span>
+    <footer class="cover-foot">
+      <p class="places" lang="en">
+        <span class="places-label">PLACES</span>
+        <span class="place is-current">SHANGHAI</span>
+        <span class="place">BISHKEK</span>
+        <span class="place">PETERSBURG</span>
+        <span class="place">PARIS</span>
+        <span class="place">TALLINN</span>
+        <span class="place">JEJU</span>
+      </p>
+      <div class="foot-row">
+        <div class="foot-left">
+          <a class="contact-link" href="contact.html" lang="en">contact <span class="arrow" aria-hidden="true">↗</span></a>
+          <span class="copyright">© 2026</span>
+        </div>
+        <p class="colophon">
+          <span class="name">王舒悦</span>
+          <span class="latin" lang="en">Shuyue Wang</span>
+        </p>
+      </div>
     </footer>
   </div>
+
+  <p class="geo" lang="en" aria-hidden="true">31.2304° N — 121.4737° E</p>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <script src="cover.js" defer></script>
 </body>
 </html>

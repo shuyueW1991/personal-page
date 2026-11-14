@@ -25,28 +25,38 @@ OUT = ROOT / "_site"
 # 上线页面。新增页面时只改这里，别把草稿页一起带上去。
 PAGES = [
     "index.html",
-    "works.html",
+    "contact.html",
+    "instrumentality.html",
     "illusion.html",
     "initiatives.html",
     "novel.html",
     "qixia.html",
     "papers.html",
-    "booklet.html",
+    "exegesis.html",
     "essay.html",
     "quiet-tool.html",
     "notes.html",
 ]
 
 STYLES = [
-    "personal.css",
+    "cover.css",
     "index.css",
+    "contact.css",
+    "initiatives.css",
+    "personal.css",
     "novel.css",
     "qixia.css",
     "papers.css",
     "section.css",
-    "booklet.css",
+    "exegesis.css",
     "style.css",
     "notes.css",
+]
+
+# 页面引用、但既不是页面也不是样式表的小文件。
+EXTRAS = [
+    "cover.js",
+    "favicon.svg",
 ]
 
 ASSETS_DIR = "assets"
@@ -80,6 +90,10 @@ def build(check_only: bool = False) -> int:
         if not (SRC / name).is_file():
             problems.append(f"缺文件：{name}")
 
+    for name in EXTRAS:
+        if not (SRC / name).is_file():
+            problems.append(f"缺文件：{name}")
+
     if problems:
         print("\n".join(problems), file=sys.stderr)
         return 1
@@ -89,7 +103,7 @@ def build(check_only: bool = False) -> int:
             shutil.rmtree(OUT)
         OUT.mkdir(parents=True)
 
-        for name in PAGES + STYLES:
+        for name in PAGES + STYLES + EXTRAS:
             shutil.copy2(SRC / name, OUT / name)
 
         shutil.copytree(SRC / ASSETS_DIR, OUT / ASSETS_DIR)
