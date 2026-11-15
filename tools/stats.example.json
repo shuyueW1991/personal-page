@@ -1,0 +1,254 @@
+{
+  "_comment": "示例数据，仅用于本地预览版式；真实文件由 tools/stats_snapshot.py 生成。",
+  "schema": 1,
+  "enabled": true,
+  "generated": "2026-11-15T02:28:44Z",
+  "site": {
+    "views": 2903,
+    "today": 12,
+    "countries": 10,
+    "pages": 12,
+    "since": "2026-09-17"
+  },
+  "pages": [
+    {
+      "path": "/personal-page/",
+      "title": "王舒悦 — Shuyue Wang",
+      "views": 1301
+    },
+    {
+      "path": "/personal-page/papers.html",
+      "title": "papers — 王舒悦",
+      "views": 312
+    },
+    {
+      "path": "/personal-page/notes.html",
+      "title": "页边 — 王舒悦",
+      "views": 275
+    },
+    {
+      "path": "/personal-page/novel.html",
+      "title": "小说 — 王舒悦",
+      "views": 198
+    },
+    {
+      "path": "/personal-page/contact.html",
+      "title": "contact — 王舒悦",
+      "views": 154
+    },
+    {
+      "path": "/personal-page/instrumentality.html",
+      "title": "instrumentality — 王舒悦",
+      "views": 143
+    },
+    {
+      "path": "/personal-page/qixia.html",
+      "title": "栖霞三梦 — 王舒悦",
+      "views": 121
+    },
+    {
+      "path": "/personal-page/illusion.html",
+      "title": "illusion — 王舒悦",
+      "views": 98
+    },
+    {
+      "path": "/personal-page/exegesis.html",
+      "title": "book — 王舒悦",
+      "views": 87
+    },
+    {
+      "path": "/personal-page/essay.html",
+      "title": "在展厅里走神 — 王舒悦",
+      "views": 76
+    },
+    {
+      "path": "/personal-page/initiatives.html",
+      "title": "Initiatives — 王舒悦",
+      "views": 64
+    },
+    {
+      "path": "/personal-page/quiet-tool.html",
+      "title": "The Quiet Tool — 王舒悦",
+      "views": 43
+    }
+  ],
+  "countries": [
+    {
+      "code": "CN",
+      "name": "China",
+      "views": 1102
+    },
+    {
+      "code": "US",
+      "name": "United States",
+      "views": 188
+    },
+    {
+      "code": "JP",
+      "name": "Japan",
+      "views": 96
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "views": 54
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "views": 30
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "views": 22
+    },
+    {
+      "code": "SG",
+      "name": "Singapore",
+      "views": 18
+    },
+    {
+      "code": "CA",
+      "name": "Canada",
+      "views": 12
+    },
+    {
+      "code": "AU",
+      "name": "Australia",
+      "views": 9
+    },
+    {
+      "code": "RU",
+      "name": "Russia",
+      "views": 7
+    },
+    {
+      "code": "UNKNOWN",
+      "name": "Unknown",
+      "views": 3
+    }
+  ],
+  "daily": [
+    {
+      "day": "2026-10-17",
+      "views": 19
+    },
+    {
+      "day": "2026-10-18",
+      "views": 12
+    },
+    {
+      "day": "2026-10-19",
+      "views": 5
+    },
+    {
+      "day": "2026-10-20",
+      "views": 21
+    },
+    {
+      "day": "2026-10-21",
+      "views": 14
+    },
+    {
+      "day": "2026-10-22",
+      "views": 7
+    },
+    {
+      "day": "2026-10-23",
+      "views": 0
+    },
+    {
+      "day": "2026-10-24",
+      "views": 16
+    },
+    {
+      "day": "2026-10-25",
+      "views": 9
+    },
+    {
+      "day": "2026-10-26",
+      "views": 2
+    },
+    {
+      "day": "2026-10-27",
+      "views": 18
+    },
+    {
+      "day": "2026-10-28",
+      "views": 11
+    },
+    {
+      "day": "2026-10-29",
+      "views": 4
+    },
+    {
+      "day": "2026-10-30",
+      "views": 20
+    },
+    {
+      "day": "2026-10-31",
+      "views": 13
+    },
+    {
+      "day": "2026-11-01",
+      "views": 6
+    },
+    {
+      "day": "2026-11-02",
+      "views": 22
+    },
+    {
+      "day": "2026-11-03",
+      "views": 15
+    },
+    {
+      "day": "2026-11-04",
+      "views": 8
+    },
+    {
+      "day": "2026-11-05",
+      "views": 1
+    },
+    {
+      "day": "2026-11-06",
+      "views": 17
+    },
+    {
+      "day": "2026-11-07",
+      "views": 10
+    },
+    {
+      "day": "2026-11-08",
+      "views": 3
+    },
+    {
+      "day": "2026-11-09",
+      "views": 19
+    },
+    {
+      "day": "2026-11-10",
+      "views": 12
+    },
+    {
+      "day": "2026-11-11",
+      "views": 5
+    },
+    {
+      "day": "2026-11-12",
+      "views": 33
+    },
+    {
+      "day": "2026-11-13",
+      "views": 26
+    },
+    {
+      "day": "2026-11-14",
+      "views": 19
+    },
+    {
+      "day": "2026-11-15",
+      "views": 12
+    }
+  ]
+}

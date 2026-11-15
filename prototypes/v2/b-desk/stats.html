@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>访客记录 — 王舒悦</title>
+  <link rel="canonical" href="https://shuyuew1991.github.io/personal-page/stats.html">
+  <meta property="og:url" content="https://shuyuew1991.github.io/personal-page/stats.html">
+  <meta name="description" content="这个站点被打开的次数、页面与来源地区。">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="访客记录 — 王舒悦">
+  <meta property="og:description" content="这个站点被打开的次数、页面与来源地区。">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f7f7f5">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="personal.css">
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+
+  <header class="page-top">
+    <a class="back" href="index.html">← homepage</a>
+    <span class="label" lang="en">visits</span>
+  </header>
+
+  <main id="main" class="stats-shell" data-stats-dashboard aria-busy="true">
+    <header class="stats-intro">
+      <p class="eyebrow"><span class="stats-mark" aria-hidden="true"></span>READERSHIP</p>
+      <h1 class="stats-title">访客记录<span class="dot" aria-hidden="true">.</span></h1>
+      <p class="stats-lede">这里记下页面被打开的次数、被打开的页面，以及大概从哪些地方来。</p>
+    </header>
+
+    <dl class="figures" data-stats-block hidden>
+      <div class="fig">
+        <dt><span class="fig-kicker" lang="en">TOTAL</span><span class="fig-label">总浏览</span></dt>
+        <dd class="fig-value" data-stats-total>—</dd>
+      </div>
+      <div class="fig">
+        <dt><span class="fig-kicker" lang="en">TODAY</span><span class="fig-label">今日</span></dt>
+        <dd class="fig-value" data-stats-today>—</dd>
+      </div>
+      <div class="fig">
+        <dt><span class="fig-kicker" lang="en">PLACES</span><span class="fig-label">国家 / 地区</span></dt>
+        <dd class="fig-value" data-stats-countries>—</dd>
+      </div>
+      <div class="fig">
+        <dt><span class="fig-kicker" lang="en">PAGES</span><span class="fig-label">有访问的页面</span></dt>
+        <dd class="fig-value" data-stats-pages>—</dd>
+      </div>
+    </dl>
+
+    <section class="stats-section" data-stats-block hidden aria-labelledby="stats-chart-head">
+      <div class="sec-head">
+        <h2 id="stats-chart-head">最近 30 天</h2>
+        <span class="sec-note" data-stats-chart-note>—</span>
+      </div>
+      <div class="chart" data-stats-chart aria-hidden="true"></div>
+      <p class="sr-only" data-stats-chart-alt></p>
+      <div class="chart-foot">
+        <span data-stats-chart-range>—</span>
+        <span lang="en">PAGEVIEWS / DAY</span>
+      </div>
+    </section>
+
+    <section class="stats-section" data-stats-block hidden aria-labelledby="stats-pages-head">
+      <div class="sec-head">
+        <h2 id="stats-pages-head">各页浏览</h2>
+        <span class="sec-note" lang="en">PAGEVIEWS</span>
+      </div>
+      <table class="ledger-table">
+        <caption class="sr-only">各页面被打开的次数</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="rank">#</th>
+            <th scope="col">页面</th>
+            <th scope="col" class="bar-cell"><span class="sr-only">相对占比</span></th>
+            <th scope="col" class="num">浏览</th>
+          </tr>
+        </thead>
+        <tbody data-stats-pages-body></tbody>
+      </table>
+    </section>
+
+    <section class="stats-section" data-stats-block hidden aria-labelledby="stats-places-head">
+      <div class="sec-head">
+        <h2 id="stats-places-head">来自哪里</h2>
+        <span class="sec-note" lang="en">COUNTRIES</span>
+      </div>
+      <ul class="places-list" data-stats-places></ul>
+      <p class="places-note">只到国家 / 地区一级，不记录城市与具体位置。</p>
+    </section>
+
+    <p class="stats-empty" data-stats-empty hidden></p>
+    <noscript><p class="stats-empty">这些数字由 JavaScript 从 stats.json 读取；请开启 JavaScript 查看。</p></noscript>
+
+    <div class="stats-note">
+      <p>统计由 <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a> 提供：不使用 cookie，不保存 IP，也不追踪个人。页面上只显示汇总后的次数、页面和国家级地区，每 6 小时更新一次。</p>
+      <p class="stats-updated" data-stats-block hidden><span data-stats-updated>—</span><span data-stats-since></span></p>
+    </div>
+  </main>
+
+  <footer class="page-foot">
+    <span>© 2026 王舒悦</span>
+    <div class="links"><a href="contact.html" lang="en">contact</a><a href="index.html">← homepage</a></div>
+  </footer>
+
+  <script src="stats.js" defer></script>
+</body>
+</html>

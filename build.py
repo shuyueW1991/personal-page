@@ -12,6 +12,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import shutil
 import sys
@@ -40,6 +41,7 @@ PAGES = [
     "essay.html",
     "quiet-tool.html",
     "notes.html",
+    "stats.html",
 ]
 
 STYLES = [
@@ -55,17 +57,37 @@ STYLES = [
     "exegesis.css",
     "style.css",
     "notes.css",
+    "stats.css",
 ]
 
 # 页面引用、但既不是页面也不是样式表的小文件。
 EXTRAS = [
     "cover.js",
+    "stats.js",
     "favicon.svg",
     # Google Search Console 的所有权验证文件：文件名和内容都不能改。
     "googlefa66aa447ffb8c98.html",
 ]
 
 ASSETS_DIR = "assets"
+
+# 统计脚本靠它把访问发给 GoatCounter；它随 assets/ 一起复制，但漏了不会报错，
+# 所以单独点名检查。
+REQUIRED_ASSETS = [
+    "assets/goatcounter-count.js",
+]
+
+# 统计页是给访客看的，不放进 sitemap，也不让搜索引擎收录。
+NOINDEX = {"stats.html"}
+
+# 统计快照由 tools/stats_snapshot.py 在 CI 里生成；本地没有时用这个占位，
+# 前端读到 enabled: false 就把统计入口安静地藏起来。
+STATS_PLACEHOLDER = {
+    "schema": 1,
+    "enabled": False,
+    "reason": "no-snapshot",
+    "generated": None,
+}
 
 # 万一百名单写错，这一层会拦住：稿件和脚本永远不进 _site。
 FORBIDDEN = re.compile(
@@ -83,7 +105,11 @@ def page_url(name: str) -> str:
 
 def write_generated(out: Path) -> None:
     """sitemap.xml 和 robots.txt 都由 PAGES / SITE_URL 现算，加页面不用手工维护。"""
-    urls = "".join(f"  <url><loc>{page_url(name)}</loc></url>\n" for name in PAGES)
+    urls = "".join(
+        f"  <url><loc>{page_url(name)}</loc></url>\n"
+        for name in PAGES
+        if name not in NOINDEX
+    )
     (out / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -94,6 +120,11 @@ def write_generated(out: Path) -> None:
         "User-agent: *\n"
         "Allow: /\n"
         f"Sitemap: {SITE_URL}sitemap.xml\n",
+        encoding="utf-8",
+    )
+    # CI 的 stats_snapshot.py 会覆盖这一份；本地预览则用它把统计入口藏起来。
+    (out / "stats.json").write_text(
+        json.dumps(STATS_PLACEHOLDER, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
 
@@ -122,6 +153,10 @@ def build(check_only: bool = False) -> int:
             problems.append(f"缺文件：{name}")
 
     for name in EXTRAS:
+        if not (SRC / name).is_file():
+            problems.append(f"缺文件：{name}")
+
+    for name in REQUIRED_ASSETS:
         if not (SRC / name).is_file():
             problems.append(f"缺文件：{name}")
 
@@ -157,6 +192,17 @@ def build(check_only: bool = False) -> int:
             problems.append(f"{page} 缺 canonical")
         elif found.group(1) != page_url(page):
             problems.append(f"{page} 的 canonical 指向 {found.group(1)}，应为 {page_url(page)}")
+
+        # 统计要覆盖每一页：新加页面时忘了挂脚本，这里会拦下来。
+        if "stats.css" not in text:
+            problems.append(f"{page} 没有引用 stats.css")
+        if "stats.js" not in text:
+            problems.append(f"{page} 没有引用 stats.js")
+        if "data-stats" not in text:
+            problems.append(f"{page} 没有统计挂载点（data-stats）")
+
+        if page in NOINDEX and 'name="robots"' not in text:
+            problems.append(f"{page} 在 NOINDEX 里，但没写 robots 标签")
 
     # 兜底：生成结果里不允许出现稿件或脚本。
     if not check_only and OUT.exists():

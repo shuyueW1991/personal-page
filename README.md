@@ -9,7 +9,9 @@
 
 ```
 build.py                       白名单装配 _site/，CI 也用同一个脚本
-prototypes/v2/b-desk/          上线页面：封面首页 + contact + 分类页 + 内容页
+tools/stats_snapshot.py        CI 里把 GoatCounter 汇总成 _site/stats.json
+prototypes/v2/b-desk/          上线页面：封面首页 + contact + 分类页 + 内容页 + stats
+prototypes/v2/b-desk/assets/   图版；count.js 是 GoatCounter 官方脚本（ISC）
 prototypes/v1、v3              旧方案，存档对照，不部署
 vitrine/                       写作素材；其中小说与书稿已 gitignore，只留在本地
 ```
@@ -21,11 +23,45 @@ python3 build.py                              # 生成 _site/
 cd _site && python3 -m http.server 8123
 ```
 
-`build.py --check` 只做校验：白名单文件齐全、页面引用的本地资源都存在、每页 canonical 正确、产物里没有稿件。
+`build.py --check` 只做校验：白名单文件齐全、页面引用的本地资源都存在、每页 canonical 正确、每页都挂上了统计。真正构建时还会再扫一遍 `_site/`，确认里面没有稿件。
+
+`build.py` 会在 `_site/stats.json` 写一个 `enabled: false` 的占位。没有真实快照时，页脚的统计入口保持隐藏——这是正常的，不是缓存问题。
+
+## 访客统计
+
+每页页脚都有一个很小的入口：首页显示全站总浏览，内页显示「本页 / 全站」，点进去是 `stats.html`：总浏览、今日、最近 30 天、各页浏览、国家 / 地区。
+
+本站代号 `shuyuew1991`，面板在 <https://shuyuew1991.goatcounter.com/>。统计由 [GoatCounter](https://www.goatcounter.com/) 完成：无 cookie、不保存 IP，只留汇总数字。页面上的数字来自 CI 生成的 `_site/stats.json`，每 6 小时刷新一次；`stats.html` 是 noindex，不进 sitemap。页面显示的是页面打开次数（同一人多次打开会重复计）；去重后的独立访客、来源网站和浏览器信息在 GoatCounter 面板里看。
+
+### 接入（一次性）
+
+1. 在 goatcounter.com 注册，站点代号（code）用比如 `shuyuew1991`（本站已注册）。
+2. 打开 `prototypes/v2/b-desk/stats.js`，把顶部的 `GOATCOUNTER_SITE` 改成这个代号（本站已填 `shuyuew1991`）。
+3. 在 GoatCounter 右上角的 **Preferences** 里把 Timezone 设为 `Asia/Shanghai`，这样「今日」按上海时间切。
+4. GoatCounter → Settings → API → 新建 token，权限只给 **Read statistics**。
+5. GitHub 仓库 → Settings → Secrets and variables → Actions → New repository secret，名字 `GOATCOUNTER_TOKEN`，值粘贴 token。
+6. push 到 `main`，或手动跑一次 `Deploy site`。
+
+没有 token 时站点照常发布，只是统计入口隐藏；接口出错时 CI 会失败、不部署，线上继续保留上一份数字。`stats.js` 里的代号留空则完全不统计。
+
+本地想先看效果：
+
+```bash
+python3 build.py
+cp tools/stats.example.json _site/stats.json   # 示例数据，只看版式
+# 或：GOATCOUNTER_TOKEN=... python3 tools/stats_snapshot.py --out _site/stats.json
+cd _site && python3 -m http.server 8123
+```
+
+不想统计自己：在浏览器打开一次 `站点#toggle-goatcounter`（count.js 的本地开关），或在 GoatCounter 设置里忽略自己的 IP。完整面板在 `https://<代号>.goatcounter.com/`。
+
+`assets/goatcounter-count.js` 是 GoatCounter 官方的 `count.js`（ISC 许可），本地托管是为了不依赖 `gc.zgo.at` 的 CDN；升级时从 GoatCounter 仓库的 `public/count.v5.js` 取同名文件替换即可。
+
+> 地点只到国家 / 地区一级，不含城市；GoatCounter 不采集到那么细。
 
 ## 搜索收录
 
-`robots.txt` 与 `sitemap.xml` 由 `build.py` 按 `PAGES` 现算，加页面不用手工维护；地址统一取自 `build.py` 顶部的 `SITE_URL`。
+`robots.txt` 与 `sitemap.xml` 由 `build.py` 按 `PAGES` 现算，加页面不用手工维护；地址统一取自 `build.py` 顶部的 `SITE_URL`。`stats.html` 在 `NOINDEX` 里，不写进 sitemap。
 
 `prototypes/v2/b-desk/googlefa66aa447ffb8c98.html` 是 Google Search Console 的所有权验证文件，文件名和内容都别改，也别从白名单里删掉。
 

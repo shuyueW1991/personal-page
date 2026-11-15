@@ -3,14 +3,15 @@
 仓库公开 = 站点公开。这是 GitHub Pages 免费版的前提，改不了。
 
 所以这里划的线不是"文件加密"，而是**分清哪些东西本来就不该进公开仓库**：
-公开的是"读过就能抄"的正文；不公开的是稿件、批注、中间版本、构建脚本。
+公开的是"读过就能抄"的正文；不公开的是稿件、批注、中间版本和生成物。
 
 ## 仓库里有什么
 
 | 进仓库 | 说明 |
 |---|---|
-| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版 |
+| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js） |
 | `build.py` | 白名单装配 `_site/` |
+| `tools/stats_snapshot.py` | 取 GoatCounter 汇总，写 `_site/stats.json` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
 
 ## 仓库里没有什么
@@ -30,6 +31,14 @@
 2. **`build.py` 白名单** —— 只复制点名的那几个文件；另有 `FORBIDDEN` 正则，稿件和 `.py` 永远进不了 `_site/`。
 3. **CI 再查一遍** —— workflow 里 `find _site -iname '*.docx' …`，命中就构建失败。
 
+## 统计与密钥
+
+访客统计只公开汇总数字：`_site/stats.json` 里有总浏览、各页次数、国家 / 地区和 30 天曲线，没有人、没有 IP、没有 cookie。
+
+- token 只放在 GitHub Actions secret `GOATCOUNTER_TOKEN`，由 `tools/stats_snapshot.py` 从环境变量读取。
+- token 不进仓库，也不进 `_site`；本地 `build.py` 生成的是 `enabled: false` 的占位。
+- 统计接口出错时 snapshot 这一步失败，CI 就不部署，线上继续保留上一份数字。
+
 ## 验证
 
 ```bash
@@ -45,7 +54,7 @@ python3 build.py --check
 1. 推到 `main`。
 2. 仓库 **Settings → Pages → Build and deployment → Source** 选 **GitHub Actions**。
    （workflow 里带了 `enablement: true`，通常第一次跑就会自动开；没开就手动点一下。）
-3. 等 Action 变绿，站点地址：`https://shuyuew1991.github.io/wangshuyue/`
+3. 等 Action 变绿，站点地址：`https://shuyuew1991.github.io/personal-page/`
    所有链接都是相对路径，挂在子路径下不会坏。
 
 之后每次 `git push` 到 `main` 自动重新发布；本地预览用 `python3 build.py && cd _site && python3 -m http.server`。

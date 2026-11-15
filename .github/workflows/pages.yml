@@ -5,6 +5,9 @@ name: Deploy site
 on:
   push:
     branches: [main]
+  # 每 6 小时重跑一次：访客统计的快照跟着刷新。GitHub 的 cron 只是"尽量准时"。
+  schedule:
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -24,6 +27,14 @@ jobs:
 
       - name: Assemble _site
         run: python3 build.py
+
+      - name: Visitor stats snapshot
+        # token 只放在仓库 secret 里，永远不会进 _site 或仓库。
+        # 没配置时脚本会写 enabled:false 占位，站点照常发布；
+        # 接口出错则这一步失败、不部署，线上继续保留上一份数字。
+        env:
+          GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+        run: python3 tools/stats_snapshot.py --out _site/stats.json
 
       - name: Verify nothing private got in
         # 双保险：artifact 里只要出现稿件/脚本，这一步就红。
