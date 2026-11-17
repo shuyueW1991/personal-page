@@ -9,7 +9,8 @@
 
 | 进仓库 | 说明 |
 |---|---|
-| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js） |
+| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`comments.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js、KaTeX 的 CSS 与字体） |
+| `vitrine/instrumentality-posts/` | 两篇公开注记的 markdown 原稿与图版源文件 |
 | `build.py` | 白名单装配 `_site/` |
 | `tools/stats_snapshot.py` | 取 GoatCounter 汇总，写 `_site/stats.json` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
@@ -31,6 +32,14 @@
 2. **`build.py` 白名单** —— 只复制点名的那几个文件；另有 `FORBIDDEN` 正则，稿件和 `.py` 永远进不了 `_site/`。
 3. **CI 再查一遍** —— workflow 里 `find _site -iname '*.docx' …`，命中就构建失败。
 
+## 评论
+
+评论区走 [utterances](https://utteranc.es/)，每个作品页一个 GitHub Issue，公开可读；发言要 GitHub 账号。页面默认不加载评论脚本，点「加载评论」才连 `utteranc.es`，所以没点开之前没有任何第三方请求。
+
+- 评论内容不经过本站，存在仓库 Issues 里，作者和读者都能删改自己的话。
+- utterances App 只申请 Issues 权限；token 不进仓库，也不需要自己去建。
+- issue 是公开的：评论里写的东西等于公开，和正文一样要当心。
+
 ## 统计与密钥
 
 访客统计只公开汇总数字：`_site/stats.json` 里有总浏览、各页次数、国家 / 地区和 30 天曲线，没有人、没有 IP、没有 cookie。
@@ -46,6 +55,8 @@ git ls-files | grep -Ei '\.(docx?|pdf|xlsx?|pyc)$' ; echo "exit=$?  (1 = 干净)
 git log --all --diff-filter=A --name-only | grep -Ei '\.docx?$'   # 应无输出
 python3 build.py --check
 ```
+
+`build.py` 还会检查评论：页面上有 `data-comments` 挂载点，就必须同时引用 `comments.css` 和 `comments.js`。
 
 要临时放行单个文件（例如以后真要公开一份 PDF），用 `git add -f 文件`。
 

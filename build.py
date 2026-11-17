@@ -32,6 +32,8 @@ PAGES = [
     "index.html",
     "contact.html",
     "instrumentality.html",
+    "clean-dwg.html",
+    "optical-power.html",
     "illusion.html",
     "initiatives.html",
     "novel.html",
@@ -57,6 +59,8 @@ STYLES = [
     "exegesis.css",
     "style.css",
     "notes.css",
+    "post.css",
+    "comments.css",
     "stats.css",
 ]
 
@@ -64,6 +68,7 @@ STYLES = [
 EXTRAS = [
     "cover.js",
     "stats.js",
+    "comments.js",
     "favicon.svg",
     # Google Search Console 的所有权验证文件：文件名和内容都不能改。
     "googlefa66aa447ffb8c98.html",
@@ -200,6 +205,13 @@ def build(check_only: bool = False) -> int:
             problems.append(f"{page} 没有引用 stats.js")
         if "data-stats" not in text:
             problems.append(f"{page} 没有统计挂载点（data-stats）")
+
+        # 挂了评论的页面必须带上评论区自己的样式和脚本，否则按钮点了没反应。
+        if "data-comments" in text:
+            if "comments.css" not in text:
+                problems.append(f"{page} 有评论挂载点，但没引用 comments.css")
+            if "comments.js" not in text:
+                problems.append(f"{page} 有评论挂载点，但没引用 comments.js")
 
         if page in NOINDEX and 'name="robots"' not in text:
             problems.append(f"{page} 在 NOINDEX 里，但没写 robots 标签")

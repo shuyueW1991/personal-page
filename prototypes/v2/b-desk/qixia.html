@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="personal.css">
   <link rel="stylesheet" href="novel.css">
   <link rel="stylesheet" href="qixia.css">
+  <link rel="stylesheet" href="comments.css">
   <link rel="stylesheet" href="stats.css">
 </head>
 <body>
@@ -106,6 +107,18 @@
   <p class="verse">好了。再见～（作者停笔于此</p>
 </section>
     </article>
+
+    <section class="comments" id="comments" aria-labelledby="comments-title">
+      <div class="comments-head">
+        <h2 class="comments-title" id="comments-title">comments</h2>
+        <p class="comments-meta">GitHub Issues · 需登录</p>
+      </div>
+      <div class="comments-body" data-comments>
+        <button class="comments-load" type="button" data-comments-load>加载评论</button>
+        <p class="comments-note">评论由 <a href="https://utteranc.es" rel="noopener">utterances</a> 承载（点开才连接 GitHub），也可以直接到 <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">Issues</a> 留言。</p>
+        <noscript><p class="comments-note">需要 JavaScript 才能加载评论；请直接到 <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a> 留言。</p></noscript>
+      </div>
+    </section>
   </main>
 
   <footer class="page-foot">
@@ -114,5 +127,6 @@
     <div class="links"><a href="contact.html" lang="en">contact</a><a href="illusion.html">← illusion</a></div>
   </footer>
   <script src="stats.js" defer></script>
+  <script src="comments.js" defer></script>
 </body>
 </html>

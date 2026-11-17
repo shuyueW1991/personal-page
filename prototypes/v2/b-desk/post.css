@@ -1,0 +1,179 @@
+/* 注记页 · 技术表格、公式与图版
+   文章版式沿用 style.css；这里只补它没有的东西。 */
+
+/* 英文正文默认 590px，图版允许撑到正文栏的 660px。 */
+/* 宽屏时图版比正文宽一点；窄屏仍跟着正文走，避免横向溢出。 */
+.post-figure {
+  width: 100%;
+}
+
+@media (min-width: 1100px) {
+  .post-figure { width: 660px; }
+}
+
+.body h3 {
+  margin: 2.35em 0 1em;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.body h3 code {
+  font-size: 0.88em;
+}
+
+/* ---------- 表格 ---------- */
+
+.table-wrap {
+  margin: 1.9em 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.body table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+.body th,
+.body td {
+  padding: 9px 14px 9px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.body th {
+  padding-top: 0;
+  border-bottom-color: var(--rule-strong);
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.body td:first-child,
+.body th:first-child {
+  white-space: nowrap;
+}
+
+.body td:last-child,
+.body th:last-child {
+  padding-right: 0;
+}
+
+.body td code {
+  font-size: 0.88em;
+}
+
+@media (max-width: 700px) {
+  .body table { min-width: 540px; }
+}
+
+/* ---------- 行内代码与列表 ---------- */
+
+.body code {
+  padding: 0.1em 0.24em;
+  background: rgba(24, 23, 21, 0.045);
+  font-family: var(--mono);
+  font-size: 0.82em;
+  letter-spacing: 0;
+  overflow-wrap: break-word;
+}
+
+.body ul,
+.body ol {
+  margin: 1.25em 0 1.5em;
+  padding-left: 1.4em;
+}
+
+.body li {
+  margin-bottom: 0.5em;
+  padding-left: 0.15em;
+}
+
+.body li::marker {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  color: var(--muted);
+}
+
+.body li > p {
+  margin-bottom: 0.6em;
+}
+
+/* ---------- 公式 ---------- */
+
+.body .katex {
+  font-size: 1.08em;
+}
+
+.math-display {
+  margin: 2em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.math-display .katex-display {
+  margin: 0;
+}
+
+.math-display .katex-display > .katex {
+  font-size: 1.12em;
+}
+
+/* ---------- 图版 ---------- */
+
+.post-figure {
+  margin: 2.4em 0 2.6em;
+}
+
+.post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+
+.post-figure figcaption {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.post-figure .fig-no {
+  margin-right: 0.15em;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.post-figure .katex {
+  font-size: 0.94em;
+}
+
+@media (max-width: 860px) {
+  .body h3 { font-size: 12.5px; }
+  .post-figure { margin: 2em 0 2.2em; }
+  .post-figure figcaption { font-size: 11px; line-height: 1.75; }
+}
