@@ -16,21 +16,23 @@
     crossorigin: "anonymous",
   };
 
-  const showError = (mount, isEnglish) => {
-    const note = document.createElement("p");
-    note.className = "comments-error";
-    note.textContent = isEnglish
-      ? "Comments could not be loaded. Please write in GitHub Issues instead."
-      : "评论暂时没能加载，请直接到 GitHub Issues 留言。";
-    mount.appendChild(note);
-  };
-
   document.querySelectorAll("[data-comments]").forEach((mount) => {
     const button = mount.querySelector("[data-comments-load]");
     if (!button) return;
 
     const isEnglish = Boolean(mount.closest('[lang="en"]'));
     let started = false;
+
+    const showError = () => {
+      button.hidden = true;
+      if (mount.querySelector(".comments-error")) return;
+      const note = document.createElement("p");
+      note.className = "comments-error";
+      note.textContent = isEnglish
+        ? "Comments could not be loaded. Please write in GitHub Issues instead."
+        : "评论暂时没能加载，请直接到 GitHub Issues 留言。";
+      mount.appendChild(note);
+    };
 
     button.addEventListener("click", () => {
       if (started) return;
@@ -45,26 +47,22 @@
       Object.keys(CONFIG).forEach((key) => {
         script.setAttribute(key, CONFIG[key]);
       });
-
-      script.addEventListener("error", () => {
-        button.hidden = true;
-        showError(mount, isEnglish);
-      });
-
+      script.addEventListener("error", showError);
       mount.appendChild(script);
 
-      // utterances 连不上仓库时，iframe 会一直停在 0 高度：等一会儿再收掉。
+      // 连不上时 iframe 会一直停在 0 高度。等到 12 秒还没有内容才提示；
+      // 不删 iframe —— 网络慢的话，它稍后仍然可以出现。
       const startedAt = Date.now();
       const timer = window.setInterval(() => {
         const frame = mount.querySelector("iframe");
         if (frame && frame.getBoundingClientRect().height > 24) {
-          button.hidden = true;
-          window.clearInterval(timer);
-        } else if (Date.now() - startedAt > 8000) {
           window.clearInterval(timer);
           button.hidden = true;
-          if (frame) frame.remove();
-          showError(mount, isEnglish);
+          const note = mount.querySelector(".comments-error");
+          if (note) note.remove();
+        } else if (Date.now() - startedAt > 12000) {
+          window.clearInterval(timer);
+          showError();
         }
       }, 400);
     });
