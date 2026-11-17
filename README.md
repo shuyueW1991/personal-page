@@ -29,14 +29,14 @@ cd _site && python3 -m http.server 8123
 
 ## 注记与评论
 
-`instrumentality.html` 里除了书和论文，还挂着两篇注记：
+`instrumentality.html` 分成 note / book / papers 三栏：两篇注记、一本书、论文与专利索引。两个 note 的页面：
 
 - [`clean-dwg.html`](https://shuyuew1991.github.io/personal-page/clean-dwg.html) —— 让 DXF 成为可被脚本干净解析的电气连接图（2026.11.12）
 - [`optical-power.html`](https://shuyuew1991.github.io/personal-page/optical-power.html) —— Optical Power and Focal Length（2026.11.17）
 
 原稿在 `vitrine/instrumentality-posts/`，页面上的 HTML 就是成品。第二篇的公式在生成时用 [KaTeX](https://katex.org/) 预先排成 HTML + MathML，页面本身不加载公式脚本；`prototypes/v2/b-desk/assets/katex/` 只留 CSS 和 woff2 字体（MIT，见同目录 `LICENSE`），不依赖 CDN。改公式要重新用 KaTeX 排版，改普通文字直接改 HTML 即可。
 
-每个作品页（小说、文章、书、论文、两篇注记）底部都有 comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框——页面加载时不向 GitHub 发任何请求。评论存在仓库的 GitHub Issues 里，一页一个 issue，按 pathname 关联。
+每个作品页（小说、文章、书、论文、两篇注记）和页边（`notes.html`）底部都有 comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框——页面加载时不向 GitHub 发任何请求。评论存在仓库的 GitHub Issues 里，一页一个 issue，按 pathname 关联。
 
 第一次发言前要在仓库上装一次 [utterances App](https://github.com/apps/utterances)，并确认仓库 **Settings → General → Features → Issues** 已开启。没装 app 时评论框能出现，但提交会失败，页面其他部分不受影响。
 

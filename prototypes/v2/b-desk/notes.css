@@ -382,3 +382,13 @@
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* 评论 · 与笔记正文同一条左边线（80px 日期栏 + 40px 间距）。 */
+.notes-comments {
+  margin-left: 120px;
+  margin-top: 40px;
+}
+
+@media (max-width: 980px) {
+  .notes-comments { margin-left: 0; }
+}

@@ -34,7 +34,7 @@
 
 ## 评论
 
-评论区走 [utterances](https://utteranc.es/)，每个作品页一个 GitHub Issue，公开可读；发言要 GitHub 账号。页面默认不加载评论脚本，点「加载评论」才连 `utteranc.es`，所以没点开之前没有任何第三方请求。
+评论区走 [utterances](https://utteranc.es/)，每个作品页（含页边）一个 GitHub Issue，公开可读；发言要 GitHub 账号。页面默认不加载评论脚本，点「加载评论」才连 `utteranc.es`，所以没点开之前没有任何第三方请求。
 
 - 评论内容不经过本站，存在仓库 Issues 里，作者和读者都能删改自己的话。
 - utterances App 只申请 Issues 权限；token 不进仓库，也不需要自己去建。

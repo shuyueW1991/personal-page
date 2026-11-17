@@ -51,6 +51,7 @@ STYLES = [
     "index.css",
     "contact.css",
     "initiatives.css",
+    "instrumentality.css",
     "personal.css",
     "novel.css",
     "qixia.css",
