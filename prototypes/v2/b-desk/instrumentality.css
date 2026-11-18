@@ -209,3 +209,285 @@
   .shelf-name,
   .shelf-arrow { transition: none; }
 }
+
+/* ---------- note：可增长的年份索引 ---------- */
+
+.note-ledger {
+  max-height: 58vh;
+  overflow-y: auto;
+  padding: 0 10px 2px 56px;
+  border-left: 1px solid var(--rule);
+  scrollbar-width: thin;
+}
+
+.note-year + .note-year {
+  margin-top: 28px;
+}
+
+.note-year-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rule-strong);
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.note-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-entry {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 14px;
+  gap: 10px;
+  align-items: baseline;
+  padding: 14px 0 15px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.note-list li:nth-child(-n + 2) .note-entry {
+  border-top: 0;
+}
+
+.note-entry time {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.note-title {
+  font-family: var(--display);
+  font-size: 18px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.note-title[lang="en"] {
+  letter-spacing: 0;
+}
+
+.note-arrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.note-entry:hover .note-title { transform: translateX(5px); }
+.note-entry:hover .note-arrow {
+  opacity: 1;
+  transform: none;
+  color: var(--ink);
+}
+
+/* ---------- quotes：先留空，但把形态定下来 ---------- */
+
+.shelf-title.is-quotes {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 40px;
+  letter-spacing: -0.01em;
+}
+
+.quote-shelf {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  min-height: 140px;
+  padding: 4px 0 8px 56px;
+  border-left: 1px solid var(--rule);
+}
+
+.quote-mark {
+  margin-top: -8px;
+  font-family: var(--serif);
+  font-size: 110px;
+  line-height: 0.65;
+  color: var(--rule-strong);
+  flex: none;
+}
+
+.quote-empty p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.quote-meta {
+  margin-top: 14px !important;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--rule-strong);
+}
+
+/* 以后真的放进 quote 时用这个形态 */
+.quote-entry {
+  max-width: 34em;
+  margin: 0;
+}
+
+.quote-entry blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.quote-entry figcaption {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+/* ---------- papers：单格居中 ---------- */
+
+.papers-index {
+  padding-left: 56px;
+  border-left: 1px solid var(--rule);
+}
+
+.papers-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 190px;
+  padding: 36px 24px;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.papers-entry:hover,
+.papers-entry:focus-visible {
+  background: #fbfaf6;
+  border-color: var(--rule-strong);
+}
+
+.papers-kicker {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.papers-title {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.papers-meta {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.papers-arrow {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.papers-entry:hover .papers-arrow,
+.papers-entry:focus-visible .papers-arrow {
+  opacity: 1;
+  transform: none;
+  color: var(--ink);
+}
+
+@media (max-width: 1080px) {
+  .note-ledger,
+  .quote-shelf,
+  .papers-index { padding-left: 44px; }
+  .note-list { gap: 0 24px; }
+  .note-title { font-size: 17px; }
+  .papers-title { font-size: 27px; }
+}
+
+@media (max-width: 900px) {
+  .note-ledger {
+    max-height: 62vh;
+    padding: 0 0 2px;
+    border-left: 0;
+  }
+
+  .note-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .note-list li:nth-child(-n + 2) .note-entry { border-top: 1px solid var(--rule); }
+  .note-list li:first-child .note-entry { border-top: 0; }
+
+  .quote-shelf {
+    min-height: 0;
+    padding: 18px 0 8px;
+    border-left: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .quote-mark { font-size: 78px; }
+  .quote-empty p { font-size: 19px; }
+  .quote-entry blockquote { font-size: 22px; }
+
+  .papers-index {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .papers-entry { min-height: 160px; padding: 28px 20px; }
+  .papers-title { font-size: 24px; }
+}
+
+@media (max-width: 640px) {
+  .note-title { font-size: 16.5px; }
+  .note-entry { grid-template-columns: 42px minmax(0, 1fr) 12px; gap: 8px; }
+  .note-arrow { opacity: 1; transform: none; }
+  .papers-title { font-size: 22px; }
+  .papers-meta { font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-title,
+  .note-arrow,
+  .papers-arrow { transition: none; }
+}

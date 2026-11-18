@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="post.css?v=4">
+  <link rel="stylesheet" href="post.css?v=5">
   <link rel="stylesheet" href="comments.css">
   <link rel="stylesheet" href="stats.css">
 </head>
@@ -276,7 +276,10 @@
         <section class="desk-plate" aria-label="Plate">
           <header class="desk-head">
             <span class="desk-kicker">reading desk</span>
-            <button class="desk-close" type="button" data-desk-close aria-label="Close reading desk">×</button>
+            <div class="desk-head-tools">
+              <button class="desk-compare" type="button" data-desk-compare aria-pressed="false" title="Compare text and image at 1:1">1:1</button>
+              <button class="desk-close" type="button" data-desk-close aria-label="Close reading desk">×</button>
+            </div>
           </header>
           <div class="desk-tabs" role="tablist" aria-label="Plate contents" data-board-tabs>
             <button class="board-tab" type="button" role="tab" aria-selected="true" aria-controls="board-doodle-panel" data-board-tab="doodle">doodle</button>
@@ -316,12 +319,11 @@
 
     <footer class="site-foot">
       <span>© 2026 王舒悦</span>
-      <a class="stat-line" href="stats.html" data-stats hidden><span>this page <span class="num" data-stats-page>—</span></span><span class="stat-sep" aria-hidden="true">·</span><span>site <span class="num" data-stats-total>—</span></span></a>
       <div class="links"><a href="instrumentality.html">← instrumentality</a><a href="contact.html" lang="en">contact</a></div>
     </footer>
   </div>
   <script src="stats.js" defer></script>
-  <script src="post.js?v=4" defer></script>
+  <script src="post.js?v=5" defer></script>
   <script src="comments.js" defer></script>
 </body>
 </html>

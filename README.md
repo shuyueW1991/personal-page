@@ -25,11 +25,11 @@ cd _site && python3 -m http.server 8123
 
 `build.py --check` 只做校验：白名单文件齐全、页面引用的本地资源都存在、每页 canonical 正确、每页都挂上了统计。真正构建时还会再扫一遍 `_site/`，确认里面没有稿件。
 
-`build.py` 会在 `_site/stats.json` 写一个 `enabled: false` 的占位。没有真实快照时，页脚的统计入口保持隐藏——这是正常的，不是缓存问题。
+`build.py` 会在 `_site/stats.json` 写一个 `enabled: false` 的占位。没有真实快照时，统计页只显示占位、不显示数字——这是正常的，不是缓存问题。
 
 ## 注记与评论
 
-`instrumentality.html` 分成 note / book / papers 三栏：三篇注记、一本书、论文与专利索引。三个 note 的页面：
+`instrumentality.html` 分成 note / quotes / book / papers 四栏：三篇注记、0 则语录（先留空）、一本书、论文与专利索引。note 按年份分组、两列排布，外层限高滚动；以后加注记或新年份直接往 ledger 里追加。quotes 的 `.quote-entry` 形态也已定义，等第一条语录。三个 note 的页面：
 
 - [`front-focal-magnification.html`](https://shuyuew1991.github.io/personal-page/front-focal-magnification.html) —— 前焦点处的横向放大率（2026.11.18）
 - [`optical-power.html`](https://shuyuew1991.github.io/personal-page/optical-power.html) —— Optical Power and Focal Length（2026.11.17）
@@ -37,7 +37,7 @@ cd _site && python3 -m http.server 8123
 
 原稿在 `vitrine/instrumentality-posts/`，页面上的 HTML 就是成品。两篇物理注记的公式在生成时用 [KaTeX](https://katex.org/) 预先排成 HTML + MathML，页面本身不加载公式脚本；`prototypes/v2/b-desk/assets/katex/` 只留 CSS 和 woff2 字体（MIT，见同目录 `LICENSE`），不依赖 CDN。改公式要重新用 KaTeX 排版，改普通文字直接改 HTML 即可。
 
-注记页是两栏：正文占页宽 2/3，右侧是一张随滚动固定的阅读桌。桌面上半是图板或草图 canvas（图可点开看原尺寸，草图可导出 SVG），下半是页边批注；正文右边一条 34px 刻度栏把段落和批注对应起来。选中正文、点刻度，或从 inbox 进来，都会在阅读桌里打开对应段落的批注编辑/评论。
+注记页是两栏：左侧是一张随滚动固定的阅读桌，右侧是占页宽 2/3 的正文。帖子图全部收进桌面，正文不再重复放图：桌面上半是图版 tabs 或草图 canvas（第一次点图进入 1:1 对照，第二次完全放大；草图可导出 SVG），下半是页边批注；正文左边一条 34px 刻度栏把段落和批注对应起来。选中正文、点刻度，或从 inbox 进来，都会在阅读桌里打开对应段落的批注编辑/评论。
 
 每个作品页（小说、文章、书、论文、三篇注记）和页边（`notes.html`）底部都有 page comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框；页边批注也只在点 `margin notes`、选中正文或从 inbox 进入时才向 GitHub 请求。普通打开文章时不向 GitHub 发任何请求。page comments 一页一个 issue，按 pathname 关联；页边批注则一段一个 issue，标题是 `[margin] <page>#<anchor>`，正文开头带一段 base64 元数据（页码、锚点、引文）。锚点由段落文本的哈希生成；大段改写会让旧批注找不到原来的段落。
 
@@ -52,9 +52,9 @@ cd _site && python3 -m http.server 8123
 
 ## 访客统计
 
-每页页脚都有一个很小的入口：首页显示全站总浏览，内页显示「本页 / 全站」，点进去是 `stats.html`：总浏览、今日、最近 30 天、各页浏览、国家 / 地区。
+页脚不再显示「本页 / 全站」次数；统计仍由 GoatCounter 在每页计数。统计页 `stats.html` 可以直接打开（noindex）：总浏览、今日、最近 30 天、各页浏览、国家 / 地区。
 
-本站代号 `shuyuew1991`，面板在 <https://shuyuew1991.goatcounter.com/>。统计由 [GoatCounter](https://www.goatcounter.com/) 完成：无 cookie、不保存 IP，只留汇总数字。页面上的数字来自 CI 生成的 `_site/stats.json`，每 6 小时刷新一次；`stats.html` 是 noindex，不进 sitemap。页面显示的是页面打开次数（同一人多次打开会重复计）；去重后的独立访客、来源网站和浏览器信息在 GoatCounter 面板里看。
+本站代号 `shuyuew1991`，面板在 <https://shuyuew1991.goatcounter.com/>。统计由 [GoatCounter](https://www.goatcounter.com/) 完成：无 cookie、不保存 IP，只留汇总数字。统计页上的数字来自 CI 生成的 `_site/stats.json`，每 6 小时刷新一次；`stats.html` 是 noindex，不进 sitemap，页脚也不再提供计数入口。页面显示的是页面打开次数（同一人多次打开会重复计）；去重后的独立访客、来源网站和浏览器信息在 GoatCounter 面板里看。
 
 ### 接入（一次性）
 
@@ -81,6 +81,10 @@ cd _site && python3 -m http.server 8123
 `assets/goatcounter-count.js` 是 GoatCounter 官方的 `count.js`（ISC 许可），本地托管是为了不依赖 `gc.zgo.at` 的 CDN；升级时从 GoatCounter 仓库的 `public/count.v5.js` 取同名文件替换即可。
 
 > 地点只到国家 / 地区一级，不含城市；GoatCounter 不采集到那么细。
+
+## Initiatives
+
+`initiatives.html` 用三张网站截图 + 项目说明做成三条现场记录：截图统一在左，说明在右；每项只借网站自己的一个颜色。截图在 `prototypes/v2/b-desk/assets/initiatives/`。
 
 ## 搜索收录
 

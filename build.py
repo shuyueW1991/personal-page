@@ -209,8 +209,6 @@ def build(check_only: bool = False) -> int:
             problems.append(f"{page} 没有引用 stats.css")
         if "stats.js" not in text:
             problems.append(f"{page} 没有引用 stats.js")
-        if "data-stats" not in text:
-            problems.append(f"{page} 没有统计挂载点（data-stats）")
 
         # 挂了评论的页面必须带上评论区自己的样式和脚本，否则按钮点了没反应。
         if "data-comments" in text:

@@ -1,11 +1,11 @@
-/* 访客统计：读 stats.json，渲染页脚小计数与 stats.html 的完整记录。
+/* 访客统计：读 stats.json，渲染 stats.html 的完整记录；页脚不再显示计数。
    统计本身由 GoatCounter 完成（无 cookie、不存 IP），这里只负责显示。 */
 
 (() => {
   "use strict";
 
   // ↓↓↓ 唯一需要改的一行：goatcounter.com 的站点代号（不是网址）。
-  // 留空 = 全站不统计，页脚计数与统计页都会自动隐藏。
+  // 留空 = 全站不统计，统计页会自动隐藏。
   const GOATCOUNTER_SITE = "shuyuew1991";
   const GOATCOUNTER_SCRIPT = "assets/goatcounter-count.js";
   const DATA_URL = "stats.json";
@@ -386,6 +386,8 @@
 
   async function run() {
     startTracker();
+    // 页脚不再显示计数；只有统计页需要拿 stats.json。
+    if (!document.querySelector("[data-stats], [data-stats-dashboard]")) return;
     const data = await loadStats();
     if (!data || data.enabled !== true) {
       if (document.querySelector("[data-stats-dashboard]")) markUnavailable();

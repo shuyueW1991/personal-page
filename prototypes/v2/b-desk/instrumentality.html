@@ -9,7 +9,7 @@
   <meta name="description" content="Notes, a book, and publications.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="personal.css">
-  <link rel="stylesheet" href="instrumentality.css">
+  <link rel="stylesheet" href="instrumentality.css?v=2">
   <link rel="stylesheet" href="stats.css">
 </head>
 <body>
@@ -27,34 +27,67 @@
         <h2 class="shelf-title is-note" id="shelf-note">note</h2>
         <span class="shelf-count">3 篇</span>
       </header>
-      <ul class="shelf-list">
-        <li>
-          <a class="shelf-row" href="front-focal-magnification.html">
-            <span class="shelf-name">前焦点处的横向放大率：为什么 m=h′/h 发散为正无穷大</span>
-            <time class="shelf-date" datetime="2026-11-18">2026.11.18</time>
-            <span class="shelf-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="shelf-row" href="optical-power.html">
-            <span class="shelf-name" lang="en">Optical Power and Focal Length</span>
-            <time class="shelf-date" datetime="2026-11-17">2026.11.17</time>
-            <span class="shelf-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="shelf-row" href="clean-dwg.html">
-            <span class="shelf-name">让 DXF 成为可被脚本干净解析的电气连接图</span>
-            <time class="shelf-date" datetime="2026-11-12">2026.11.12</time>
-            <span class="shelf-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      </ul>
+
+      <div class="note-ledger">
+        <section class="note-year" aria-label="2026 年的注记">
+          <header class="note-year-head">
+            <span>2026</span>
+            <span>03</span>
+          </header>
+          <ul class="note-list">
+            <li>
+              <a class="note-entry" href="front-focal-magnification.html">
+                <time datetime="2026-11-18">11.18</time>
+                <span class="note-title">前焦点处的横向放大率：为什么 m=h′/h 发散为正无穷大</span>
+                <span class="note-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="note-entry" href="optical-power.html">
+                <time datetime="2026-11-17">11.17</time>
+                <span class="note-title" lang="en">Optical Power and Focal Length</span>
+                <span class="note-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="note-entry" href="clean-dwg.html">
+                <time datetime="2026-11-12">11.12</time>
+                <span class="note-title">让 DXF 成为可被脚本干净解析的电气连接图</span>
+                <span class="note-arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- 以后新年份：复制一个 <section class="note-year">，并把上面的 03 改成该年篇数。 -->
+      </div>
+    </section>
+
+    <section class="shelf is-quotes" aria-labelledby="shelf-quotes">
+      <header class="shelf-head">
+        <span class="shelf-no">02</span>
+        <h2 class="shelf-title is-quotes" id="shelf-quotes">quotes</h2>
+        <span class="shelf-count">0 则</span>
+      </header>
+
+      <div class="quote-shelf">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <div class="quote-empty">
+          <p>One or two lines, kept as they are.</p>
+          <p class="quote-meta">quote · date · source</p>
+        </div>
+      </div>
+      <!--
+        以后一条语录的形态：
+        <figure class="quote-entry">
+          <blockquote>…</blockquote>
+          <figcaption><time datetime="2026-12">2026.12</time> · 出处</figcaption>
+        </figure>
+      -->
     </section>
 
     <section class="shelf" aria-labelledby="shelf-book">
       <header class="shelf-head">
-        <span class="shelf-no">02</span>
+        <span class="shelf-no">03</span>
         <h2 class="shelf-title is-book" id="shelf-book">book</h2>
         <span class="shelf-count">1 本</span>
       </header>
@@ -69,27 +102,25 @@
       </ul>
     </section>
 
-    <section class="shelf" aria-labelledby="shelf-papers">
+    <section class="shelf is-papers" aria-labelledby="shelf-papers">
       <header class="shelf-head">
-        <span class="shelf-no">03</span>
+        <span class="shelf-no">04</span>
         <h2 class="shelf-title is-papers" id="shelf-papers">papers</h2>
         <span class="shelf-count">30 篇 · 8 项专利</span>
       </header>
-      <ul class="shelf-list">
-        <li>
-          <a class="shelf-row" href="papers.html">
-            <span class="shelf-name" lang="en">Publications &amp; patents</span>
-            <span class="shelf-date">2014—2025</span>
-            <span class="shelf-arrow" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      </ul>
+      <div class="papers-index">
+        <a class="papers-entry" href="papers.html">
+          <span class="papers-kicker">bibliography</span>
+          <span class="papers-title" lang="en">Publications &amp; patents</span>
+          <span class="papers-meta">30 papers · 8 patents · 2014—2025</span>
+          <span class="papers-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
     </section>
   </main>
 
   <footer class="page-foot">
     <span>© 2026 王舒悦</span>
-    <a class="stat-line" href="stats.html" data-stats hidden><span>本页 <span class="num" data-stats-page>—</span> 次</span><span class="stat-sep" aria-hidden="true">·</span><span>全站 <span class="num" data-stats-total>—</span> 次</span></a>
     <div class="links"><a href="contact.html" lang="en">contact</a><a href="index.html">← homepage</a></div>
   </footer>
   <script src="stats.js" defer></script>

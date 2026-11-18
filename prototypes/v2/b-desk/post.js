@@ -32,6 +32,7 @@
   const deskLoad = document.querySelector("[data-margin-load]");
   const deskOpenButtons = Array.from(document.querySelectorAll("[data-desk-open]"));
   const deskCloseButton = document.querySelector("[data-desk-close]");
+  const deskCompareButton = document.querySelector("[data-desk-compare]");
 
   if (!body || !article || !gutter || !desk || !notesBody) return;
 
@@ -753,6 +754,21 @@
 
   /* ---------- 阅读桌开合 ---------- */
 
+  function setCompare(enabled) {
+    const on = Boolean(enabled) && !state.mobile;
+    document.body.classList.toggle("compare", on);
+    if (deskCompareButton) deskCompareButton.setAttribute("aria-pressed", String(on));
+    const hint = document.querySelector(".desk-hint");
+    if (hint) {
+      const hasFigure = Boolean(document.querySelector(".desk-figure"));
+      hint.textContent = on
+        ? (hasFigure
+            ? "1:1 compare — click the figure again to enlarge."
+            : "1:1 compare — sketch at a larger size.")
+        : (state.board && state.board.hint) || "Pin a figure, click it to enlarge, or sketch.";
+    }
+  }
+
   function openDesk(section = "notes") {
     if (state.mobile) {
       document.body.classList.add("desk-open");
@@ -793,6 +809,11 @@
   });
 
   if (deskCloseButton) deskCloseButton.addEventListener("click", closeDesk);
+  if (deskCompareButton) {
+    deskCompareButton.addEventListener("click", () => {
+      setCompare(!document.body.classList.contains("compare"));
+    });
+  }
   if (deskLoad) deskLoad.addEventListener("click", () => loadComments(true));
 
   document.addEventListener("keydown", (event) => {
@@ -849,7 +870,11 @@
     const doodlePanel = document.querySelector('[data-board-panel="doodle"]');
     if (!board || !tabs || !figurePanel || !doodlePanel) return;
 
-    const figures = Array.from(body.querySelectorAll("figure.post-figure")).map((figure) => {
+    const figureStore = document.querySelector("[data-figure-store]");
+    const figureNodes = Array.from(
+      (figureStore || body).querySelectorAll("figure.post-figure")
+    );
+    const figures = figureNodes.map((figure) => {
       const image = figure.querySelector("img");
       const caption = figure.querySelector("figcaption");
       return {
@@ -865,7 +890,9 @@
     const hint = board.querySelector(".desk-hint");
     if (hint) {
       hint.textContent = figures.length
-        ? "Pin a figure, click it to enlarge, or sketch."
+        ? (state.mobile
+            ? "Tap a figure to open it full size, or sketch."
+            : "Click a figure for 1:1; click again to enlarge, or sketch.")
         : "Sketch a comparison while you read.";
     }
 
@@ -898,15 +925,30 @@
       image.alt = figure.alt;
       image.loading = "eager";
       image.decoding = "async";
-      image.title = "Open full size";
+      image.title = state.mobile
+        ? "Open full size"
+        : "Compare at 1:1, then open full size";
       image.tabIndex = 0;
       image.setAttribute("role", "button");
-      image.setAttribute("aria-label", `Open ${figure.alt || "figure"} full size`);
-      image.addEventListener("click", () => openLightbox(figure.src, figure.alt));
+      image.setAttribute(
+        "aria-label",
+        state.mobile
+          ? `Open ${figure.alt || "figure"} full size`
+          : `Compare ${figure.alt || "figure"} at 1:1; click again to open full size`
+      );
+      const activateFigure = () => {
+        if (!state.mobile && !document.body.classList.contains("compare")) {
+          setCompare(true);
+          openDesk("plate");
+        } else {
+          openLightbox(figure.src, figure.alt);
+        }
+      };
+      image.addEventListener("click", activateFigure);
       image.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          openLightbox(figure.src, figure.alt);
+          activateFigure();
         }
       });
       const caption = document.createElement("figcaption");
@@ -929,20 +971,6 @@
       }
     }
 
-    figures.forEach((figure, index) => {
-      const element = body.querySelectorAll("figure.post-figure")[index];
-      if (!element) return;
-      const button = node("button", "pin-figure", "pin to desk");
-      button.type = "button";
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        selectBoardTab(`figure-${index}`);
-        openDesk("plate");
-      });
-      element.append(button);
-    });
-
     tabs.addEventListener("keydown", (event) => {
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
       const list = Array.from(tabElements.values());
@@ -954,7 +982,7 @@
       list[next].click();
     });
 
-    state.board = { selectBoardTab };
+    state.board = { selectBoardTab, hint: hint ? hint.textContent : "" };
     selectBoardTab(figures.length ? "figure-0" : "doodle");
   }
 
@@ -1214,6 +1242,7 @@
         closeDesk();
         deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
       } else {
+        setCompare(false);
         deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
       }
       layoutTicks();
