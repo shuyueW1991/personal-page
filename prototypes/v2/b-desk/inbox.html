@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pending comments — 王舒悦</title>
+  <link rel="canonical" href="https://shuyuew1991.github.io/personal-page/inbox.html">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Review queue for margin comments on instrumentality notes.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="personal.css">
+  <link rel="stylesheet" href="inbox.css">
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body class="inbox-page">
+  <a class="skip" href="#main">Skip to queue</a>
+
+  <header class="page-top">
+    <a class="back" href="index.html">← homepage</a>
+    <span class="label">comments</span>
+  </header>
+
+  <main id="main" class="inbox-shell">
+    <header class="inbox-head">
+      <p class="inbox-eyebrow"><span class="inbox-mark" aria-hidden="true"></span>review queue</p>
+      <h1>pending comments</h1>
+      <p class="inbox-deck">
+        New margin notes from instrumentality posts. Click a row to jump to the passage; uncheck it to clear it from this list.
+      </p>
+      <div class="inbox-tools">
+        <span class="inbox-count" data-inbox-count>—</span>
+        <button class="inbox-refresh" type="button" data-inbox-refresh>refresh</button>
+        <a class="inbox-github" href="https://github.com/shuyueW1991/personal-page/issues" target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>
+      </div>
+    </header>
+
+    <ul class="inbox-list" data-inbox-list aria-live="polite"></ul>
+    <p class="inbox-empty" data-inbox-empty hidden>Nothing waiting. New margin comments will appear here.</p>
+    <p class="inbox-error" data-inbox-error hidden></p>
+    <p class="inbox-note">
+      Dismissal is stored in this browser. A later reply on the same GitHub issue will bring it back.
+    </p>
+
+    <footer class="page-foot">
+      <span>© 2026 王舒悦</span>
+      <a class="stat-line" href="stats.html" data-stats hidden><span>this page <span class="num" data-stats-page>—</span></span><span class="stat-sep" aria-hidden="true">·</span><span>site <span class="num" data-stats-total>—</span></span></a>
+      <div class="links"><a href="instrumentality.html">instrumentality</a><a href="index.html">← homepage</a></div>
+    </footer>
+  </main>
+
+  <div class="inbox-toast" data-inbox-toast hidden role="status">
+    <span data-inbox-toast-text></span>
+    <button type="button" data-inbox-undo>undo</button>
+  </div>
+
+  <script src="stats.js" defer></script>
+  <script src="inbox.js" defer></script>
+</body>
+</html>

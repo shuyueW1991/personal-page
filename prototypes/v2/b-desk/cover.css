@@ -205,8 +205,9 @@ body.cover a { color: inherit; }
 
 .foot-left {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 22px;
+  gap: 8px 22px;
 }
 
 .contact-link {

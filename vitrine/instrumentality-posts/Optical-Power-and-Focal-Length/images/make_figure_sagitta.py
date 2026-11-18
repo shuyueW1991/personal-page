@@ -155,7 +155,6 @@ axc.text(-5.6, 1.52,
          r"$(R-\delta)^2+y^2=R^2\ \Rightarrow\ \delta\approx y^2/2R$",
          fontsize=9.5, color="#9aa0a6", ha="left", va="top")
 
-fig.savefig("images/sagitta.png", dpi=200, bbox_inches="tight", pad_inches=0.06)
 fig.savefig("images/sagitta.svg", bbox_inches="tight", pad_inches=0.06)
 plt.close(fig)
-print("wrote images/sagitta.{png,svg}")
+print("wrote images/sagitta.svg")

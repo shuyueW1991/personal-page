@@ -9,8 +9,8 @@
 
 | 进仓库 | 说明 |
 |---|---|
-| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`comments.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js、KaTeX 的 CSS 与字体） |
-| `vitrine/instrumentality-posts/` | 两篇公开注记的 markdown 原稿与图版源文件 |
+| `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`comments.js`、`post.js`、`inbox.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js、KaTeX 的 CSS 与字体） |
+| `vitrine/instrumentality-posts/` | 三篇公开注记的 markdown 原稿与图版源文件（图版均为 SVG） |
 | `build.py` | 白名单装配 `_site/` |
 | `tools/stats_snapshot.py` | 取 GoatCounter 汇总，写 `_site/stats.json` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
@@ -34,10 +34,12 @@
 
 ## 评论
 
-评论区走 [utterances](https://utteranc.es/)，每个作品页（含页边）一个 GitHub Issue，公开可读；发言要 GitHub 账号。页面默认不加载评论脚本，点「加载评论」才连 `utteranc.es`，所以没点开之前没有任何第三方请求。
+整页评论走 [utterances](https://utteranc.es/)，每个作品页（含页边）一个 GitHub Issue，公开可读；发言要 GitHub 账号。页面默认不加载评论脚本，点「Load comments」才连 `utteranc.es`。
+
+页边批注也走 GitHub Issues，但不经过 utterances：每一段一个 issue，标题是 `[margin] <page>#<anchor>`，正文开头是一段 base64 元数据（页码、锚点、引文）。锚点由段落文本的哈希生成，大段改写会让旧批注找不到原来的段落。点 `margin notes`、选中正文或从 `inbox.html` 进入时才请求 issue 列表；在批注框里点 **Post on GitHub** 会打开预填好的新 issue 页面，提交后回到文章刷新即可看到。`inbox.html` 从同一个 issue 列表里取待看项，勾掉只写本机 `localStorage`，不会关闭或删除 GitHub issue。
 
 - 评论内容不经过本站，存在仓库 Issues 里，作者和读者都能删改自己的话。
-- utterances App 只申请 Issues 权限；token 不进仓库，也不需要自己去建。
+- utterances App 只申请 Issues 权限；token 不进仓库，也不需要自己去建。页边批注只用公开的 issue 创建页，不需要额外 token。
 - issue 是公开的：评论里写的东西等于公开，和正文一样要当心。
 
 ## 统计与密钥
@@ -56,7 +58,7 @@ git log --all --diff-filter=A --name-only | grep -Ei '\.docx?$'   # 应无输出
 python3 build.py --check
 ```
 
-`build.py` 还会检查评论：页面上有 `data-comments` 挂载点，就必须同时引用 `comments.css` 和 `comments.js`。
+`build.py` 还会检查评论：页面上有 `data-comments` 挂载点，就必须同时引用 `comments.css` 和 `comments.js`。页边批注页需要 `post.js`、`post.css`；`inbox.html` 在 `NOINDEX` 里。
 
 要临时放行单个文件（例如以后真要公开一份 PDF），用 `git add -f 文件`。
 

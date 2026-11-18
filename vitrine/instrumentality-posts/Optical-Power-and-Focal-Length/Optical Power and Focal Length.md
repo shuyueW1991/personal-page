@@ -58,7 +58,7 @@ With the image space air ($n' = 1$), the image-side focal length reduces to the 
 
 Thus focal length is not an independent property; it is the distance at which the surface’s power brings a collimated beam to focus. Power is the cause; focal length is the distance effect.
 
-![Paraxial refraction at a single spherical surface: conjugates, focal points, and vergence bookkeeping.](./images/optical_power_conjugates.png)
+![Paraxial refraction at a single spherical surface: conjugates, focal points, and vergence bookkeeping.](./images/optical_power_conjugates.svg)
 
 **Figure 1.** Refraction at a single spherical surface between air ($n=1.00$) and glass ($n'=1.50$), drawn schematically: the aperture and the vertical scale are exaggerated, the surface curvature is schematic, and lengths are in arbitrary units. **(a)** With $R=+4$, $\Phi=(n'-n)/R=+0.125$, and the object at $s=-20$, the refraction equation gives $s'=+20$. Blue lines are the two marginal rays from $O$; red lines are their refracted continuations, which meet at the real image $I$. The teal ray arrives parallel to the axis (object at $s=-\infty$) and crosses the axis at the image-side focal point $F'$, a distance $f'=n'/\Phi=+12$ from the vertex. The front focal point $F$ lies at $f=-n/\Phi=-8$; because $n'\ne n$, the two focal distances differ, with $f'/f=-n'/n=-1.5$. **(b)** The same numbers read as vergence bookkeeping: the incident reduced vergence $n/s=-0.050$ (diverging) plus the surface power $\Phi=+0.125$ gives the emergent reduced vergence $n'/s'=+0.075$ (converging).
 
@@ -106,7 +106,7 @@ $$
 
 These are ordinary angle bookkeeping: the angle a ray makes with the normal is its inclination to the axis minus the normal’s inclination to the axis. They hold for angles of any size; the paraxial step is only the replacement of $\sin\theta$ by $\theta$ in Snell’s law, which comes next. Figure 2 shows this bookkeeping at the hit point.
 
-![Local ray geometry at the refracting surface.](./images/optical_power_angles.png)
+![Local ray geometry at the refracting surface.](./images/optical_power_angles.svg)
 
 **Figure 2.** Local geometry at the point $P$ where the ray meets the surface (angles exaggerated for legibility; not to scale). The dashed line through $P$ and the center of curvature $C$ is the surface normal—and also a radius, so $PC=R$. Its tilt from the axis has magnitude $|\alpha|$, with $\sin|\alpha|=y/R$ exactly and $|\alpha|\approx y/R$ paraxially; for $R>0$ the signed angle is $\alpha=-y/R$. All angles are measured from the axis, so the angles of incidence and refraction are $i=u-\alpha$ and $i'=u'-\alpha$. In the small-angle limit Snell’s law $n\sin i=n'\sin i'$ becomes $n i=n'i'$; substituting the angle relations then yields the ray equation $n'u'=nu-\Phi y$, whose term $-\Phi y$ is the surface’s kick.
 
@@ -147,7 +147,7 @@ between the vertex plane and the curved surface at height $y$; the curved surfac
 reached only after the ray has travelled an extra distance $\delta = y^2/(2R) + O(y^4/R^3)$
 beyond the vertex plane (Figure 3). Its slope is
 
-![Sagitta of the spherical surface vs the vertex plane.](./images/sagitta.png)
+![Sagitta of the spherical surface vs the vertex plane.](./images/sagitta.svg)
 
 **Figure 3.** The sagitta of the spherical surface. **(a)** A paraxial ray from the axial object at $z=s$: the straight ray crosses the vertex plane ($z=0$, dashed) at exactly height $y$, while the true curved surface is met a distance $\delta$ to the right. **(b)** Magnified vertex region: surface and vertex plane differ by the sagitta $\delta \ll y$. **(c)** Exact circle geometry: in the right triangle $(R-\delta)^2 + y^2 = R^2$, expanding gives $\delta = R-\sqrt{R^2-y^2} \approx \tfrac{1}{2} y^2/R$, so the departure is $O(y^2/R)$. (Angles, heights, and $\delta$ are exaggerated; not to scale.)
 

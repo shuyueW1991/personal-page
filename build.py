@@ -32,8 +32,10 @@ PAGES = [
     "index.html",
     "contact.html",
     "instrumentality.html",
+    "inbox.html",
     "clean-dwg.html",
     "optical-power.html",
+    "front-focal-magnification.html",
     "illusion.html",
     "initiatives.html",
     "novel.html",
@@ -52,6 +54,7 @@ STYLES = [
     "contact.css",
     "initiatives.css",
     "instrumentality.css",
+    "inbox.css",
     "personal.css",
     "novel.css",
     "qixia.css",
@@ -70,6 +73,8 @@ EXTRAS = [
     "cover.js",
     "stats.js",
     "comments.js",
+    "post.js",
+    "inbox.js",
     "favicon.svg",
     # Google Search Console 的所有权验证文件：文件名和内容都不能改。
     "googlefa66aa447ffb8c98.html",
@@ -83,8 +88,8 @@ REQUIRED_ASSETS = [
     "assets/goatcounter-count.js",
 ]
 
-# 统计页是给访客看的，不放进 sitemap，也不让搜索引擎收录。
-NOINDEX = {"stats.html"}
+# 统计页和待看评论页不放进 sitemap，也不让搜索引擎收录。
+NOINDEX = {"stats.html", "inbox.html"}
 
 # 统计快照由 tools/stats_snapshot.py 在 CI 里生成；本地没有时用这个占位，
 # 前端读到 enabled: false 就把统计入口安静地藏起来。

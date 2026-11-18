@@ -66,7 +66,7 @@ def dim(ax, x0, x1, y, label, ylab, color=DIM, fs=11.5, lw=0.9, tick=0.14, tc="#
 
 
 # ----------------------------------------------------------------------------- figure 1
-def figure1(path_png, path_svg):
+def figure1(path_svg):
     fig = plt.figure(figsize=(12.8, 6.3))
     gs = GridSpec(2, 1, height_ratios=[3.45, 0.95], hspace=0.20,
                   left=0.035, right=0.975, top=0.97, bottom=0.06)
@@ -155,13 +155,12 @@ def figure1(path_png, path_svg):
     axb.text(v_out, 0.13, "converging", fontsize=10.5, color=GRAY, ha="center",
              va="center", style="italic")
 
-    fig.savefig(path_png, dpi=200, bbox_inches="tight", pad_inches=0.06)
     fig.savefig(path_svg, bbox_inches="tight", pad_inches=0.06)
     plt.close(fig)
 
 
 # ----------------------------------------------------------------------------- figure 2
-def figure2(path_png, path_svg):
+def figure2(path_svg):
     R2, y2 = 4.0, 2.0
     xP = R2 - np.sqrt(R2 ** 2 - y2 ** 2)
     P  = np.array([xP, y2])
@@ -256,13 +255,12 @@ def figure2(path_png, path_svg):
             r"$n\,i \;=\; n' i'$",
             fontsize=12.5, color=INK, ha="left", va="top", linespacing=1.6)
 
-    fig.savefig(path_png, dpi=200, bbox_inches="tight", pad_inches=0.06)
     fig.savefig(path_svg, bbox_inches="tight", pad_inches=0.06)
     plt.close(fig)
 
 
 if __name__ == "__main__":
-    figure1("images/optical_power_conjugates.png", "images/optical_power_conjugates.svg")
-    figure2("images/optical_power_angles.png", "images/optical_power_angles.svg")
-    print("wrote images/optical_power_conjugates.{png,svg}")
-    print("wrote images/optical_power_angles.{png,svg}")
+    figure1("images/optical_power_conjugates.svg")
+    figure2("images/optical_power_angles.svg")
+    print("wrote images/optical_power_conjugates.svg")
+    print("wrote images/optical_power_angles.svg")

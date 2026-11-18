@@ -1,0 +1,325 @@
+/* 待看评论 · 从 GitHub Issues 里取出 margin 批注，做成可勾掉的队列 */
+
+.inbox-page {
+  background: var(--paper);
+}
+
+.inbox-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 58px 64px 80px;
+}
+
+.inbox-head {
+  max-width: 780px;
+}
+
+.inbox-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.inbox-mark {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  flex: none;
+}
+
+.inbox-head h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(42px, 6vw, 78px);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+
+.inbox-deck {
+  max-width: 38em;
+  margin: 22px 0 0;
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+.inbox-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 14px 24px;
+  margin-top: 30px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.inbox-count {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+
+.inbox-refresh,
+.inbox-github {
+  appearance: none;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inbox-refresh:hover,
+.inbox-github:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.inbox-refresh[disabled] {
+  color: var(--rule-strong);
+  cursor: progress;
+}
+
+.inbox-list {
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.inbox-row {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 22px;
+  gap: 0 18px;
+  align-items: start;
+  padding: 18px 0 20px;
+  border-bottom: 1px solid var(--rule);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.inbox-row.is-gone {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.inbox-check {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 3px;
+  cursor: pointer;
+}
+
+.inbox-check input {
+  appearance: none;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border: 1px solid var(--rule-strong);
+  background: transparent;
+  cursor: pointer;
+}
+
+.inbox-check input:checked {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.inbox-check input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid var(--paper);
+  border-width: 0 1px 1px 0;
+  transform: rotate(45deg);
+}
+
+.inbox-check input:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.inbox-link {
+  display: block;
+  min-width: 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.inbox-link:hover .inbox-quote,
+.inbox-link:hover .inbox-comment {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule-strong);
+}
+
+.inbox-page-name {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.inbox-quote {
+  display: block;
+  margin-top: 9px;
+  padding-left: 10px;
+  border-left: 2px solid var(--accent);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.inbox-comment {
+  display: block;
+  margin-top: 9px;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.inbox-meta {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.inbox-arrow {
+  padding-top: 1px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+  color: var(--muted);
+  transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.inbox-link:hover + .inbox-arrow {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+
+.inbox-empty,
+.inbox-error {
+  margin: 54px 0 0;
+  padding: 30px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+.inbox-error {
+  color: var(--accent);
+}
+
+.inbox-error a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+  text-decoration: none;
+}
+
+.inbox-note {
+  margin: 22px 0 0;
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.inbox-page .page-foot {
+  margin-top: 64px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.inbox-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 20;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  max-width: calc(100vw - 32px);
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 11px;
+  line-height: 1.5;
+  transform: translateX(-50%);
+  box-shadow: 0 12px 32px rgba(13, 13, 12, 0.18);
+}
+
+.inbox-toast button {
+  appearance: none;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid rgba(247, 247, 245, 0.5);
+  background: none;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.inbox-toast button:hover {
+  border-bottom-color: var(--paper);
+}
+
+@media (max-width: 860px) {
+  .inbox-shell { padding: 38px 24px 56px; }
+  .inbox-head h1 { font-size: clamp(38px, 11vw, 58px); }
+  .inbox-deck { font-size: 14.5px; }
+  .inbox-list { margin-top: 38px; }
+  .inbox-row {
+    grid-template-columns: 22px minmax(0, 1fr) 18px;
+    gap: 0 14px;
+    padding: 16px 0 18px;
+  }
+  .inbox-quote { font-size: 13px; }
+  .inbox-comment { font-size: 12.5px; }
+}

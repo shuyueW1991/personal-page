@@ -10,7 +10,7 @@
 ```
 build.py                       白名单装配 _site/，CI 也用同一个脚本
 tools/stats_snapshot.py        CI 里把 GoatCounter 汇总成 _site/stats.json
-prototypes/v2/b-desk/          上线页面：封面首页 + contact + 分类页 + 内容页 + 注记 + stats
+prototypes/v2/b-desk/          上线页面：封面首页 + contact + 分类页 + 内容页 + 注记 + inbox + stats
 prototypes/v2/b-desk/assets/   图版与 KaTeX；count.js 是 GoatCounter 官方脚本（ISC）
 prototypes/v1、v3              旧方案，存档对照，不部署
 vitrine/                       写作素材；instrumentality-posts/ 是注记原稿；小说与书稿已 gitignore
@@ -29,20 +29,26 @@ cd _site && python3 -m http.server 8123
 
 ## 注记与评论
 
-`instrumentality.html` 分成 note / book / papers 三栏：两篇注记、一本书、论文与专利索引。两个 note 的页面：
+`instrumentality.html` 分成 note / book / papers 三栏：三篇注记、一本书、论文与专利索引。三个 note 的页面：
 
-- [`clean-dwg.html`](https://shuyuew1991.github.io/personal-page/clean-dwg.html) —— 让 DXF 成为可被脚本干净解析的电气连接图（2026.11.12）
+- [`front-focal-magnification.html`](https://shuyuew1991.github.io/personal-page/front-focal-magnification.html) —— 前焦点处的横向放大率（2026.11.18）
 - [`optical-power.html`](https://shuyuew1991.github.io/personal-page/optical-power.html) —— Optical Power and Focal Length（2026.11.17）
+- [`clean-dwg.html`](https://shuyuew1991.github.io/personal-page/clean-dwg.html) —— 让 DXF 成为可被脚本干净解析的电气连接图（2026.11.12）
 
-原稿在 `vitrine/instrumentality-posts/`，页面上的 HTML 就是成品。第二篇的公式在生成时用 [KaTeX](https://katex.org/) 预先排成 HTML + MathML，页面本身不加载公式脚本；`prototypes/v2/b-desk/assets/katex/` 只留 CSS 和 woff2 字体（MIT，见同目录 `LICENSE`），不依赖 CDN。改公式要重新用 KaTeX 排版，改普通文字直接改 HTML 即可。
+原稿在 `vitrine/instrumentality-posts/`，页面上的 HTML 就是成品。两篇物理注记的公式在生成时用 [KaTeX](https://katex.org/) 预先排成 HTML + MathML，页面本身不加载公式脚本；`prototypes/v2/b-desk/assets/katex/` 只留 CSS 和 woff2 字体（MIT，见同目录 `LICENSE`），不依赖 CDN。改公式要重新用 KaTeX 排版，改普通文字直接改 HTML 即可。
 
-每个作品页（小说、文章、书、论文、两篇注记）和页边（`notes.html`）底部都有 comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框——页面加载时不向 GitHub 发任何请求。评论存在仓库的 GitHub Issues 里，一页一个 issue，按 pathname 关联。
+注记页是三栏：正文占页宽 2/3；左栏是固定图板（正文图版或草图 canvas，图可点开看原尺寸），右栏是贴着段落的页边批注。选中正文段落或点段落旁的 `+`，批注编辑器出现在对应行的页边；图板与草图存在本机，草图可导出 SVG。
+
+每个作品页（小说、文章、书、论文、三篇注记）和页边（`notes.html`）底部都有 page comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框；页边批注也只在点 `margin notes`、选中正文或从 inbox 进入时才向 GitHub 请求。普通打开文章时不向 GitHub 发任何请求。page comments 一页一个 issue，按 pathname 关联；页边批注则一段一个 issue，标题是 `[margin] <page>#<anchor>`，正文开头带一段 base64 元数据（页码、锚点、引文）。锚点由段落文本的哈希生成；大段改写会让旧批注找不到原来的段落。
 
 第一次发言前要在仓库上装一次 [utterances App](https://github.com/apps/utterances)，并确认仓库 **Settings → General → Features → Issues** 已开启。没装 app 时评论框能出现，但提交会失败，页面其他部分不受影响。
 
 - 配置（repo、label、theme）在 `prototypes/v2/b-desk/comments.js` 顶部
 - 样式在 `comments.css`，评论区骨架直接写在各页面里（`data-comments`）
+- 页边批注的交互在 `post.js`，样式在 `post.css`；issue 的创建链接会打开 GitHub 的新 issue 页面，提交后回到文章即刷新
 - 不登录也能读；发言要 GitHub 账号。issue 是公开的，别在评论里留隐私
+- 首页页脚的 `comments` 入口进 `inbox.html`：只列未看过的页边批注，点一行跳到对应段落，勾掉即从本机队列移除；同一 issue 之后有新回复会重新出现
+- `inbox.html` 是 `noindex`，不进 sitemap；队列状态只存在浏览器 `localStorage`
 
 ## 访客统计
 
@@ -78,7 +84,7 @@ cd _site && python3 -m http.server 8123
 
 ## 搜索收录
 
-`robots.txt` 与 `sitemap.xml` 由 `build.py` 按 `PAGES` 现算，加页面不用手工维护；地址统一取自 `build.py` 顶部的 `SITE_URL`。`stats.html` 在 `NOINDEX` 里，不写进 sitemap。
+`robots.txt` 与 `sitemap.xml` 由 `build.py` 按 `PAGES` 现算，加页面不用手工维护；地址统一取自 `build.py` 顶部的 `SITE_URL`。`stats.html` 和 `inbox.html` 在 `NOINDEX` 里，不写进 sitemap。
 
 `prototypes/v2/b-desk/googlefa66aa447ffb8c98.html` 是 Google Search Console 的所有权验证文件，文件名和内容都别改，也别从白名单里删掉。
 

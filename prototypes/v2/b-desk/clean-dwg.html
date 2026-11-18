@@ -17,22 +17,45 @@
   <link rel="stylesheet" href="stats.css">
 </head>
 <body class="post-page">
-  <a class="skip" href="#main">跳到正文</a>
+  <a class="skip" href="#main">Skip to text</a>
 
   <div class="article-shell">
     <header class="article-top">
       <a class="back" href="instrumentality.html">← instrumentality</a>
-      <a class="section-link" href="#comments">comments ↓</a>
+      <div class="article-top-actions">
+        <button class="top-action" type="button" data-margin-load aria-live="polite">margin notes</button>
+        <button class="top-action board-toggle" type="button" data-board-toggle aria-expanded="false" aria-controls="reader-board">board</button>
+        <a class="section-link top-action" href="#comments">page comments ↓</a>
+      </div>
     </header>
 
     <main id="main" class="article-grid">
-      <aside class="meta-rail">
-        <div class="meta-sticky">
-          <dl class="meta-list">
-            <div><dt>类别</dt><dd>技术</dd></div>
-            <div><dt>日期</dt><dd>2026.11.12</dd></div>
-            <div><dt>篇幅</dt><dd>约 2,400 字</dd></div>
-          </dl>
+      <aside class="board-rail" id="reader-board" aria-label="Reader’s board">
+        <div class="board" data-board>
+          <div class="board-head">
+            <span class="board-kicker">reader’s board</span>
+            <button class="board-close" type="button" data-board-close aria-label="Close reader’s board">×</button>
+          </div>
+          <div class="board-tabs" role="tablist" aria-label="Reader’s board contents" data-board-tabs>
+            <button class="board-tab" type="button" role="tab" aria-selected="true" data-board-tab="doodle">doodle</button>
+          </div>
+          <div class="board-panel" id="board-figure-panel" role="tabpanel" data-board-panel="figure" hidden></div>
+          <div class="board-panel" id="board-doodle-panel" role="tabpanel" data-board-panel="doodle">
+            <canvas class="doodle-canvas" data-doodle-canvas aria-label="Sketch pad"></canvas>
+            <div class="doodle-tools">
+              <div class="doodle-colors" role="group" aria-label="Ink colour">
+                <button class="doodle-color" type="button" data-doodle-color="#181715" style="--swatch:#181715" aria-label="Black ink" aria-pressed="true"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#b23a24" style="--swatch:#b23a24" aria-label="Vermilion ink" aria-pressed="false"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#3e5870" style="--swatch:#3e5870" aria-label="Blue ink" aria-pressed="false"></button>
+              </div>
+              <div class="doodle-actions">
+                <button type="button" data-doodle-undo>undo</button>
+                <button type="button" data-doodle-save>svg</button>
+                <button type="button" data-doodle-clear>clear</button>
+              </div>
+            </div>
+          </div>
+          <p class="board-note">Pin a figure, or sketch a comparison.</p>
         </div>
       </aside>
 
@@ -247,47 +270,51 @@
 
         <div class="article-end">
           <span class="square"></span>
-          <span>完</span>
+          <span>END</span>
         </div>
 
         <div class="article-foot">
-          <div class="foot-rule">
-            <span>2026.11.12</span>
-            <span>约 2,400 字</span>
-          </div>
-          <nav class="nextprev" aria-label="上下篇">
+          <nav class="nextprev" aria-label="Previous and next">
             <div>
-              <div class="label">上一篇</div>
+              <div class="label">Previous</div>
               <span>—</span>
             </div>
             <div class="next">
-              <div class="label">下一篇</div>
+              <div class="label">Next</div>
               <a href="optical-power.html">Optical Power and Focal Length</a>
             </div>
           </nav>
         </div>
 
-        <section class="comments" id="comments" aria-labelledby="comments-title">
+        <section class="comments" id="comments" aria-labelledby="comments-title" lang="en">
           <div class="comments-head">
-            <h2 class="comments-title" id="comments-title">comments</h2>
-            <p class="comments-meta">GitHub Issues · 需登录</p>
+            <h2 class="comments-title" id="comments-title">page comments</h2>
+            <p class="comments-meta">via GitHub · sign in to reply</p>
           </div>
           <div class="comments-body" data-comments>
-            <button class="comments-load" type="button" data-comments-load>加载评论</button>
-            <p class="comments-note">评论由 <a href="https://utteranc.es" rel="noopener">utterances</a> 承载（点开才连接 GitHub），也可以直接到 <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">Issues</a> 留言。</p>
-            <noscript><p class="comments-note">需要 JavaScript 才能加载评论；请直接到 <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a> 留言。</p></noscript>
+            <button class="comments-load" type="button" data-comments-load>Load comments</button>
+            <p class="comments-note">Comments are powered by <a href="https://utteranc.es" rel="noopener">utterances</a> and load only when you open them. You can also write in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">Issues</a>.</p>
+            <noscript><p class="comments-note">JavaScript is needed to load comments; please write in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a> instead.</p></noscript>
           </div>
         </section>
       </article>
+
+      <aside class="margin-rail" aria-label="Margin comments">
+        <p class="margin-label" aria-hidden="true"><span>margin notes</span><span>select a passage or use +</span></p>
+        <div class="margin-stage" data-margin-stage></div>
+        <noscript><p class="margin-status">Margin notes need JavaScript; they are stored in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a>.</p></noscript>
+      </aside>
+
     </main>
 
     <footer class="site-foot">
       <span>© 2026 王舒悦</span>
-      <a class="stat-line" href="stats.html" data-stats hidden><span>本页 <span class="num" data-stats-page>—</span> 次</span><span class="stat-sep" aria-hidden="true">·</span><span>全站 <span class="num" data-stats-total>—</span> 次</span></a>
+      <a class="stat-line" href="stats.html" data-stats hidden><span>this page <span class="num" data-stats-page>—</span></span><span class="stat-sep" aria-hidden="true">·</span><span>site <span class="num" data-stats-total>—</span></span></a>
       <div class="links"><a href="instrumentality.html">← instrumentality</a><a href="contact.html" lang="en">contact</a></div>
     </footer>
   </div>
   <script src="stats.js" defer></script>
+  <script src="post.js" defer></script>
   <script src="comments.js" defer></script>
 </body>
 </html>

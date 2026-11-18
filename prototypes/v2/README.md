@@ -25,7 +25,7 @@
 - **联系**：两个邮箱、LinkedIn 与 GitHub；邮箱可一键复制。
 - **小说**：第七稿全文（331 个正文段落、5 个部分、15 个小节）；纸面标题页 + 正文 + `M·贺六浑 · 未刊稿` 固定水印 + 红色「未刊稿 / 请勿转载」小章。没有简介、版本表、读者批注。
 - **论文**：英文书目，按发表年份倒序；每条保留类型（journal / conference / preprint）、DOI、被引与 Google Scholar 检索链接。论文 30 篇、专利 8 项，专利含公开号、发明人、申请/公开日与 Google Patents 链接；源表见 `vitrine/wang-shuyue-fudan-patents.md`。
-- **instrumentality**：两个条目——书与论文；书的 URL 是 `exegesis.html`，不再使用 booklet。
+- **instrumentality**：note / book / papers 三栏；三篇注记、一本书、论文与专利索引；书的 URL 是 `exegesis.html`，不再使用 booklet。
 - **book**：`A Preliminary Mathematical Exegesis of Diffusion Models`；四幅图版、序言、五章目录，正文只保留英文。
 - **Initiatives**：三张卡片（videomp3word.com / autoslide.cc / rurussian.com），每张带类型、简介和状态。
 - **文章**：保留四篇样张，去掉 deck；政论先空着。
@@ -37,7 +37,7 @@
 - 内页：纸底 `#f7f7f5`；正文用宋体，元数据用等宽。
 - 小说单独做成一本书的样子：标题页、页码栏、正文、水印；不是首页的主角。
 - 论文页用英文书目排版：作者行、题名、斜体刊名、卷期页码、DOI、被引与 Scholar 链接；专利单独列在页尾。
-- instrumentality 只保留两个入口；Initiatives 用纸底卡片网格。
+- instrumentality 只保留 note / book / papers 三栏；Initiatives 用纸底卡片网格。
 - 没有页面概述：文章页没有 deck，页边没有引子，instrumentality 没有导语，小说没有内容简介。
 
 ## 文件与重建
