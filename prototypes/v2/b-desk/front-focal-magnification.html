@@ -13,7 +13,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/katex/katex.min.css">
-  <link rel="stylesheet" href="post.css">
+  <link rel="stylesheet" href="post.css?v=4">
   <link rel="stylesheet" href="comments.css">
   <link rel="stylesheet" href="stats.css">
 </head>
@@ -24,42 +24,13 @@
     <header class="article-top">
       <a class="back" href="instrumentality.html">← instrumentality</a>
       <div class="article-top-actions">
-        <button class="top-action" type="button" data-margin-load aria-live="polite">margin notes</button>
-        <button class="top-action board-toggle" type="button" data-board-toggle aria-expanded="false" aria-controls="reader-board">board</button>
+        <button class="top-action" type="button" data-desk-open="notes" aria-expanded="false" aria-controls="reader-desk">margin notes</button>
+        <button class="top-action desk-toggle" type="button" data-desk-open="plate" aria-expanded="false" aria-controls="reader-desk">desk</button>
         <a class="section-link top-action" href="#comments">page comments ↓</a>
       </div>
     </header>
 
     <main id="main" class="article-grid">
-      <aside class="board-rail" id="reader-board" aria-label="Reader’s board">
-        <div class="board" data-board>
-          <div class="board-head">
-            <span class="board-kicker">reader’s board</span>
-            <button class="board-close" type="button" data-board-close aria-label="Close reader’s board">×</button>
-          </div>
-          <div class="board-tabs" role="tablist" aria-label="Reader’s board contents" data-board-tabs>
-            <button class="board-tab" type="button" role="tab" aria-selected="true" data-board-tab="doodle">doodle</button>
-          </div>
-          <div class="board-panel" id="board-figure-panel" role="tabpanel" data-board-panel="figure" hidden></div>
-          <div class="board-panel" id="board-doodle-panel" role="tabpanel" data-board-panel="doodle">
-            <canvas class="doodle-canvas" data-doodle-canvas aria-label="Sketch pad"></canvas>
-            <div class="doodle-tools">
-              <div class="doodle-colors" role="group" aria-label="Ink colour">
-                <button class="doodle-color" type="button" data-doodle-color="#181715" style="--swatch:#181715" aria-label="Black ink" aria-pressed="true"></button>
-                <button class="doodle-color" type="button" data-doodle-color="#b23a24" style="--swatch:#b23a24" aria-label="Vermilion ink" aria-pressed="false"></button>
-                <button class="doodle-color" type="button" data-doodle-color="#3e5870" style="--swatch:#3e5870" aria-label="Blue ink" aria-pressed="false"></button>
-              </div>
-              <div class="doodle-actions">
-                <button type="button" data-doodle-undo>undo</button>
-                <button type="button" data-doodle-save>svg</button>
-                <button type="button" data-doodle-clear>clear</button>
-              </div>
-            </div>
-          </div>
-          <p class="board-note">Pin a figure, or sketch a comparison.</p>
-        </div>
-      </aside>
-
       <article class="article-main cat-tech" lang="zh-Hans">
         <header class="article-head">
           <h1 lang="zh-Hans">前焦点处的横向放大率：为什么 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><msup><mi>h</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi mathvariant="normal">/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">m=h&#x27;/h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord">/</span><span class="mord mathnormal">h</span></span></span></span> 发散为正无穷大</h1>
@@ -222,10 +193,46 @@
         </section>
       </article>
 
-      <aside class="margin-rail" aria-label="Margin comments">
-        <p class="margin-label" aria-hidden="true"><span>margin notes</span><span>select a passage or use +</span></p>
-        <div class="margin-stage" data-margin-stage></div>
-        <noscript><p class="margin-status">Margin notes need JavaScript; they are stored in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a>.</p></noscript>
+      <div class="annotation-gutter" data-annotation-gutter></div>
+
+      <aside class="reader-desk" id="reader-desk" aria-label="Reading desk" data-board>
+        <section class="desk-plate" aria-label="Plate">
+          <header class="desk-head">
+            <span class="desk-kicker">reading desk</span>
+            <button class="desk-close" type="button" data-desk-close aria-label="Close reading desk">×</button>
+          </header>
+          <div class="desk-tabs" role="tablist" aria-label="Plate contents" data-board-tabs>
+            <button class="board-tab" type="button" role="tab" aria-selected="true" aria-controls="board-doodle-panel" data-board-tab="doodle">doodle</button>
+          </div>
+          <div class="desk-stage" id="board-figure-panel" role="tabpanel" data-board-panel="figure" hidden></div>
+          <div class="desk-stage" id="board-doodle-panel" role="tabpanel" data-board-panel="doodle">
+            <canvas class="doodle-canvas" data-doodle-canvas aria-label="Sketch pad"></canvas>
+            <div class="doodle-tools">
+              <div class="doodle-colors" role="group" aria-label="Ink colour">
+                <button class="doodle-color" type="button" data-doodle-color="#181715" style="--swatch:#181715" aria-label="Black ink" aria-pressed="true"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#b23a24" style="--swatch:#b23a24" aria-label="Vermilion ink" aria-pressed="false"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#3e5870" style="--swatch:#3e5870" aria-label="Blue ink" aria-pressed="false"></button>
+              </div>
+              <div class="doodle-actions">
+                <button type="button" data-doodle-undo>undo</button>
+                <button type="button" data-doodle-save>svg</button>
+                <button type="button" data-doodle-clear>clear</button>
+              </div>
+            </div>
+          </div>
+          <p class="desk-hint">Pin a figure, click it to enlarge, or sketch.</p>
+        </section>
+
+        <section class="desk-margin" aria-labelledby="desk-margin-title">
+          <header class="desk-margin-head">
+            <span class="desk-kicker" id="desk-margin-title">margin notes</span>
+            <span class="desk-count" data-margin-count>—</span>
+            <button class="desk-load" type="button" data-margin-load>load</button>
+          </header>
+          <div class="desk-margin-body" data-desk-notes aria-live="polite">
+            <p class="desk-empty">Select a passage, or click a tick in the margin.</p>
+          </div>
+        </section>
       </aside>
 
     </main>
@@ -237,7 +244,7 @@
     </footer>
   </div>
   <script src="stats.js" defer></script>
-  <script src="post.js" defer></script>
+  <script src="post.js?v=4" defer></script>
   <script src="comments.js" defer></script>
 </body>
 </html>

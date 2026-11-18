@@ -1,10 +1,12 @@
-/* 注记页 · 3 栏阅读
+/* 注记页 · 阅读桌
  *
- * 左：读者图板（正文图版 / 草图）。右：贴着段落的页边批注。
- * 批注存进 GitHub Issues，标题格式 [margin] <page>#<anchor>，
+ * 正文占 2/3，右侧是一张随滚动固定的阅读桌：
+ * 上半是图版/草图，下半是页边批注。
+ * 正文右侧的 34px 刻度栏把段落和批注对应起来；
+ * 选中文字、点刻度，或从 inbox 进来，都会在阅读桌里打开对应批注。
+ *
+ * 批注存进 GitHub Issues，标题 [margin] <page>#<anchor>，
  * 正文开头带一段 base64 元数据（页码、锚点、引文）。
- * 这样静态页面不用后端，也能让任何人用 GitHub 账号留言，
- * 并让 /inbox.html 把新留言列成待看项。
  */
 (() => {
   "use strict";
@@ -21,34 +23,36 @@
 
   const body = document.querySelector(".article-main .body");
   const article = document.querySelector(".article-main");
-  const stage = document.querySelector("[data-margin-stage]");
-  const loadButtons = Array.from(document.querySelectorAll("[data-margin-load]"));
-  const boardToggleButtons = Array.from(document.querySelectorAll("[data-board-toggle]"));
-  const boardCloseButtons = Array.from(document.querySelectorAll("[data-board-close]"));
+  const gutter = document.querySelector("[data-annotation-gutter]");
+  const desk = document.querySelector(".reader-desk");
+  const plate = document.querySelector(".desk-plate");
+  const deskMargin = document.querySelector(".desk-margin");
+  const notesBody = document.querySelector("[data-desk-notes]");
+  const deskCount = document.querySelector("[data-margin-count]");
+  const deskLoad = document.querySelector("[data-margin-load]");
+  const deskOpenButtons = Array.from(document.querySelectorAll("[data-desk-open]"));
+  const deskCloseButton = document.querySelector("[data-desk-close]");
 
-  if (!body || !article || !stage) return;
+  if (!body || !article || !gutter || !desk || !notesBody) return;
 
   const state = {
     blocks: [],
     byAnchor: new Map(),
-    pins: new Map(),
-    cards: new Map(),
+    ticks: new Map(),
     issues: [],
     loaded: false,
     loading: false,
     failed: false,
     fetchPromise: null,
+    selectedAnchor: null,
     targetAnchor: null,
     targetIssue: null,
-    targetTimer: 0,
     composer: null,
-    composerHiddenCard: null,
-    mobile: matchMedia("(max-width: 760px)").matches,
+    mobile: matchMedia("(max-width: 900px)").matches,
     board: null,
   };
 
-  const mobileQuery = matchMedia("(max-width: 760px)");
-  const overlayQuery = matchMedia("(max-width: 1240px)");
+  const mobileQuery = matchMedia("(max-width: 900px)");
 
   /* ---------- 小工具 ---------- */
 
@@ -124,8 +128,6 @@
     return fragment;
   }
 
-  /* ---------- 收集可批注的块 ---------- */
-
   function cleanText(element) {
     const clone = element.cloneNode(true);
     clone.querySelectorAll(".katex-mathml, .sr-only, script, style").forEach((item) => item.remove());
@@ -141,8 +143,11 @@
     return cleanText(element);
   }
 
+  /* ---------- 正文块 + 刻度 ---------- */
+
   function collectBlocks() {
     const used = new Set();
+    let order = 0;
 
     Array.from(body.children).forEach((element) => {
       if (!(element instanceof HTMLElement)) return;
@@ -151,6 +156,7 @@
       const text = blockText(element).replace(/\s+/g, " ").trim();
       if (!text) return;
 
+      order += 1;
       const tag = element.matches(".table-wrap") ? "tbl" : element.tagName.toLowerCase();
       const base = `${tag}-${hashText(text.slice(0, 900))}`;
       let anchor = base;
@@ -164,39 +170,63 @@
       element.dataset.marginId = anchor;
       if (!element.id) element.id = `m-${anchor}`;
 
-      const block = { node: element, anchor, text, top: 0 };
+      const block = { node: element, anchor, text, order, top: 0 };
       state.blocks.push(block);
       state.byAnchor.set(anchor, block);
 
-      const pin = node("button", "margin-pin");
-      pin.type = "button";
-      pin.dataset.anchor = anchor;
-      pin.title = "Add a margin note";
-      pin.setAttribute("aria-label", `Add a margin note on “${shorten(text, 70)}”`);
-      const line = node("span", "margin-pin-line");
-      const plus = node("span", "margin-pin-plus", "+");
-      plus.setAttribute("aria-hidden", "true");
-      pin.append(line, plus);
-      pin.addEventListener("click", () => {
-        ensureCommentsLoaded();
-        const existing = state.issues.some((issue) => issue.anchor === anchor);
-        if (existing) {
-          focusMargin(anchor);
-        } else {
-          openComposer(anchor, text, false);
-        }
-      });
-      element.addEventListener("mouseenter", () => pin.classList.add("is-active"));
-      element.addEventListener("mouseleave", () => pin.classList.remove("is-active"));
-      pin.addEventListener("mouseenter", () => pin.classList.add("is-active"));
-      pin.addEventListener("mouseleave", () => pin.classList.remove("is-active"));
+      const tick = node("button", "margin-tick");
+      tick.type = "button";
+      tick.dataset.anchor = anchor;
+      tick.title = "Margin notes";
+      const line = node("span", "margin-tick-line");
+      const mark = node("span", "margin-tick-mark", "+");
+      tick.append(line, mark);
+      tick.addEventListener("click", () => onTickClick(block));
+      tick.setAttribute("aria-label", `Add a margin note on “${shorten(text, 60)}”`);
 
-      state.pins.set(anchor, pin);
-      stage.append(pin);
+      element.addEventListener("mouseenter", () => tick.classList.add("is-active"));
+      element.addEventListener("mouseleave", () => tick.classList.remove("is-active"));
+
+      state.ticks.set(anchor, tick);
+      gutter.append(tick);
+    });
+
+  }
+
+  function layoutTicks() {
+    if (state.mobile || !gutter.offsetParent) return;
+    const gutterTop = gutter.getBoundingClientRect().top;
+    state.blocks.forEach((block) => {
+      const tick = state.ticks.get(block.anchor);
+      if (!tick) return;
+      const top = block.node.getBoundingClientRect().top - gutterTop;
+      tick.style.top = `${Math.max(0, top - 10)}px`;
     });
   }
 
-  /* ---------- GitHub Issues 读取 ---------- */
+  function updateTicks() {
+    const counts = new Map();
+    state.issues.forEach((issue) => {
+      counts.set(issue.anchor, (counts.get(issue.anchor) || 0) + 1);
+    });
+
+    state.blocks.forEach((block) => {
+      const tick = state.ticks.get(block.anchor);
+      if (!tick) return;
+      const count = counts.get(block.anchor) || 0;
+      tick.classList.toggle("has-notes", count > 0);
+      const mark = tick.querySelector(".margin-tick-mark");
+      if (mark) mark.textContent = count > 0 ? String(count) : "+";
+      tick.setAttribute(
+        "aria-label",
+        count > 0
+          ? `${count} margin note${count === 1 ? "" : "s"} on “${shorten(block.text, 60)}”`
+          : `Add a margin note on “${shorten(block.text, 60)}”`
+      );
+    });
+  }
+
+  /* ---------- GitHub Issues ---------- */
 
   function cacheKey() {
     return `margin-cache:${CONFIG.page}`;
@@ -261,41 +291,26 @@
     };
   }
 
-  function updateLoadButtons() {
-    const label = state.failed
-      ? "margin notes · retry"
-      : state.loading
-        ? "margin notes · loading"
-        : state.loaded
-          ? `margin notes · ${state.issues.length}`
-          : "margin notes";
-
-    loadButtons.forEach((button) => {
-      button.textContent = label;
-      button.classList.toggle("is-error", state.failed);
-      button.title = state.loaded
-        ? `${state.issues.length} margin note${state.issues.length === 1 ? "" : "s"} on this page`
-        : "Load margin notes from GitHub Issues (only when you ask)";
-    });
-  }
-
-  function showMarginStatus(message) {
-    document.querySelectorAll(".margin-status").forEach((item) => item.remove());
-    const status = node("p", "margin-status");
-    status.append(document.createTextNode(message));
-    const link = node("a", "", "GitHub Issues");
-    link.href = `https://github.com/${CONFIG.repo}/issues`;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    status.append(document.createTextNode(" "), link);
-    if (state.mobile) {
-      const first = state.blocks[0] && state.blocks[0].node;
-      if (first) first.after(status);
-      else stage.append(status);
-    } else {
-      stage.append(status);
+  function updateDeskHeader() {
+    if (deskCount) {
+      deskCount.textContent = state.loading && !state.loaded
+        ? "loading"
+        : state.failed && !state.loaded
+          ? "offline"
+          : state.loaded
+            ? `${state.issues.length} note${state.issues.length === 1 ? "" : "s"}`
+            : "—";
     }
-    layoutMargins();
+    if (deskLoad) {
+      deskLoad.disabled = state.loading;
+      deskLoad.textContent = state.loading
+        ? "loading…"
+        : state.loaded
+          ? "refresh"
+          : state.failed
+            ? "retry"
+            : "load";
+    }
   }
 
   async function loadComments(force = false) {
@@ -311,7 +326,8 @@
 
     state.loading = true;
     state.failed = false;
-    updateLoadButtons();
+    updateDeskHeader();
+    renderDesk();
 
     state.fetchPromise = (async () => {
       try {
@@ -338,14 +354,15 @@
           state.failed = true;
         } else {
           state.issues = [];
-          renderCards();
-          showMarginStatus("Margin notes could not be loaded.");
+          updateTicks();
+          renderDesk();
         }
       } finally {
         state.loading = false;
         state.fetchPromise = null;
-        updateLoadButtons();
-        layoutMargins();
+        updateDeskHeader();
+        updateTicks();
+        renderDesk();
         applyTarget();
       }
     })();
@@ -354,15 +371,14 @@
   }
 
   function applyIssues(issues) {
-    document.querySelectorAll(".margin-status").forEach((item) => item.remove());
     state.issues = issues
       .filter((issue) => issue && issue.anchor && state.byAnchor.has(issue.anchor))
       .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     state.loaded = true;
     state.failed = false;
-    renderCards();
-    updateLoadButtons();
-    layoutMargins();
+    updateTicks();
+    updateDeskHeader();
+    renderDesk();
     applyTarget();
   }
 
@@ -371,192 +387,201 @@
     return loadComments(false);
   }
 
-  /* ---------- 页边卡片 ---------- */
+  /* ---------- 阅读桌：索引 / 线程 / 编辑器 ---------- */
 
-  function buildIssueElement(issue) {
-    const item = node("div", "margin-comment");
-    item.dataset.issue = String(issue.number);
-
-    if (issue.text) {
-      const text = node("p", "margin-comment-text");
-      text.append(linkify(issue.text));
-      item.append(text);
-    } else {
-      const text = node("p", "margin-comment-text", "This note lives on GitHub.");
-      item.append(text);
-    }
-
-    const meta = node("p", "margin-comment-meta");
-    meta.append(document.createTextNode(`@${issue.user} · ${formatDate(issue.createdAt)}`));
-    if (issue.replies > 0) {
-      meta.append(document.createTextNode(` · ${issue.replies} repl${issue.replies === 1 ? "y" : "ies"}`));
-    }
-    const link = node("a", "", " GitHub ↗");
-    link.href = issue.htmlUrl;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    meta.append(link);
-    item.append(meta);
-    return item;
-  }
-
-  function buildCard(group) {
-    const issue = group[0];
-    const block = state.byAnchor.get(issue.anchor);
-    const card = document.createElement("article");
-    card.className = "margin-card";
-    card.dataset.anchor = issue.anchor;
-    card.dataset.issues = group.map((item) => item.number).join(" ");
-    card.setAttribute("aria-label", "Margin notes");
-    card.tabIndex = -1;
-
-    const head = node("header", "margin-card-head");
-    const label = node("span", "margin-card-label", "margin note");
-    label.setAttribute("aria-hidden", "true");
-    head.append(label);
-    card.append(head);
-
-    const quoteText = issue.quote || (block ? block.text : "");
-    if (quoteText) {
-      const quote = node("blockquote", "margin-quote");
-      quote.textContent = `“${shorten(quoteText, 240)}”`;
-      card.append(quote);
-    }
-
-    const comments = node("div", "margin-comments");
-    group.forEach((item) => comments.append(buildIssueElement(item)));
-    card.append(comments);
-
-    const reply = node("button", "margin-reply", "add a note");
-    reply.type = "button";
-    reply.addEventListener("click", () => {
-      openComposer(issue.anchor, quoteText, true);
+  function clearHighlights() {
+    document.querySelectorAll(".is-target, .is-target-comment").forEach((element) => {
+      element.classList.remove("is-target", "is-target-comment");
     });
-    card.append(reply);
-    return card;
+    state.ticks.forEach((tick) => tick.classList.remove("is-active"));
   }
 
-  function renderCards() {
-    state.cards.forEach((card) => card.remove());
-    state.cards.clear();
+  function emptyState(message, withLink = false) {
+    const paragraph = node("p", "desk-empty");
+    paragraph.append(document.createTextNode(message));
+    if (withLink) {
+      const link = node("a", "", "GitHub Issues");
+      link.href = `https://github.com/${CONFIG.repo}/issues`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      paragraph.append(document.createTextNode(" "), link);
+    }
+    notesBody.replaceChildren(paragraph);
+    notesBody.scrollTop = 0;
+  }
 
+  function renderDesk() {
+    if (state.composer) {
+      if (state.composer.keepOpen && notesBody.querySelector(".desk-form")) return;
+      renderComposer();
+      state.composer.keepOpen = true;
+      return;
+    }
+    if (state.selectedAnchor) {
+      renderThread(state.selectedAnchor);
+      return;
+    }
+    if (state.loading && !state.loaded) {
+      emptyState("Loading margin notes…");
+      return;
+    }
+    if (state.failed && !state.loaded) {
+      emptyState("Margin notes could not be loaded.", true);
+      return;
+    }
+    if (state.loaded && state.issues.length > 0) {
+      renderIndex();
+      return;
+    }
+    if (state.loaded) {
+      emptyState("No margin notes yet. Select a passage, or click a tick in the margin.");
+    } else {
+      emptyState("Margin notes load from GitHub only when you ask. Select a passage, or click a tick in the margin, to write one.");
+    }
+  }
+
+  function renderIndex() {
     const groups = new Map();
     state.issues.forEach((issue) => {
       if (!groups.has(issue.anchor)) groups.set(issue.anchor, []);
       groups.get(issue.anchor).push(issue);
     });
 
-    groups.forEach((group, anchor) => {
-      const block = state.byAnchor.get(anchor);
-      if (!block) return;
-      const card = buildCard(group);
-      state.cards.set(anchor, card);
-      if (state.mobile) {
-        card.classList.add("is-inline");
-        block.node.after(card);
-      } else {
-        stage.append(card);
-      }
-    });
+    const entries = Array.from(groups.entries())
+      .map(([anchor, issues]) => ({ anchor, issues, block: state.byAnchor.get(anchor) }))
+      .filter((entry) => entry.block)
+      .sort((a, b) => a.block.order - b.block.order);
 
-    if (state.composer && !state.mobile) {
-      const existing = state.cards.get(state.composer.anchor);
-      if (existing) {
-        existing.hidden = true;
-        state.composerHiddenCard = existing;
-      }
+    if (!entries.length) {
+      emptyState("No margin notes yet. Select a passage, or click a tick in the margin.");
+      return;
     }
 
-    state.pins.forEach((pin, anchor) => {
-      pin.hidden = state.mobile || state.cards.has(anchor);
-    });
-    layoutMargins();
-  }
-
-  function clearTargetHighlights() {
-    document
-      .querySelectorAll(".is-target, .is-target-comment")
-      .forEach((element) => element.classList.remove("is-target", "is-target-comment"));
-  }
-
-  function applyTarget() {
-    if (!state.targetAnchor) return;
-    const block = state.byAnchor.get(state.targetAnchor);
-    if (!block) return;
-
-    clearTargetHighlights();
-    block.node.classList.add("is-target");
-
-    let card = state.cards.get(state.targetAnchor);
-    if (state.targetIssue) {
-      const found = Array.from(state.cards.values()).find((item) =>
-        (item.dataset.issues || "").split(" ").includes(String(state.targetIssue))
+    const list = node("ul", "desk-index");
+    entries.forEach((entry) => {
+      const item = document.createElement("li");
+      const button = node("button", "desk-index-row");
+      button.type = "button";
+      button.dataset.anchor = entry.anchor;
+      const no = node("span", "desk-index-no", String(entry.block.order).padStart(2, "0"));
+      const quote = node("span", "desk-index-quote");
+      quote.textContent = `“${shorten(entry.issues[0].quote || entry.block.text, 120)}”`;
+      const meta = node(
+        "span",
+        "desk-index-meta",
+        `@${entry.issues[0].user} · ${entry.issues.length} note${entry.issues.length === 1 ? "" : "s"}`
       );
-      if (found) card = found;
-    }
-    if (card) card.classList.add("is-target");
-
-    if (state.targetIssue) {
-      const comment = document.querySelector(
-        `.margin-comment[data-issue="${String(state.targetIssue)}"]`
-      );
-      if (comment) comment.classList.add("is-target-comment");
-    }
-
-    const target = card || block.node;
-    window.setTimeout(() => {
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 60);
-
-    window.clearTimeout(state.targetTimer);
-    state.targetTimer = window.setTimeout(() => {
-      clearTargetHighlights();
-    }, 6000);
+      button.append(no, quote, meta);
+      button.addEventListener("click", () => selectAnchor(entry.anchor, { scroll: true }));
+      item.append(button);
+      list.append(item);
+    });
+    notesBody.replaceChildren(list);
+    notesBody.scrollTop = 0;
   }
 
-  /* ---------- 批注编辑器 ---------- */
-
-  function closeComposer() {
-    if (!state.composer) return;
-    const { card, block } = state.composer;
-    card.remove();
-    if (block) block.classList.remove("is-comment-target");
-    if (state.composerHiddenCard && state.composerHiddenCard.isConnected) {
-      state.composerHiddenCard.hidden = false;
-    }
-    state.composerHiddenCard = null;
-    state.composer = null;
-    layoutMargins();
-  }
-
-  function openComposer(anchor, quoteText, fromExisting) {
+  function renderThread(anchor) {
     const block = state.byAnchor.get(anchor);
     if (!block) return;
-    closeComposer();
+    const issues = state.issues.filter((issue) => issue.anchor === anchor);
 
-    const card = document.createElement("article");
-    card.className = "margin-card is-composer";
-    card.dataset.anchor = anchor;
-    card.setAttribute("aria-label", "Write a margin note");
-    if (state.mobile) card.classList.add("is-inline");
+    const back = node("button", "desk-back", "← all notes");
+    back.type = "button";
+    back.addEventListener("click", () => {
+      state.selectedAnchor = null;
+      state.composer = null;
+      state.targetIssue = null;
+      clearHighlights();
+      renderDesk();
+    });
 
-    const head = node("header", "margin-card-head");
-    const label = node("span", "margin-card-label", fromExisting ? "reply" : "margin note");
-    const close = node("button", "margin-card-close", "×");
-    close.type = "button";
-    close.setAttribute("aria-label", "Close margin note editor");
-    close.addEventListener("click", closeComposer);
-    head.append(label, close);
-    card.append(head);
+    const quote = node("blockquote", "desk-quote");
+    quote.textContent = `“${shorten(issues[0] ? issues[0].quote || block.text : block.text, 220)}”`;
 
-    if (quoteText) {
-      const quote = node("blockquote", "margin-quote");
-      quote.textContent = `“${shorten(quoteText, 240)}”`;
-      card.append(quote);
+    const wrap = node("div");
+    wrap.append(back, quote);
+
+    if (!issues.length) {
+      if (state.loading) {
+        emptyState("Loading margin notes…");
+        return;
+      }
+      const empty = node("p", "desk-empty", "No notes on this passage yet.");
+      wrap.append(empty);
+      if (!state.loading) {
+        const add = node("button", "desk-reply", "add a note");
+        add.type = "button";
+        add.addEventListener("click", () => openComposer(anchor, block.text, false));
+        wrap.append(add);
+      }
+      notesBody.replaceChildren(wrap);
+      notesBody.scrollTop = 0;
+      return;
     }
 
+    const comments = node("div", "desk-comments");
+    issues.forEach((issue) => {
+      const item = node("div", "desk-comment");
+      item.dataset.issue = String(issue.number);
+      if (String(issue.number) === String(state.targetIssue)) item.classList.add("is-target-comment");
+
+      if (issue.text) {
+        const text = node("p", "desk-comment-text");
+        text.append(linkify(issue.text));
+        item.append(text);
+      } else {
+        item.append(node("p", "desk-comment-text", "This note lives on GitHub."));
+      }
+
+      const meta = node("p", "desk-comment-meta");
+      meta.append(document.createTextNode(`@${issue.user} · ${formatDate(issue.createdAt)}`));
+      if (issue.replies > 0) {
+        meta.append(document.createTextNode(` · ${issue.replies} repl${issue.replies === 1 ? "y" : "ies"}`));
+      }
+      const link = node("a", "", " GitHub ↗");
+      link.href = issue.htmlUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      meta.append(link);
+      item.append(meta);
+      comments.append(item);
+    });
+    wrap.append(comments);
+
+    const add = node("button", "desk-reply", "add a note");
+    add.type = "button";
+    add.addEventListener("click", () => openComposer(anchor, issues[0].quote || block.text, true));
+    wrap.append(add);
+
+    notesBody.replaceChildren(wrap);
+    notesBody.scrollTop = 0;
+  }
+
+  function renderComposer() {
+    const { anchor, quote: quoteText } = state.composer;
+    const block = state.byAnchor.get(anchor);
+    if (!block) {
+      state.composer = null;
+      renderDesk();
+      return;
+    }
+
+    const wrap = node("div");
+    const back = node("button", "desk-back", "← cancel");
+    back.type = "button";
+    back.addEventListener("click", () => {
+      state.composer = null;
+      renderDesk();
+    });
+    wrap.append(back);
+
+    const quote = node("blockquote", "desk-quote");
+    quote.textContent = `“${shorten(quoteText || block.text, 220)}”`;
+    wrap.append(quote);
+
     const form = document.createElement("form");
-    form.className = "margin-form";
+    form.className = "desk-form";
+
     const field = document.createElement("textarea");
     field.required = true;
     field.maxLength = 3000;
@@ -565,23 +590,27 @@
     field.setAttribute("aria-label", "Your margin note");
     form.append(field);
 
-    const hint = node(
-      "p",
-      "margin-form-hint",
-      "Posts to GitHub Issues. Your GitHub account is the byline; the note appears here after a refresh."
+    form.append(
+      node(
+        "p",
+        "desk-form-hint",
+        "Posts to GitHub Issues. Your GitHub account is the byline; the note appears here after a refresh."
+      )
     );
-    form.append(hint);
 
-    const actions = node("div", "margin-form-actions");
-    const submit = node("button", "margin-submit", "Post on GitHub ↗");
+    const actions = node("div", "desk-form-actions");
+    const submit = node("button", "desk-submit", "Post on GitHub ↗");
     submit.type = "submit";
-    const cancel = node("button", "margin-cancel", "cancel");
+    const cancel = node("button", "desk-cancel", "cancel");
     cancel.type = "button";
-    cancel.addEventListener("click", closeComposer);
+    cancel.addEventListener("click", () => {
+      state.composer = null;
+      renderDesk();
+    });
     actions.append(submit, cancel);
     form.append(actions);
 
-    const status = node("p", "margin-form-status");
+    const status = node("p", "desk-form-status");
     status.hidden = true;
     form.append(status);
 
@@ -599,7 +628,7 @@
       const bodyText = `<!-- margin-meta: ${encodeMeta({
         page: CONFIG.page,
         anchor,
-        quote: shorten(quoteText, 260),
+        quote: shorten(quoteText || block.text, 260),
       })} -->\n\n${text}`;
       const params = new URLSearchParams({ title, body: bodyText });
       const url = `https://github.com/${CONFIG.repo}/issues/new?${params.toString()}`;
@@ -631,78 +660,65 @@
       window.setTimeout(refresh, 120000);
     });
 
-    card.append(form);
-    state.composer = { card, block: block.node, anchor };
-    block.node.classList.add("is-comment-target");
+    wrap.append(form);
+    notesBody.replaceChildren(wrap);
+    notesBody.scrollTop = 0;
+    window.setTimeout(() => field.focus({ preventScroll: true }), 30);
+  }
 
-    if (state.mobile) {
-      block.node.after(card);
-    } else {
-      const existing = state.cards.get(anchor);
-      if (existing) {
-        existing.hidden = true;
-        state.composerHiddenCard = existing;
+  function setSelected(anchor, keepTargetIssue = false) {
+    const block = state.byAnchor.get(anchor);
+    if (!block) return;
+    clearHighlights();
+    if (!keepTargetIssue) state.targetIssue = null;
+    state.selectedAnchor = anchor;
+    block.node.classList.add("is-target");
+    const tick = state.ticks.get(anchor);
+    if (tick) tick.classList.add("is-active");
+  }
+
+  function selectAnchor(anchor, options = {}) {
+    const block = state.byAnchor.get(anchor);
+    if (!block) return;
+    setSelected(anchor, false);
+    state.composer = null;
+    renderDesk();
+    if (options.scroll) {
+      block.node.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    if (options.compose) {
+      openComposer(anchor, options.quote || block.text, false);
+    }
+    ensureCommentsLoaded();
+  }
+
+  function openComposer(anchor, quoteText, fromExisting) {
+    const block = state.byAnchor.get(anchor);
+    if (!block) return;
+    setSelected(anchor, false);
+    state.composer = {
+      anchor,
+      quote: quoteText || block.text,
+      fromExisting: Boolean(fromExisting),
+      keepOpen: false,
+    };
+    renderDesk();
+    if (state.mobile) openDesk("notes");
+  }
+
+  function onTickClick(block) {
+    setSelected(block.anchor, false);
+    state.composer = null;
+    renderDesk();
+    ensureCommentsLoaded().then(() => {
+      const has = state.issues.some((issue) => issue.anchor === block.anchor);
+      if (has) {
+        state.selectedAnchor = block.anchor;
+        renderDesk();
+      } else {
+        openComposer(block.anchor, block.text, false);
       }
-      stage.append(card);
-    }
-
-    layoutMargins();
-    window.setTimeout(() => {
-      card.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      field.focus({ preventScroll: true });
-    }, 40);
-  }
-
-  /* ---------- 定位 ---------- */
-
-  function layoutMargins() {
-    if (state.mobile) {
-      stage.style.height = "";
-      state.pins.forEach((pin) => {
-        pin.style.top = "";
-      });
-      Array.from(state.cards.values()).forEach((card) => {
-        card.style.top = "";
-      });
-      if (state.composer) state.composer.card.style.top = "";
-      return;
-    }
-
-    const stageTop = stage.getBoundingClientRect().top;
-    state.blocks.forEach((block) => {
-      block.top = Math.max(0, block.node.getBoundingClientRect().top - stageTop);
-      const pin = state.pins.get(block.anchor);
-      if (pin) pin.style.top = `${block.top}px`;
     });
-
-    const items = Array.from(state.cards.values())
-      .filter((card) => !card.hidden)
-      .map((card) => ({
-        card,
-        top: (state.byAnchor.get(card.dataset.anchor) || {}).top || 0,
-      }));
-
-    if (state.composer) {
-      const block = state.byAnchor.get(state.composer.anchor);
-      items.push({ card: state.composer.card, top: block ? block.top : 0 });
-    }
-
-    items.sort((a, b) => a.top - b.top);
-
-    let cursor = 0;
-    items.forEach((item) => {
-      const top = Math.max(item.top, cursor);
-      item.card.style.top = `${top}px`;
-      cursor = top + item.card.offsetHeight + 20;
-    });
-
-    stage.style.height = `${Math.max(article.offsetHeight, cursor + 16)}px`;
-  }
-
-  function focusMargin(anchor) {
-    state.targetAnchor = anchor;
-    state.targetIssue = null;
-    applyTarget();
   }
 
   /* ---------- 选中文字 ---------- */
@@ -711,24 +727,22 @@
     window.setTimeout(() => {
       const selection = window.getSelection();
       if (!selection || selection.isCollapsed || selection.rangeCount === 0) return;
-      let text = selection.toString().replace(/\s+/g, " ").trim();
-      if (text.length < 6) return;
-
       const range = selection.getRangeAt(0);
-      const wrapper = document.createElement("div");
-      wrapper.append(range.cloneContents());
-      text = cleanText(wrapper);
-      if (text.length < 6) return;
-
       let selected = range.startContainer;
       if (selected.nodeType === Node.TEXT_NODE) selected = selected.parentElement;
       if (!selected || !body.contains(selected)) return;
-      if (selected.closest(".margin-card, .board, .comments")) return;
+      if (selected.closest(".reader-desk, .comments")) return;
 
       const block = selected.closest("[data-margin-id]");
       if (!block || !body.contains(block)) return;
-      ensureCommentsLoaded();
+
+      const wrapper = document.createElement("div");
+      wrapper.append(range.cloneContents());
+      const text = cleanText(wrapper);
+      if (text.length < 6) return;
+
       openComposer(block.dataset.marginId, text, false);
+      ensureCommentsLoaded();
     }, 0);
   }
 
@@ -737,7 +751,55 @@
     if (event.shiftKey || event.key === "Shift") handleSelectionEnd();
   });
 
-  /* ---------- 图版放大 ---------- */
+  /* ---------- 阅读桌开合 ---------- */
+
+  function openDesk(section = "notes") {
+    if (state.mobile) {
+      document.body.classList.add("desk-open");
+      deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+      window.requestAnimationFrame(() => {
+        const target = section === "plate" ? plate : deskMargin;
+        if (!target) return;
+        const deskTop = desk.getBoundingClientRect().top;
+        const targetTop = target.getBoundingClientRect().top - deskTop + desk.scrollTop - 10;
+        desk.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+        window.dispatchEvent(new CustomEvent("doodle:resize"));
+      });
+    } else if (section === "notes") {
+      notesBody.scrollTop = 0;
+    }
+  }
+
+  function closeDesk() {
+    document.body.classList.remove("desk-open");
+    deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+  }
+
+  deskOpenButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.deskOpen === "plate") {
+        openDesk("plate");
+        return;
+      }
+      if (!state.composer) {
+        state.selectedAnchor = null;
+        state.targetIssue = null;
+        clearHighlights();
+        renderDesk();
+      }
+      if (!state.loaded) loadComments(true);
+      openDesk("notes");
+    });
+  });
+
+  if (deskCloseButton) deskCloseButton.addEventListener("click", closeDesk);
+  if (deskLoad) deskLoad.addEventListener("click", () => loadComments(true));
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.body.classList.contains("desk-open")) closeDesk();
+  });
+
+  /* ---------- 图版 ---------- */
 
   let lightbox = null;
 
@@ -780,8 +842,6 @@
     if (event.key === "Escape" && lightbox && !lightbox.hidden) closeLightbox();
   });
 
-  /* ---------- 图板 ---------- */
-
   function setupBoard() {
     const board = document.querySelector("[data-board]");
     const tabs = document.querySelector("[data-board-tabs]");
@@ -789,11 +849,10 @@
     const doodlePanel = document.querySelector('[data-board-panel="doodle"]');
     if (!board || !tabs || !figurePanel || !doodlePanel) return;
 
-    const figures = Array.from(body.querySelectorAll("figure.post-figure")).map((figure, index) => {
+    const figures = Array.from(body.querySelectorAll("figure.post-figure")).map((figure) => {
       const image = figure.querySelector("img");
       const caption = figure.querySelector("figcaption");
       return {
-        index,
         src: image ? image.getAttribute("src") : "",
         alt: image ? image.getAttribute("alt") || "" : "",
         caption: caption ? cleanText(caption) : "",
@@ -803,9 +862,9 @@
     const doodleTab = tabs.querySelector('[data-board-tab="doodle"]');
     if (!doodleTab) return;
 
-    const note = board.querySelector(".board-note");
-    if (note) {
-      note.textContent = figures.length
+    const hint = board.querySelector(".desk-hint");
+    if (hint) {
+      hint.textContent = figures.length
         ? "Pin a figure, click it to enlarge, or sketch."
         : "Sketch a comparison while you read.";
     }
@@ -820,7 +879,6 @@
       tab.dataset.boardTab = `figure-${index}`;
       tabs.insertBefore(tab, doodleTab);
       tabElements.set(`figure-${index}`, tab);
-
       tab.addEventListener("click", () => selectBoardTab(`figure-${index}`));
     });
 
@@ -834,7 +892,7 @@
       const figure = figures[index];
       if (!figure) return;
       const wrapper = document.createElement("figure");
-      wrapper.className = "board-figure";
+      wrapper.className = "desk-figure";
       const image = document.createElement("img");
       image.src = figure.src;
       image.alt = figure.alt;
@@ -871,16 +929,16 @@
       }
     }
 
-    figures.forEach((figure) => {
-      const element = body.querySelectorAll("figure.post-figure")[figure.index];
+    figures.forEach((figure, index) => {
+      const element = body.querySelectorAll("figure.post-figure")[index];
       if (!element) return;
-      const button = node("button", "pin-figure", "pin to board");
+      const button = node("button", "pin-figure", "pin to desk");
       button.type = "button";
       button.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
-        selectBoardTab(`figure-${figure.index}`);
-        openBoard();
+        selectBoardTab(`figure-${index}`);
+        openDesk("plate");
       });
       element.append(button);
     });
@@ -896,35 +954,9 @@
       list[next].click();
     });
 
-    state.board = { selectBoardTab, open: openBoard, close: closeBoard };
+    state.board = { selectBoardTab };
     selectBoardTab(figures.length ? "figure-0" : "doodle");
   }
-
-  function openBoard() {
-    document.body.classList.add("board-open");
-    boardToggleButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
-    if (state.board && overlayQuery.matches) {
-      const board = document.querySelector("[data-board]");
-      if (board) board.scrollTop = 0;
-    }
-  }
-
-  function closeBoard() {
-    document.body.classList.remove("board-open");
-    boardToggleButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
-  }
-
-  boardToggleButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (document.body.classList.contains("board-open")) closeBoard();
-      else openBoard();
-    });
-  });
-  boardCloseButtons.forEach((button) => button.addEventListener("click", closeBoard));
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && document.body.classList.contains("board-open")) closeBoard();
-  });
 
   /* ---------- 草图 ---------- */
 
@@ -938,7 +970,6 @@
     let strokes = [];
     let current = null;
     let color = "#181715";
-    let resizeTimer = 0;
 
     try {
       const raw = localStorage.getItem(storageKey);
@@ -951,7 +982,11 @@
               color: typeof stroke.color === "string" ? stroke.color : "#181715",
               width: Number(stroke.width) || 0.006,
               points: stroke.points.filter(
-                (point) => Array.isArray(point) && point.length === 2 && Number.isFinite(point[0]) && Number.isFinite(point[1])
+                (point) =>
+                  Array.isArray(point) &&
+                  point.length === 2 &&
+                  Number.isFinite(point[0]) &&
+                  Number.isFinite(point[1])
               ),
             }))
             .filter((stroke) => stroke.points.length > 0);
@@ -1116,14 +1151,38 @@
     const resize = debounce(redraw, 120);
     window.addEventListener("resize", resize);
     window.addEventListener("doodle:resize", resize);
-    if ("ResizeObserver" in window) {
-      new ResizeObserver(resize).observe(canvas);
-    }
-    // 字体/布局稳定后再定一次尺寸。
+    if ("ResizeObserver" in window) new ResizeObserver(resize).observe(canvas);
     window.setTimeout(redraw, 80);
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(redraw).catch(() => {});
     }
+  }
+
+  /* ---------- 目标定位 ---------- */
+
+  function applyTarget() {
+    if (!state.targetAnchor || !state.loaded) return;
+    const block = state.byAnchor.get(state.targetAnchor);
+    if (!block) {
+      state.targetAnchor = null;
+      return;
+    }
+    setSelected(block.anchor, true);
+    state.composer = null;
+    renderDesk();
+    if (state.targetIssue) {
+      const item = notesBody.querySelector(
+        `.desk-comment[data-issue="${String(state.targetIssue)}"]`
+      );
+      if (item) {
+        window.setTimeout(() => item.scrollIntoView({ block: "nearest" }), 50);
+      }
+    }
+    if (state.mobile) openDesk("notes");
+    window.setTimeout(() => {
+      block.node.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 80);
+    state.targetAnchor = null;
   }
 
   /* ---------- 初始化 ---------- */
@@ -1135,55 +1194,44 @@
   collectBlocks();
   setupBoard();
   setupDoodle();
-
-  loadButtons.forEach((button) => {
-    button.addEventListener("click", () => loadComments(true));
-  });
+  updateDeskHeader();
+  updateTicks();
+  renderDesk();
+  layoutTicks();
+  if (!state.mobile) {
+    deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+  }
 
   if (state.targetAnchor) {
     loadComments(true);
-  } else {
-    updateLoadButtons();
-  }
-
-  if (state.mobile) {
-    state.pins.forEach((pin) => {
-      pin.hidden = true;
-    });
   }
 
   const relayout = debounce(() => {
     const wasMobile = state.mobile;
     state.mobile = mobileQuery.matches;
     if (wasMobile !== state.mobile) {
-      renderCards();
-      if (state.composer) {
-        const { card, block } = state.composer;
-        if (state.mobile) {
-          card.classList.add("is-inline");
-          block.after(card);
-        } else {
-          card.classList.remove("is-inline");
-          stage.append(card);
-        }
+      if (!state.mobile) {
+        closeDesk();
+        deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+      } else {
+        deskOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
       }
+      layoutTicks();
+    } else {
+      layoutTicks();
     }
-    layoutMargins();
-  }, 140);
+  }, 120);
 
   window.addEventListener("resize", relayout);
-  window.addEventListener("load", layoutMargins);
-  if (document.fonts?.ready) document.fonts.ready.then(layoutMargins).catch(() => {});
+  window.addEventListener("load", layoutTicks);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(layoutTicks).catch(() => {});
+  }
   if ("ResizeObserver" in window) {
-    new ResizeObserver(debounce(layoutMargins, 120)).observe(article);
+    new ResizeObserver(debounce(layoutTicks, 120)).observe(article);
   }
   Array.from(body.querySelectorAll("img")).forEach((image) => {
-    if (!image.complete) image.addEventListener("load", layoutMargins, { once: true });
+    if (!image.complete) image.addEventListener("load", layoutTicks, { once: true });
   });
 
-  if (state.mobile) {
-    state.pins.forEach((pin) => {
-      pin.hidden = true;
-    });
-  }
 })();

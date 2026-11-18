@@ -1,12 +1,19 @@
-/* 注记页 · 2/3 正文、页边批注与固定图板
-   正文占页宽 2/3；左边是读者图板/画框，右边是贴着段落的页边批注。
-   style.css 负责纸底和文章基础排版，这里重排注记页并补交互部件。 */
+/* 注记页 · 阅读桌
+   一条 2/3 宽的正文，一条 34px 的批注栏，右边是一张随滚动固定的阅读桌。
+   桌上半是图版/草图，下半是页边批注；桌面始终在视野里，正文不被浮层遮住。
+   纸、墨、细线、朱红记号：这是全页的设计语言。 */
 
-/* ---------- 三栏：图板 / 正文 / 页边 ---------- */
+:root {
+  --desk: #f4efe3;
+  --desk-deep: #ece4d2;
+  --note: #9c3b2a;
+}
+
+/* ---------- 页头 ---------- */
 
 .post-page .article-shell {
   max-width: 1680px;
-  padding: 0;
+  padding: 0 clamp(16px, 2vw, 28px) 0 0;
 }
 
 .post-page .article-top {
@@ -39,106 +46,73 @@
 }
 
 .top-action:hover,
-.top-action:focus-visible {
-  color: var(--ink);
-}
+.top-action:focus-visible { color: var(--ink); }
+.top-action[aria-expanded="true"] { color: var(--ink); }
+.top-action.is-error { color: var(--note); }
 
-.top-action[aria-expanded="true"] {
-  color: var(--ink);
-}
+.desk-toggle { display: none; }
 
-.top-action.is-error {
-  color: var(--accent);
-}
-
-.board-toggle { display: none; }
+/* ---------- 三块：正文 / 批注栏 / 阅读桌 ---------- */
 
 .post-page .article-grid {
   display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 4fr)
-    minmax(0, 1fr);
+  grid-template-columns: minmax(0, 2fr) 34px minmax(280px, 1fr);
   gap: 0;
   align-items: start;
   padding-top: 0;
 }
 
-.board-rail {
-  grid-column: 1;
-  align-self: stretch;
-  min-width: 0;
-  padding: 44px 0 72px clamp(18px, 2.6vw, 40px);
-}
-
 .post-page .article-main {
-  grid-column: 2;
+  grid-column: 1;
   min-width: 0;
   max-width: none;
-  padding: 48px clamp(24px, 3vw, 48px) 72px;
+  padding: 48px clamp(24px, 3.4vw, 56px) 72px;
 }
 
-.margin-rail {
-  grid-column: 3;
+.annotation-gutter {
+  grid-column: 2;
   position: relative;
-  min-width: 0;
-  padding: 48px clamp(18px, 2.6vw, 44px) 72px 0;
-}
-
-.margin-stage {
-  position: relative;
+  align-self: stretch;
   min-height: 100%;
+  border-right: 1px solid var(--rule);
 }
 
-.margin-label {
-  position: absolute;
-  top: 48px;
-  right: clamp(18px, 2.6vw, 40px);
-  left: 0;
+.reader-desk {
+  grid-column: 3;
+  position: sticky;
+  top: 20px;
+  align-self: start;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin: 0;
-  padding-top: 11px;
-  border-top: 1px solid var(--ink);
-  font-family: var(--mono);
-  font-size: 8px;
-  line-height: 1.6;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  text-transform: lowercase;
-  pointer-events: none;
-}
-
-.margin-label span + span {
-  font-family: var(--sans);
-  font-size: 9px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  opacity: 0.8;
-  text-transform: none;
-}
-
-/* ---------- 读者图板 ---------- */
-
-.board {
-  position: sticky;
-  top: 24px;
-  max-height: calc(100vh - 48px);
-  overflow-y: auto;
-  padding-top: 11px;
-  border-top: 1px solid var(--ink);
+  min-width: 0;
+  height: calc(100vh - 104px);
+  max-height: 900px;
+  margin-top: 40px;
+  padding: 20px 20px 18px;
+  border: 1px solid var(--rule-strong);
+  background: var(--desk);
   scrollbar-width: thin;
 }
 
-.board-head {
+/* ---------- 阅读桌：图版 ---------- */
+
+.desk-plate {
+  flex: 0 0 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.desk-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule-strong);
 }
 
-.board-kicker {
+.desk-kicker {
   font-family: var(--mono);
   font-size: 8px;
   letter-spacing: 0.16em;
@@ -146,7 +120,7 @@
   text-transform: lowercase;
 }
 
-.board-close {
+.desk-close {
   display: none;
   appearance: none;
   width: 22px;
@@ -161,11 +135,13 @@
   cursor: pointer;
 }
 
-.board-tabs {
+.desk-close:hover { color: var(--ink); }
+
+.desk-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px 14px;
-  margin-top: 13px;
+  gap: 4px 14px;
+  margin-top: 12px;
 }
 
 .board-tab {
@@ -191,31 +167,31 @@
   border-bottom-color: var(--ink);
 }
 
-.board-panel {
-  margin-top: 13px;
+.desk-stage {
+  margin-top: 12px;
 }
 
-.board-figure {
+.desk-figure {
   margin: 0;
   border: 1px solid var(--rule);
   background: #fff;
 }
 
-.board-figure img {
+.desk-figure img {
   display: block;
   width: 100%;
-  max-height: 46vh;
+  max-height: 29vh;
   object-fit: contain;
   background: #fff;
   cursor: zoom-in;
 }
 
-.board-figure img:focus-visible {
+.desk-figure img:focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 3px;
 }
 
-.board-figure figcaption {
+.desk-figure figcaption {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -229,31 +205,22 @@
   color: var(--muted);
 }
 
-.board-figure .fig-no {
-  margin-right: 4px;
-  font-family: var(--mono);
-  font-size: 7.5px;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-}
-
-.board-empty {
-  margin: 0;
-  padding: 22px 12px;
-  border: 1px solid var(--rule);
+.desk-hint {
+  margin: 9px 0 0;
   font-family: var(--sans);
-  font-size: 10px;
-  line-height: 1.7;
+  font-size: 8.5px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   color: var(--muted);
-  text-align: center;
 }
 
-/* 画框 */
+/* 草图 */
 
 .doodle-canvas {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  max-height: 30vh;
+  aspect-ratio: 1 / 1.08;
   border: 1px solid var(--rule);
   background: #fff;
   cursor: crosshair;
@@ -309,17 +276,470 @@
   border-bottom-color: var(--ink);
 }
 
-.board-note {
-  margin: 11px 0 0;
-  font-family: var(--sans);
-  font-size: 8.5px;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
+/* ---------- 阅读桌：批注 ---------- */
+
+.desk-margin {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 17px;
+  padding-top: 13px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.desk-margin-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.desk-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.desk-load {
+  appearance: none;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.desk-load:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.desk-load[disabled] {
+  color: var(--rule-strong);
+  cursor: progress;
+}
+
+.desk-margin-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 12px;
+  padding-right: 4px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.desk-empty {
+  margin: 0;
+  padding: 18px 0 20px;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.75;
   color: var(--muted);
 }
 
-/* 正文里的图给一个“钉到图板”的按钮。 */
-.post-figure { position: relative; }
+/* 批注索引 */
+
+.desk-index {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.desk-index li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.desk-index-row {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 12px 0 13px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.desk-index-no {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.desk-index-quote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin-top: 5px;
+  font-family: var(--serif);
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  color: var(--ink-soft);
+}
+
+.desk-index-row:hover .desk-index-quote {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule-strong);
+}
+
+.desk-index-meta {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* 单条批注 / 批注线程 */
+
+.desk-back {
+  appearance: none;
+  margin: 0 0 11px;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.desk-back:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.desk-quote {
+  margin: 0;
+  padding-left: 11px;
+  border-left: 2px solid var(--note);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.desk-comments {
+  margin-top: 14px;
+}
+
+.desk-comment + .desk-comment {
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--rule);
+}
+
+.desk-comment-text {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.72;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.desk-comment-text a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 2px;
+}
+
+.desk-comment-meta {
+  margin: 6px 0 0;
+  font-family: var(--mono);
+  font-size: 7.5px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.desk-comment-meta a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.desk-comment.is-target-comment {
+  margin: 10px -8px 0;
+  padding: 10px 8px 9px;
+  background: var(--desk-deep);
+}
+
+.desk-reply {
+  appearance: none;
+  margin-top: 14px;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.desk-reply:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* 批注编辑器 */
+
+.desk-form {
+  margin-top: 13px;
+}
+
+.desk-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 104px;
+  padding: 9px 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0;
+  background: #fff;
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  resize: vertical;
+}
+
+.desk-form textarea:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.desk-form-hint {
+  margin: 7px 0 0;
+  font-family: var(--sans);
+  font-size: 9px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.desk-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 10px;
+}
+
+.desk-submit {
+  appearance: none;
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--desk);
+  cursor: pointer;
+}
+
+.desk-submit:hover { background: var(--ink-soft); }
+
+.desk-cancel {
+  appearance: none;
+  padding: 0 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: none;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.desk-cancel:hover { color: var(--ink); }
+
+.desk-form-status {
+  margin: 9px 0 0;
+  font-family: var(--sans);
+  font-size: 10px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.desk-form-status a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+  text-decoration: none;
+}
+
+/* ---------- 页边刻度：段落和批注的对应关系 ---------- */
+
+.margin-tick {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 34px;
+  height: 20px;
+  padding: 0 5px 0 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0.24;
+  transition: opacity 0.2s ease;
+}
+
+.margin-tick-line {
+  display: block;
+  width: 10px;
+  height: 1px;
+  background: var(--rule-strong);
+  transition: width 0.2s ease, background-color 0.2s ease;
+}
+
+.margin-tick-mark {
+  min-width: 6px;
+  font-family: var(--mono);
+  font-size: 8px;
+  line-height: 1;
+  color: var(--muted);
+  text-align: right;
+}
+
+.margin-tick:hover,
+.margin-tick:focus-visible,
+.margin-tick.is-active { opacity: 1; }
+
+.margin-tick:hover .margin-tick-line,
+.margin-tick.is-active .margin-tick-line {
+  width: 18px;
+  background: var(--ink);
+}
+
+.margin-tick:hover .margin-tick-mark,
+.margin-tick.is-active .margin-tick-mark { color: var(--ink); }
+
+.margin-tick.has-notes {
+  opacity: 0.92;
+}
+
+.margin-tick.has-notes .margin-tick-line {
+  width: 16px;
+  background: var(--note);
+}
+
+.margin-tick.has-notes .margin-tick-mark { color: var(--note); }
+
+.margin-tick[hidden] { display: none; }
+
+/* 正文里被选中的段落 */
+.post-page .body .is-target {
+  background: rgba(156, 59, 42, 0.055);
+  box-shadow: -10px 0 0 rgba(156, 59, 42, 0.055),
+              10px 0 0 rgba(156, 59, 42, 0.055);
+}
+
+/* ---------- 正文排版 ---------- */
+
+.post-page .article-head h1 {
+  font-size: clamp(34px, 3.2vw, 52px);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+.post-page .article-head h1[lang="zh-Hans"] {
+  font-size: clamp(32px, 2.9vw, 46px);
+  line-height: 1.38;
+  letter-spacing: 0.005em;
+}
+
+.post-page .article-head .deck {
+  max-width: 42em;
+  font-size: clamp(16px, 1.35vw, 19px);
+  line-height: 1.65;
+}
+
+.post-page .article-rule { margin-top: 30px; }
+
+.post-page .body {
+  max-width: none;
+  margin-top: 34px;
+  font-size: clamp(17.5px, 1.32vw, 19.5px);
+  line-height: 1.9;
+  scroll-margin-top: 24px;
+}
+
+.post-page .body[lang="en"] {
+  max-width: none;
+  font-size: clamp(18px, 1.36vw, 20px);
+  line-height: 1.72;
+}
+
+.post-page .body p { margin-bottom: 1.3em; }
+
+.post-page .body h2 {
+  margin-top: 2.75em;
+  font-size: clamp(14px, 1.08vw, 15.5px);
+}
+
+.post-page .body h3 { margin-top: 2.5em; }
+
+.post-page .body > p:first-child { font-size: 1.04em; }
+
+.post-page .body blockquote { max-width: 40em; }
+
+.post-page .body > blockquote:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.post-page .article-end { margin-top: 58px; }
+
+.post-page .article-foot {
+  max-width: none;
+  margin-top: 54px;
+}
+
+.post-page .nextprev {
+  margin-top: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.post-page .comments {
+  max-width: none;
+  margin-top: 56px;
+}
+
+/* 图版 */
+.post-figure {
+  position: relative;
+  width: 100%;
+  margin: 2.7em 0 2.9em;
+}
 
 .pin-figure {
   position: absolute;
@@ -344,400 +764,6 @@
 .pin-figure:focus-visible {
   opacity: 1;
   transform: none;
-}
-
-/* ---------- 页边批注 ---------- */
-
-.margin-pin {
-  position: absolute;
-  left: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 9px;
-  width: 100%;
-  height: 26px;
-  padding: 0;
-  border: 0;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  opacity: 0.24;
-  transition: opacity 0.2s ease;
-}
-
-.margin-pin-line {
-  display: block;
-  height: 1px;
-  background: var(--rule-strong);
-}
-
-.margin-pin-plus {
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1;
-  color: var(--muted);
-}
-
-.margin-pin:hover,
-.margin-pin:focus-visible,
-.margin-pin.is-active {
-  opacity: 1;
-}
-
-.margin-pin:hover .margin-pin-line,
-.margin-pin.is-active .margin-pin-line {
-  background: var(--ink);
-}
-
-.margin-pin:hover .margin-pin-plus,
-.margin-pin.is-active .margin-pin-plus {
-  color: var(--ink);
-}
-
-.margin-pin[hidden] { display: none; }
-
-.margin-card {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  padding: 13px 0 0;
-  border-top: 1px solid var(--ink);
-  background: var(--paper);
-  scroll-margin-top: 24px;
-}
-
-.margin-card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 10px;
-}
-
-.margin-card-label {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  color: var(--muted);
-  text-transform: lowercase;
-}
-
-.margin-card-close {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.margin-card-close:hover { color: var(--ink); }
-
-.margin-quote {
-  margin: 11px 0 0;
-  padding-left: 10px;
-  border-left: 2px solid var(--cat);
-  font-family: var(--serif);
-  font-size: 12.5px;
-  font-style: italic;
-  line-height: 1.65;
-  color: var(--ink-soft);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  overflow: hidden;
-}
-
-.margin-comments {
-  margin-top: 13px;
-}
-
-.margin-comment + .margin-comment {
-  margin-top: 15px;
-  padding-top: 13px;
-  border-top: 1px solid var(--rule);
-}
-
-.margin-comment.is-target-comment {
-  margin: 10px -8px 0;
-  padding: 10px 8px 9px;
-  background: #f1eee4;
-}
-
-.margin-comment-text {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: 12px;
-  line-height: 1.72;
-  letter-spacing: 0.01em;
-  color: var(--ink-soft);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
-.margin-comment-text a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--rule-strong);
-  text-underline-offset: 2px;
-}
-
-.margin-comment-meta {
-  margin: 6px 0 0;
-  font-family: var(--mono);
-  font-size: 8px;
-  line-height: 1.6;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-}
-
-.margin-comment-meta a {
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid var(--rule-strong);
-}
-
-.margin-comment-meta a:hover { color: var(--ink); }
-
-.margin-reply {
-  appearance: none;
-  margin-top: 12px;
-  padding: 0 0 2px;
-  border: 0;
-  border-bottom: 1px solid var(--rule-strong);
-  background: none;
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.margin-reply:hover {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
-}
-
-/* 评论/批注卡在窄屏会落到正文里，见文件末尾。 */
-.margin-card.is-inline {
-  margin: 18px 0 28px;
-}
-
-.margin-card.is-target {
-  background: #f1eee4;
-  box-shadow: 0 0 0 1px var(--rule-strong);
-}
-
-.margin-status {
-  position: relative;
-  z-index: 2;
-  margin: 12px 0 0;
-  background: var(--paper);
-  padding: 10px 0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  font-family: var(--sans);
-  font-size: 10.5px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-.margin-status a {
-  color: var(--ink-soft);
-  border-bottom: 1px solid var(--rule-strong);
-  text-decoration: none;
-}
-
-/* ---------- 批注表单 ---------- */
-
-.margin-form {
-  margin-top: 12px;
-}
-
-.margin-form textarea {
-  display: block;
-  width: 100%;
-  min-height: 92px;
-  padding: 9px 10px;
-  border: 1px solid var(--rule-strong);
-  border-radius: 0;
-  background: #fff;
-  font-family: var(--sans);
-  font-size: 12px;
-  line-height: 1.65;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-  resize: vertical;
-}
-
-.margin-form textarea:focus {
-  border-color: var(--ink);
-  outline: none;
-}
-
-.margin-form-hint {
-  margin: 7px 0 0;
-  font-family: var(--sans);
-  font-size: 9px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.margin-form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 14px;
-  margin-top: 10px;
-}
-
-.margin-submit {
-  appearance: none;
-  padding: 8px 12px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 0.08em;
-  color: var(--paper);
-  cursor: pointer;
-}
-
-.margin-submit:hover { background: var(--ink-soft); }
-
-.margin-cancel {
-  appearance: none;
-  padding: 0 0 2px;
-  border: 0;
-  border-bottom: 1px solid var(--rule-strong);
-  background: none;
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.margin-cancel:hover { color: var(--ink); }
-
-.margin-form-status {
-  margin: 9px 0 0;
-  font-family: var(--sans);
-  font-size: 10px;
-  line-height: 1.65;
-  color: var(--ink-soft);
-}
-
-.margin-form-status a {
-  color: var(--ink);
-  border-bottom: 1px solid var(--rule-strong);
-  text-decoration: none;
-}
-
-/* ---------- 正文排版 ---------- */
-
-.post-page .article-head h1 {
-  font-size: clamp(34px, 3.2vw, 52px);
-  line-height: 1.18;
-  letter-spacing: -0.015em;
-}
-
-.post-page .article-head h1[lang="zh-Hans"] {
-  font-size: clamp(32px, 2.9vw, 46px);
-  line-height: 1.38;
-  letter-spacing: 0.005em;
-}
-
-.post-page .article-head .deck {
-  max-width: 42em;
-  font-size: clamp(16px, 1.35vw, 19px);
-  line-height: 1.65;
-}
-
-.post-page .article-rule {
-  margin-top: 30px;
-}
-
-.post-page .body {
-  max-width: none;
-  margin-top: 34px;
-  font-size: clamp(17.5px, 1.32vw, 19.5px);
-  line-height: 1.9;
-  scroll-margin-top: 24px;
-}
-
-.post-page .body[lang="en"] {
-  max-width: none;
-  font-size: clamp(18px, 1.36vw, 20px);
-  line-height: 1.72;
-}
-
-.post-page .body p {
-  margin-bottom: 1.3em;
-}
-
-.post-page .body h2 {
-  margin-top: 2.75em;
-  font-size: clamp(14px, 1.08vw, 15.5px);
-}
-
-.post-page .body h3 {
-  margin-top: 2.5em;
-}
-
-.post-page .body > p:first-child {
-  font-size: 1.04em;
-}
-
-.post-page .body blockquote {
-  max-width: 40em;
-}
-
-.post-page .body > blockquote:first-child {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
-}
-
-.post-page .article-end {
-  margin-top: 58px;
-}
-
-.post-page .article-foot {
-  max-width: none;
-  margin-top: 54px;
-}
-
-.post-page .nextprev {
-  margin-top: 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--rule);
-}
-
-.post-page .comments {
-  max-width: none;
-  margin-top: 56px;
-}
-
-.post-page .body [data-margin-id] {
-  transition: background-color 0.25s ease;
-}
-
-.post-page .body .is-target {
-  background: rgba(178, 58, 36, 0.055);
-  box-shadow: -12px 0 0 rgba(178, 58, 36, 0.055),
-              12px 0 0 rgba(178, 58, 36, 0.055);
-}
-
-/* 图版跟着正文栏走，不再卡在 660px。 */
-.post-figure {
-  width: 100%;
-  margin: 2.7em 0 2.9em;
 }
 
 .post-figure img {
@@ -768,12 +794,9 @@
   color: var(--ink-soft);
 }
 
-.post-figure .katex {
-  font-size: 0.94em;
-}
+.post-figure .katex { font-size: 0.94em; }
 
-/* ---------- 表格 / 代码 / 公式 ---------- */
-
+/* 表格 / 代码 / 公式 */
 .body h3 {
   margin: 2.35em 0 1em;
   font-family: var(--sans);
@@ -872,7 +895,6 @@
 }
 
 .math-display .katex-display { margin: 0; }
-
 .math-display .katex-display > .katex { font-size: 1.12em; }
 
 /* ---------- 图版放大 ---------- */
@@ -921,70 +943,47 @@ body.lightbox-open { overflow: hidden; }
   color: var(--ink);
 }
 
-/* ---------- 窄屏：两栏 ---------- */
+/* ---------- 平板：仍是两栏，阅读桌变窄 ---------- */
 
-@media (max-width: 1240px) {
+@media (max-width: 1180px) {
   .post-page .article-grid {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 2fr) 30px minmax(250px, 1fr);
   }
 
-  .board-rail {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 40;
-    width: min(320px, calc(100vw - 40px));
-    padding: 0;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(calc(100% + 28px));
-    transition: opacity 0.25s ease, transform 0.38s cubic-bezier(0.22, 0.61, 0.36, 1);
+  .post-page .article-main {
+    padding-left: clamp(24px, 3vw, 40px);
+    padding-right: clamp(24px, 3vw, 40px);
   }
 
-  body.board-open .board-rail {
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
+  .reader-desk {
+    padding: 16px 16px 14px;
   }
 
-  .board {
-    position: static;
-    max-height: min(70vh, 620px);
-    padding: 16px;
-    border: 1px solid var(--rule-strong);
-    background: var(--paper);
-    box-shadow: 0 18px 44px rgba(24, 23, 21, 0.16);
-  }
-
-  .board-close { display: block; }
-  .board-toggle { display: inline-flex; }
+  .desk-figure img { max-height: 27vh; }
+  .doodle-canvas { max-height: 28vh; }
 
   .pin-figure {
     opacity: 1;
     transform: none;
   }
-
-  .post-page .article-main {
-    grid-column: 1;
-    padding-left: clamp(24px, 3vw, 48px);
-    padding-right: clamp(24px, 3vw, 48px);
-  }
-
-  .margin-rail {
-    grid-column: 2;
-    padding-top: 50px;
-  }
 }
 
-/* ---------- 手机：单栏，批注落到正文里 ---------- */
+/* ---------- 手机：正文满宽，阅读桌变成底部抽屉 ---------- */
 
-@media (max-width: 760px) {
+@media (max-width: 900px) {
+  .post-page .article-shell { padding-right: 0; }
+
   .post-page .article-top {
-    padding: 18px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 18px 24px 16px;
   }
 
   .article-top-actions {
+    justify-content: flex-start;
     gap: 8px 14px;
+    width: 100%;
   }
 
   .post-page .article-grid {
@@ -992,25 +991,51 @@ body.lightbox-open { overflow: hidden; }
     padding-top: 0;
   }
 
-  .post-page .article-main {
-    padding: 32px 24px 56px;
+  .post-page .article-main { padding: 32px 24px 56px; }
+
+  .annotation-gutter { display: none; }
+
+  .reader-desk {
+    position: fixed;
+    inset: auto 12px 12px 12px;
+    z-index: 50;
+    height: auto;
+    max-height: 84vh;
+    margin: 0;
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--desk);
+    box-shadow: 0 20px 54px rgba(24, 23, 21, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + 24px));
+    transition: opacity 0.25s ease, transform 0.36s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  .margin-rail {
-    display: none;
+  body.desk-open .reader-desk {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 
-  .board-rail {
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    width: auto;
+  .desk-close { display: block; }
+  .desk-toggle { display: inline-flex; }
+
+  .desk-plate { flex: 0 0 auto; }
+  .desk-margin {
+    flex: 0 0 auto;
+    min-height: auto;
+    max-height: none;
   }
 
-  .board {
-    max-height: 74vh;
-    padding: 14px;
+  .desk-margin-body {
+    flex: 0 0 auto;
+    max-height: none;
+    overflow: visible;
   }
+
+  .desk-figure img { max-height: 32vh; }
+  .doodle-canvas { max-height: 34vh; }
 
   .post-page .article-head h1,
   .post-page .article-head h1[lang="zh-Hans"] {
@@ -1018,9 +1043,7 @@ body.lightbox-open { overflow: hidden; }
     line-height: 1.3;
   }
 
-  .post-page .article-head .deck {
-    font-size: 16px;
-  }
+  .post-page .article-head .deck { font-size: 16px; }
 
   .post-page .body,
   .post-page .body[lang="en"] {
@@ -1033,19 +1056,11 @@ body.lightbox-open { overflow: hidden; }
 
   .post-figure { margin: 2em 0 2.2em; }
   .post-figure figcaption { font-size: 11px; line-height: 1.75; }
-
-  .margin-card.is-inline {
-    position: static;
-    width: auto;
-    padding: 13px 0 0;
-    margin: 18px 0 30px;
-  }
-
-  .margin-pin { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .board-rail,
-  .pin-figure,
-  .margin-pin { transition: none; }
+  .reader-desk,
+  .margin-tick,
+  .margin-tick-line,
+  .board-tab { transition: none; }
 }

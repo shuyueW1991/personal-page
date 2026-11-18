@@ -37,7 +37,7 @@ cd _site && python3 -m http.server 8123
 
 原稿在 `vitrine/instrumentality-posts/`，页面上的 HTML 就是成品。两篇物理注记的公式在生成时用 [KaTeX](https://katex.org/) 预先排成 HTML + MathML，页面本身不加载公式脚本；`prototypes/v2/b-desk/assets/katex/` 只留 CSS 和 woff2 字体（MIT，见同目录 `LICENSE`），不依赖 CDN。改公式要重新用 KaTeX 排版，改普通文字直接改 HTML 即可。
 
-注记页是三栏：正文占页宽 2/3；左栏是固定图板（正文图版或草图 canvas，图可点开看原尺寸），右栏是贴着段落的页边批注。选中正文段落或点段落旁的 `+`，批注编辑器出现在对应行的页边；图板与草图存在本机，草图可导出 SVG。
+注记页是两栏：正文占页宽 2/3，右侧是一张随滚动固定的阅读桌。桌面上半是图板或草图 canvas（图可点开看原尺寸，草图可导出 SVG），下半是页边批注；正文右边一条 34px 刻度栏把段落和批注对应起来。选中正文、点刻度，或从 inbox 进来，都会在阅读桌里打开对应段落的批注编辑/评论。
 
 每个作品页（小说、文章、书、论文、三篇注记）和页边（`notes.html`）底部都有 page comments 区块。默认只显示一个按钮，点开后才向 `utteranc.es` 请求评论框；页边批注也只在点 `margin notes`、选中正文或从 inbox 进入时才向 GitHub 请求。普通打开文章时不向 GitHub 发任何请求。page comments 一页一个 issue，按 pathname 关联；页边批注则一段一个 issue，标题是 `[margin] <page>#<anchor>`，正文开头带一段 base64 元数据（页码、锚点、引文）。锚点由段落文本的哈希生成；大段改写会让旧批注找不到原来的段落。
 
