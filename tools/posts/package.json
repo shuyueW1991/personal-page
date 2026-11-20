@@ -1,0 +1,14 @@
+{
+  "name": "personal-page-posts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "把 vitrine/instrumentality 下的 Markdown 注记排成站点页面：KaTeX 在构建时预渲染，不依赖客户端公式脚本。",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "katex": "0.16.9",
+    "markdown-it": "14.1.0"
+  }
+}

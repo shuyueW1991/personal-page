@@ -24,6 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 注记没写 date 时，生成器用 git 首次提交日期；浅克隆取不到完整历史。
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: tools/posts/package-lock.json
+
+      - name: Install post builder
+        # 注记的唯一源是 vitrine/instrumentality/ 下的 Markdown：
+        # 构建时用 KaTeX 预渲染公式、生成整页和 notes 列表。
+        working-directory: tools/posts
+        run: npm ci --no-audit --no-fund
 
       - name: Assemble _site
         run: python3 build.py

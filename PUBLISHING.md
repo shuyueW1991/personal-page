@@ -10,7 +10,8 @@
 | 进仓库 | 说明 |
 |---|---|
 | `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`comments.js`、`post.js`、`inbox.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js、KaTeX 的 CSS 与字体） |
-| `vitrine/instrumentality-posts/` | 三篇公开注记的 markdown 原稿与图版源文件（图版均为 SVG） |
+| `vitrine/instrumentality/` | 注记的 Markdown 原稿、图版源文件（SVG）和生成图版用的 `.py`；构建时只把被 Markdown 引用的图片复制进 `_site/assets/posts/` |
+| `tools/posts/` | 注记生成器与页面模板；`node_modules/` 不入库 |
 | `build.py` | 白名单装配 `_site/` |
 | `tools/stats_snapshot.py` | 取 GoatCounter 汇总，写 `_site/stats.json` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
@@ -52,13 +53,15 @@
 
 ## 验证
 
+注记生成需要 Node.js 18+；第一次先 `cd tools/posts && npm ci`（`node_modules/` 已被 gitignore）。
+
 ```bash
 git ls-files | grep -Ei '\.(docx?|pdf|xlsx?|pyc)$' ; echo "exit=$?  (1 = 干净)"
 git log --all --diff-filter=A --name-only | grep -Ei '\.docx?$'   # 应无输出
 python3 build.py --check
 ```
 
-`build.py` 还会检查评论：页面上有 `data-comments` 挂载点，就必须同时引用 `comments.css` 和 `comments.js`。页边批注页需要 `post.js`、`post.css`；`inbox.html` 在 `NOINDEX` 里。
+`build.py --check` 会在临时目录里完整生成一遍注记页，再检查：白名单文件齐全、生成的页面引用的本地资源都存在、canonical 正确、每页挂了统计、注记页挂了 `post.js` / `post.css`，最后扫一遍产物里没有 `.docx` / `.pdf` / `.py`。`inbox.html` 在 `NOINDEX` 里。
 
 要临时放行单个文件（例如以后真要公开一份 PDF），用 `git add -f 文件`。
 

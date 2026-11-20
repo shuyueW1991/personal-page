@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}} — 王舒悦</title>
+  <link rel="canonical" href="{{CANONICAL}}">
+  <meta property="og:url" content="{{CANONICAL}}">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta property="og:title" content="{{TITLE}} — 王舒悦">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+{{KATEX}}
+  <link rel="stylesheet" href="post.css?v=5">
+  <link rel="stylesheet" href="comments.css">
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body class="post-page">
+  <a class="skip" href="#main">Skip to text</a>
+
+  <div class="article-shell">
+    <header class="article-top">
+      <a class="back" href="instrumentality.html">← instrumentality</a>
+      <div class="article-top-actions">
+        <button class="top-action" type="button" data-desk-open="notes" aria-expanded="false" aria-controls="reader-desk">margin notes</button>
+        <button class="top-action desk-toggle" type="button" data-desk-open="plate" aria-expanded="false" aria-controls="reader-desk">desk</button>
+        <a class="section-link top-action" href="#comments">page comments ↓</a>
+      </div>
+    </header>
+
+    <main id="main" class="article-grid">
+      <article class="article-main cat-tech" lang="{{LANG}}">
+        <header class="article-head">
+          <h1 lang="{{LANG}}">{{HEADING}}</h1>
+{{DECK}}
+        </header>
+        <div class="article-rule" role="presentation"></div>
+
+        <div class="body" lang="{{LANG}}">
+{{BODY}}
+        </div>
+
+        <div class="article-end">
+          <span class="square"></span>
+          <span>END</span>
+        </div>
+
+        <div class="article-foot">
+          <nav class="nextprev" aria-label="Previous and next">
+{{PREV}}
+{{NEXT}}
+          </nav>
+        </div>
+
+        <section class="comments" id="comments" aria-labelledby="comments-title" lang="en">
+          <div class="comments-head">
+            <h2 class="comments-title" id="comments-title">page comments</h2>
+            <p class="comments-meta">via GitHub · sign in to reply</p>
+          </div>
+          <div class="comments-body" data-comments>
+            <button class="comments-load" type="button" data-comments-load>Load comments</button>
+            <p class="comments-note">Comments are powered by <a href="https://utteranc.es" rel="noopener">utterances</a> and load only when you open them. You can also write in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">Issues</a>.</p>
+            <noscript><p class="comments-note">JavaScript is needed to load comments; please write in <a href="https://github.com/shuyueW1991/personal-page/issues" rel="noopener">GitHub Issues</a> instead.</p></noscript>
+          </div>
+        </section>
+      </article>
+
+      <div class="annotation-gutter" data-annotation-gutter></div>
+
+      <aside class="reader-desk" id="reader-desk" aria-label="Reading desk" data-board>
+        <section class="desk-plate" aria-label="Plate">
+          <header class="desk-head">
+            <span class="desk-kicker">reading desk</span>
+            <div class="desk-head-tools">
+              <button class="desk-compare" type="button" data-desk-compare aria-pressed="false" title="Compare text and image at 1:1">1:1</button>
+              <button class="desk-close" type="button" data-desk-close aria-label="Close reading desk">×</button>
+            </div>
+          </header>
+          <div class="desk-tabs" role="tablist" aria-label="Plate contents" data-board-tabs>
+            <button class="board-tab" type="button" role="tab" aria-selected="true" aria-controls="board-doodle-panel" data-board-tab="doodle">doodle</button>
+          </div>
+          <div class="desk-stage" id="board-figure-panel" role="tabpanel" data-board-panel="figure" hidden></div>
+          <div class="desk-stage" id="board-doodle-panel" role="tabpanel" data-board-panel="doodle">
+            <canvas class="doodle-canvas" data-doodle-canvas aria-label="Sketch pad"></canvas>
+            <div class="doodle-tools">
+              <div class="doodle-colors" role="group" aria-label="Ink colour">
+                <button class="doodle-color" type="button" data-doodle-color="#181715" style="--swatch:#181715" aria-label="Black ink" aria-pressed="true"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#b23a24" style="--swatch:#b23a24" aria-label="Vermilion ink" aria-pressed="false"></button>
+                <button class="doodle-color" type="button" data-doodle-color="#3e5870" style="--swatch:#3e5870" aria-label="Blue ink" aria-pressed="false"></button>
+              </div>
+              <div class="doodle-actions">
+                <button type="button" data-doodle-undo>undo</button>
+                <button type="button" data-doodle-save>svg</button>
+                <button type="button" data-doodle-clear>clear</button>
+              </div>
+            </div>
+          </div>
+          <p class="desk-hint">Pin a figure, click it to enlarge, or sketch.</p>
+        </section>
+
+        <section class="desk-margin" aria-labelledby="desk-margin-title">
+          <header class="desk-margin-head">
+            <span class="desk-kicker" id="desk-margin-title">margin notes</span>
+            <span class="desk-count" data-margin-count>—</span>
+            <button class="desk-load" type="button" data-margin-load>load</button>
+          </header>
+          <div class="desk-margin-body" data-desk-notes aria-live="polite">
+            <p class="desk-empty">Select a passage, or click a tick in the margin.</p>
+          </div>
+        </section>
+
+{{FIGURE_STORE}}
+      </aside>
+
+    </main>
+
+    <footer class="site-foot">
+      <span>© 2026 王舒悦</span>
+      <div class="links"><a href="instrumentality.html">← instrumentality</a><a href="contact.html" lang="en">contact</a></div>
+    </footer>
+  </div>
+  <script src="stats.js" defer></script>
+  <script src="post.js?v=5" defer></script>
+  <script src="comments.js" defer></script>
+</body>
+</html>

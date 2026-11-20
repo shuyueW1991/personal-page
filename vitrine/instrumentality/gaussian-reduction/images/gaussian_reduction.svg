@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" font-family="Times New Roman, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#000000"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#009900"/>
+    </marker>
+  </defs>
+
+  <!-- 光轴 -->
+  <line x1="60" y1="180" x2="720" y2="180" stroke="#000000" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="730" y="185" font-size="16" font-style="italic">z</text>
+
+  <!-- 透镜平面 1 -->
+  <line x1="220" y1="90" x2="220" y2="270" stroke="#000000" stroke-width="2" />
+  <text x="210" y="75" font-size="16" font-style="italic">φ₁</text>
+
+  <!-- 透镜平面 2 -->
+  <line x1="480" y1="90" x2="480" y2="270" stroke="#000000" stroke-width="2" />
+  <text x="475" y="75" font-size="16" font-style="italic">φ₂</text>
+
+  <!-- 等效主平面 P / P' -->
+  <line x1="300" y1="80" x2="300" y2="270" stroke="#009900" stroke-width="2" />
+  <text x="290" y="70" font-size="16" fill="#009900" font-style="italic">P</text>
+
+  <line x1="440" y1="80" x2="440" y2="270" stroke="#009900" stroke-width="2" />
+  <text x="435" y="70" font-size="16" fill="#009900" font-style="italic">P'</text>
+
+  <!-- 入射光线 1（水平） -->
+  <line x1="60" y1="115" x2="220" y2="115" stroke="#333333" stroke-width="1.8" />
+
+  <!-- 中间过渡光线 -->
+  <line x1="220" y1="115" x2="480" y2="150" stroke="#333333" stroke-width="1.8" />
+
+  <!-- 出射光线 -->
+  <line x1="480" y1="150" x2="640" y2="180" stroke="#333333" stroke-width="1.8" />
+
+  <!-- 入射光线 2（相交汇聚于前焦点） -->
+  <line x1="60" y1="150" x2="220" y2="200" stroke="#333333" stroke-width="1.8" />
+  <line x1="220" y1="200" x2="480" y2="230" stroke="#333333" stroke-width="1.8" />
+  <line x1="480" y1="230" x2="640" y2="230" stroke="#333333" stroke-width="1.8" />
+
+  <!-- 等效系统虚线延长线 -->
+  <!-- 等效折射面：平行光入射至 P 后折射 -->
+  <line x1="60" y1="115" x2="300" y2="115" stroke="#009900" stroke-width="2" stroke-dasharray="5,5" />
+  <line x1="300" y1="115" x2="640" y2="180" stroke="#009900" stroke-width="2" stroke-dasharray="5,5" />
+
+  <!-- 焦点 -->
+  <circle cx="140" cy="180" r="4" fill="#000000" />
+  <text x="130" y="205" font-size="16" font-style="italic">F</text>
+
+  <circle cx="640" cy="180" r="4" fill="#000000" />
+  <text x="635" y="165" font-size="16" font-style="italic">F'</text>
+
+  <!-- 厚度标注 t 与 d' -->
+  <line x1="220" y1="290" x2="480" y2="290" stroke="#000000" stroke-width="1.2" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+  <text x="345" y="312" font-size="16" font-style="italic">t</text>
+
+  <line x1="440" y1="260" x2="480" y2="260" stroke="#009900" stroke-width="1.2" marker-start="url(#arrow-green)" marker-end="url(#arrow-green)" />
+  <text x="445" y="248" font-size="16" fill="#009900" font-style="italic">d'</text>
+</svg>

@@ -1,3 +1,13 @@
+---
+title: Optical Power and Focal Length
+heading: Optical Power and Focal Length
+deck: A Paraxial Bridge Between Geometry and Optics
+date: 2026-11-17
+slug: optical-power
+summary: How surface power Φ = (n′ − n)/R becomes focal length f′ = n′/Φ, derived from Snell’s law and sphere geometry.
+lang: en
+---
+
 # Optical Power and Focal Length: A Paraxial Bridge Between Geometry and Optics
 
 This is a supplement to page 7 'Refractive and Reflective Surfaces' in the book 'Field Guide to Geometrical Optics'.

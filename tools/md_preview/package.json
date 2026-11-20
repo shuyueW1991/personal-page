@@ -1,0 +1,14 @@
+{
+  "name": "md-preview",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "把 vitrine 下的 markdown 原稿转成自带离线 KaTeX 渲染的预览 HTML，公式在生成时预渲染。",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "katex": "^0.16.11",
+    "markdown-it": "^14.1.0"
+  }
+}

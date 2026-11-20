@@ -18,11 +18,9 @@
     cacheTtl: 5 * 60 * 1000,
   };
 
-  const PAGE_TITLES = {
-    "front-focal-magnification.html": "前焦点处的横向放大率",
-    "optical-power.html": "Optical Power and Focal Length",
-    "clean-dwg.html": "让 DXF 成为可被脚本干净解析的电气连接图",
-  };
+  // post-titles.js 由 build.py 按 vitrine/instrumentality/ 的清单生成；
+  // 没加载到时退回 slug，至少链接还能点。
+  const PAGE_TITLES = window.POST_TITLES || {};
 
   const list = document.querySelector("[data-inbox-list]");
   const count = document.querySelector("[data-inbox-count]");
