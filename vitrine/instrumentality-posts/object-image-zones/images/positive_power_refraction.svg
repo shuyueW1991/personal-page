@@ -1,0 +1,37 @@
+<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lens -->
+  <path d="M 300 40 Q 320 100 300 160 Q 280 100 300 40" fill="#e0f7fa" stroke="#006064" stroke-width="2"/>
+  <line x1="300" y1="20" x2="300" y2="180" stroke="#006064" stroke-width="1" stroke-dasharray="4"/>
+  <!-- Axis -->
+  <line x1="50" y1="100" x2="550" y2="100" stroke="#333" stroke-width="1"/>
+  <!-- F and F' -->
+  <circle cx="200" cy="100" r="3" fill="red"/>
+  <text x="195" y="120" font-size="14">F</text>
+  <circle cx="400" cy="100" r="3" fill="red"/>
+  <text x="395" y="120" font-size="14">F'</text>
+  
+  <!-- Region A (Camera) -->
+  <text x="100" y="50" font-size="12" fill="#555">A: 照相机 / 眼睛</text>
+  <line x1="100" y1="80" x2="100" y2="120" stroke="black" stroke-width="3"/> <!-- Object -->
+  <line x1="100" y1="80" x2="300" y2="80" stroke="orange" stroke-width="1"/>
+  <line x1="300" y1="80" x2="450" y2="150" stroke="orange" stroke-width="1"/>
+  <line x1="100" y1="120" x2="300" y2="120" stroke="green" stroke-width="1"/>
+  <line x1="300" y1="120" x2="450" y2="50" stroke="green" stroke-width="1"/>
+  <line x1="450" y1="50" x2="450" y2="150" stroke="black" stroke-width="3"/> <!-- Image -->
+  <text x="455" y="160" font-size="10" fill="black">实像(倒立)</text>
+
+  <!-- Region B (Magnifier) -->
+  <text x="320" y="50" font-size="12" fill="#555">B: 放大镜</text>
+  <line x1="250" y1="90" x2="250" y2="110" stroke="black" stroke-width="3"/> <!-- Object inside F -->
+  <line x1="250" y1="90" x2="300" y2="70" stroke="orange" stroke-width="1"/>
+  <line x1="300" y1="70" x2="450" y2="130" stroke="orange" stroke-width="1"/>
+  <!-- Virtual rays -->
+  <line x1="300" y1="70" x2="200" y2="30" stroke="orange" stroke-width="1" stroke-dasharray="4"/>
+  <line x1="250" y1="110" x2="300" y2="130" stroke="green" stroke-width="1"/>
+  <line x1="300" y1="130" x2="450" y2="70" stroke="green" stroke-width="1"/>
+  <line x1="300" y1="130" x2="200" y2="170" stroke="green" stroke-width="1" stroke-dasharray="4"/>
+  
+  <!-- Virtual Image -->
+  <line x1="150" y1="50" x2="150" y2="150" stroke="green" stroke-width="3" stroke-dasharray="5"/>
+  <text x="155" y="160" font-size="10" fill="green">虚像(正立放大)</text>
+</svg>
