@@ -100,10 +100,23 @@ for (x0, x1_, y0, yl) in [(-f, 0, -1.05, -1.42), (0, f, -1.70, -2.05)]:
     ax.plot([x0, x1_], [y0, y0], color="0.3", lw=0.8)
     ax.text((x0 + x1_) / 2, yl, r"$f$", fontsize=12, ha="center")
 
+# 物距标注：s = -f（物恰在前焦点，物距等于焦距）
+y_s = -2.42
+ax.plot([-f, 0], [y_s, y_s], color="0.45", lw=0.8)
+for xx in (-f, 0):
+    ax.plot([xx, xx], [y_s - 0.12, y_s + 0.12], color="0.45", lw=0.8)
+ax.text(-f / 2, y_s - 0.42, r"$s=-f$（物距）",
+        fontsize=10, ha="center", color="0.4")
+
+# 像距标注：s' 指向右方无穷远
+ax.annotate("", xy=(5.15, 0.60), xytext=(3.70, 0.60),
+            arrowprops=dict(arrowstyle="-|>", lw=1.0, color="0.45"))
+ax.text(4.42, 0.98, r"$s'$（像距）", fontsize=10, ha="center", color="0.4")
+
 # 顶部说明：右上区域，两行上下错开
 ax.text(2.6, 3.2, "出射光线相互平行",
         fontsize=9.5, ha="center", color=GRAY)
-ax.text(2.6, 2.65, r"$\Rightarrow$ 像在无穷远（$s'=\infty$）",
+ax.text(2.6, 2.65, r"$\Rightarrow$ 像在无穷远（像距 $s'=\infty$）",
         fontsize=9.5, ha="center", color=GRAY)
 # h' 发散结论：右侧中部、位于两出射光线之上
 ax.text(3.55, 1.6, r"$h'=m\,h\to\infty$", fontsize=11, color=RED)
