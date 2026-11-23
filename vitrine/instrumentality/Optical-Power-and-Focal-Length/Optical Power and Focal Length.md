@@ -14,67 +14,25 @@ This is a supplement to page 7 'Refractive and Reflective Surfaces' in the book 
 
 ## Introduction
 
-In optics, we often speak of the “power” of a lens or a curved refracting surface and, almost interchangeably, of its “focal length.” Yet these two quantities belong to different conceptual domains. Power is a measure of how strongly a surface bends light—a property rooted in geometry (the curvature of the surface) and in the materials involved (their refractive indices). Focal length, by contrast, is an optical distance: it measures how far the surface is from the point where a collimated beam converges (or from which it appears to diverge). The bridge between them is the paraxial refraction equation, a first-order approximation that reduces Snell’s law and the geometry of a spherical surface to a simple linear relationship. This essay explains what optical power is, how it relates to focal length, and where the governing equation comes from—including the meaning of the signed object distance $s$ and the assumptions that underlie the derivation.
+In optics, a curved refracting surface is described by two closely related quantities. The first is its power—how strongly the surface bends light. This is a property fixed by the geometry of the surface (its curvature) and by the materials on either side (their refractive indices). The second is its focal length—an optical distance: the distance from the surface to the point where a beam that arrives parallel to the axis comes to a focus (or from which it appears to diverge). Power is a property of the surface itself; focal length is a distance that follows from it. The two are linked through a first-order relation that reduces the behavior of a spherical surface to simple algebra, and that relation is exact only in the small-angle (paraxial) approximation.
+
+This essay proceeds in order, defining every quantity where it first becomes necessary. It begins with the power of a single spherical refracting surface, expressed in terms of curvature and refractive indices. It then fixes the sign conventions for the axial distances, and derives the relation between object distance and image distance for such a surface from the basic law of refraction together with the geometry of the sphere. Reading that relation with the object at infinity defines the focal lengths. A final section returns to the approximations on which the whole derivation rests.
 
 ## Power as a Geometric Quantity
 
-Consider a spherical refracting surface of radius of curvature $R$ separating two media with refractive indices $n$ (before the surface) and $n'$ (after the surface). In the paraxial regime—where rays make small angles with the optical axis—the surface power is defined as
+Consider a spherical refracting surface of radius of curvature $R$ separating two media with refractive indices $n$ (before the surface) and $n'$ (after the surface). In the paraxial regime—small angles with the optical axis—the surface power is defined as
 
 $$
 \Phi = \frac{n' - n}{R}.
 $$
 
-This expression shows that power depends on two things: the index contrast $n' - n$ and the curvature $1/R$. A steeper surface (smaller $|R|$) or a larger jump in refractive index produces a stronger bending effect. The sign of $\Phi$ indicates whether the surface is converging (positive power) or diverging (negative power) under the sign convention used here ($\S4$).
+This expression shows that power depends on two things: the index contrast $n' - n$ and the curvature $1/R$. A steeper surface (smaller $|R|$) or a larger jump in refractive index produces a stronger bending effect. Once the sign of $R$ is fixed (positive when the center of curvature lies to the right of the vertex), the sign of $\Phi$ indicates whether the surface adds convergence (positive power) or divergence (negative power) to a passing bundle.
 
-Power is therefore an intrinsic property of the surface (given the two media): it tells us how much the surface changes the vergence of a wavefront, and equivalently how much it changes a paraxial ray’s reduced slope per unit ray height. It sets a length scale, $1/\Phi$, but not a location: where the focus actually lies also depends on the refractive index of the image space and, for a general object, on the object position. That location emerges when we ask: where does a beam that enters parallel to the axis come to a focus?
+Power is therefore an intrinsic property of the surface, given the two media: it sets a characteristic length scale, $1/\Phi$, but not a location. Where a given beam actually comes to a focus depends on the refractive index of the image space and, for a finite object, on the object position. That location is determined in the sections that follow.
 
-## Focal Length as the Distance Manifestation of Power
+## Axial Distances and Their Signs
 
-The paraxial refraction equation for a single spherical surface is
-
-$$
-\frac{n'}{s'} - \frac{n}{s} = \Phi,
-$$
-
-where $s$ is the signed object distance and $s'$ is the signed image distance (we derive this equation in §5). The quantities $n/s$ and $n'/s'$ are called reduced vergences: they measure how strongly the wavefront is converging or diverging as it arrives at or leaves the surface, and their signs carry that information. With the convention used here, $n/s < 0$ for a diverging incident wavefront—the usual case of a real object—and $n'/s' > 0$ for a converging emergent one. The equation states that the emergent reduced vergence equals the incident reduced vergence plus the surface power; like vergence, $\Phi$ has units of inverse length (diopters when distances are in meters).
-
-To find the image-side focal length $f'$, we place the object at infinity: $s \to -\infty$. The incident vergence $n/s$ then vanishes, and the equation reduces to
-
-$$
-\frac{n'}{s'} = \Phi.
-$$
-
-The image distance that results is, by definition, the image-side focal length (Figure 1a):
-
-$$
-f' = \frac{n'}{\Phi}.
-$$
-
-Similarly, the front focal point is the object position that produces a collimated emergent beam ($s' \to \infty$). Putting $1/s' = 0$ in the refraction equation gives $s = -n/\Phi$: for a converging surface ($\Phi > 0$) the front focal point lies a distance $n/\Phi$ to the left of the vertex, and in signed form the front focal length is
-
-$$
-f = -\frac{n}{\Phi}.
-$$
-
-The two focal lengths therefore stand in the ratio
-
-$$
-\frac{f'}{f} = -\frac{n'}{n},
-$$
-
-a relation that in fact holds for any Gaussian system. For a single surface the indices must differ for there to be any power at all, so the two focal distances never have equal magnitude; they do have equal magnitude for a thin lens in air, where the media on either side coincide. Some texts absorb the index into an effective focal length $f_E = 1/\Phi = f'/n' = -f/n$, which is why the combination $1/\Phi$ keeps appearing.
-
-With the image space air ($n' = 1$), the image-side focal length reduces to the familiar $f' = 1/\Phi$, i.e. $\Phi = 1/f'$. For a thin lens, the powers of the two surfaces add; in air this gives the standard lens-power formula $P = 1/f'$ (and $P = -1/f$, since $f = -f'$ for a lens in air).
-
-Thus focal length is not an independent property; it is the distance at which the surface’s power brings a collimated beam to focus. Power is the cause; focal length is the distance effect.
-
-![Paraxial refraction at a single spherical surface: conjugates, focal points, and vergence bookkeeping.](./images/optical_power_conjugates.svg)
-
-**Figure 1.** Refraction at a single spherical surface between air ($n=1.00$) and glass ($n'=1.50$), drawn schematically: the aperture and the vertical scale are exaggerated, the surface curvature is schematic, and lengths are in arbitrary units. **(a)** With $R=+4$, $\Phi=(n'-n)/R=+0.125$, and the object at $s=-20$, the refraction equation gives $s'=+20$. Blue lines are the two marginal rays from $O$; red lines are their refracted continuations, which meet at the real image $I$. The teal ray arrives parallel to the axis (object at $s=-\infty$) and crosses the axis at the image-side focal point $F'$, a distance $f'=n'/\Phi=+12$ from the vertex. The front focal point $F$ lies at $f=-n/\Phi=-8$; because $n'\ne n$, the two focal distances differ, with $f'/f=-n'/n=-1.5$. **(b)** The same numbers read as vergence bookkeeping: the incident reduced vergence $n/s=-0.050$ (diverging) plus the surface power $\Phi=+0.125$ gives the emergent reduced vergence $n'/s'=+0.075$ (converging).
-
-## The Meaning of $s$
-
-The symbol $s$ in the refraction equation is the signed axial object distance: the $z$-coordinate of the object point, measured from the surface vertex. It is crucial to distinguish $s$ from the focal length. Under the common Cartesian sign convention:
+All axial distances are measured from the surface vertex along the axis. Under the common Cartesian sign convention:
 
 - Light travels from left to right.
 - The surface vertex is at $z = 0$.
@@ -82,11 +40,11 @@ The symbol $s$ in the refraction equation is the signed axial object distance: t
 - $s'$ is positive for a real image to the right of the surface.
 - $R$ is positive if the center of curvature lies to the right of the vertex.
 
-With this convention, a real object at infinity is represented by $s \to -\infty$, which is exactly the limit used to derive the focal length. Some textbooks use a positive object-distance convention and write the equation with different signs; the physics is unchanged, but the signs must be applied consistently throughout.
+The signed object distance $s$ is the $z$-coordinate of the object point, and the signed image distance $s'$ that of the image point, both measured from the vertex. A real object at infinity is represented by $s \to -\infty$. Some textbooks use a positive object-distance convention and write the working equation with different signs; the physics is unchanged, but the signs must be applied consistently throughout.
 
 ## Derivation from Snell’s Law and Surface Geometry
 
-The paraxial refraction equation is not an independent postulate. It follows from Snell’s law,
+The relation between object and image distances is not an independent postulate. It follows from Snell’s law,
 
 $$
 n \sin i = n' \sin i',
@@ -152,10 +110,7 @@ $$
 
 This equation has a clear physical meaning: the term $-\Phi y$ is the “kick” that the curved surface imparts to the ray. The ray’s reduced slope $n u$ changes by an amount proportional to the surface power and the ray height. This is also where the combination $(n'-n)/R$ earns the name power: it is precisely the coefficient that converts ray height into a change of reduced slope.
 
-To connect this ray picture to object and image distances, consider a ray leaving an axial object at position $s$ and arriving at the surface at height $y$. To first order the hit point may be taken in the vertex plane, since the sagitta of the sphere is $O(y^2/R)$. The sagitta is the axial offset
-between the vertex plane and the curved surface at height $y$; the curved surface is
-reached only after the ray has travelled an extra distance $\delta = y^2/(2R) + O(y^4/R^3)$
-beyond the vertex plane (Figure 3). Its slope is
+To connect this ray picture to object and image distances, consider a ray leaving an axial object at position $s$ and arriving at the surface at height $y$. To first order the hit point may be taken in the vertex plane, since the sagitta of the sphere is $O(y^2/R)$. The sagitta is the axial offset between the vertex plane and the curved surface at height $y$; the curved surface is reached only after the ray has travelled an extra distance $\delta = y^2/(2R) + O(y^4/R^3)$ beyond the vertex plane (Figure 3). Its slope is
 
 ![Sagitta of the spherical surface vs the vertex plane.](./images/sagitta.svg)
 
@@ -189,7 +144,55 @@ $$
 \boxed{\frac{n'}{s'} - \frac{n}{s} = \Phi = \frac{n' - n}{R}}.
 $$
 
-This is the spherical refracting-surface conjugate equation. It is the quantitative link between the geometric property $R$, the material property $n' - n$, and the optical distances $s$ and $s'$.
+This is the spherical refracting-surface conjugate equation: the quantitative link between the geometric property $R$, the material property $n' - n$, and the optical distances $s$ and $s'$.
+
+## Reading the Equation: Reduced Vergence
+
+The equation just obtained is the central result of this essay:
+
+$$
+\frac{n'}{s'} - \frac{n}{s} = \Phi.
+$$
+
+Its two terms on the left are the reduced vergences: the incident reduced vergence $n/s$ measures how strongly the wavefront is converging or diverging as it arrives at the surface, and the emergent reduced vergence $n'/s'$ describes the same as it leaves; their signs carry that information. With the convention of the previous section, $n/s < 0$ for a diverging incident wavefront—the usual case of a real object—and $n'/s' > 0$ for a converging emergent one. The equation states that the emergent reduced vergence equals the incident reduced vergence plus the surface power. In the ray picture this is the same statement: the surface “kick” $-\Phi y$ changes the reduced slope $n u$ by an amount proportional to the ray height, with $\Phi$ as the coefficient. Like a vergence, $\Phi$ has units of inverse length (diopters when distances are in meters).
+
+The focal lengths are now obtained by asking when one of the two reduced vergences vanishes.
+
+## Focal Length as the Distance Manifestation of Power
+
+The two focal lengths are the special object and image positions for which one of the reduced vergences vanishes. To find the image-side focal length $f'$, place the object at infinity: $s \to -\infty$. The incident reduced vergence $n/s$ then vanishes, and the equation reduces to
+
+$$
+\frac{n'}{s'} = \Phi.
+$$
+
+The image distance that results is, by definition, the image-side focal length:
+
+$$
+f' = \frac{n'}{\Phi}.
+$$
+
+Similarly, the front focal point is the object position that produces a collimated emergent beam ($s' \to \infty$). Putting $1/s' = 0$ in the conjugate equation gives $s = -n/\Phi$: for a converging surface ($\Phi > 0$) the front focal point lies a distance $n/\Phi$ to the left of the vertex, and in signed form the front focal length is
+
+$$
+f = -\frac{n}{\Phi}.
+$$
+
+The two focal lengths therefore stand in the ratio
+
+$$
+\frac{f'}{f} = -\frac{n'}{n},
+$$
+
+a relation that in fact holds for any centered optical system in the paraxial limit. For a single surface the two indices must differ for there to be any power at all, so the two focal distances never have equal magnitude; they do have equal magnitude for a thin lens in air, where the media on either side coincide. Some texts absorb the index into an effective focal length $f_E = 1/\Phi = f'/n' = -f/n$, which is why the combination $1/\Phi$ keeps appearing.
+
+With the image space air ($n' = 1$), the image-side focal length reduces to the familiar $f' = 1/\Phi$, i.e. $\Phi = 1/f'$. For a thin lens, the powers of the two surfaces add; in air this gives the standard lens-power formula $P = 1/f'$ (and $P = -1/f$, since $f = -f'$ for a lens in air).
+
+Thus focal length is not an independent property; it is the distance at which the surface’s power brings a collimated beam to focus. Power is the cause; focal length is the distance effect.
+
+![Paraxial refraction at a single spherical surface: conjugates, focal points, and vergence bookkeeping.](./images/optical_power_conjugates.svg)
+
+**Figure 1.** Refraction at a single spherical surface between air ($n=1.00$) and glass ($n'=1.50$), drawn schematically: the aperture and the vertical scale are exaggerated, the surface curvature is schematic, and lengths are in arbitrary units. **(a)** With $R=+4$, $\Phi=(n'-n)/R=+0.125$, and the object at $s=-20$, the refraction equation gives $s'=+20$. Blue lines are the two marginal rays from $O$; red lines are their refracted continuations, which meet at the real image $I$. The teal ray arrives parallel to the axis (object at $s=-\infty$) and crosses the axis at the image-side focal point $F'$, a distance $f'=n'/\Phi=+12$ from the vertex. The front focal point $F$ lies at $f=-n/\Phi=-8$; because $n'\ne n$, the two focal distances differ, with $f'/f=-n'/n=-1.5$. **(b)** The same numbers read as vergence bookkeeping: the incident reduced vergence $n/s=-0.050$ (diverging) plus the surface power $\Phi=+0.125$ gives the emergent reduced vergence $n'/s'=+0.075$ (converging).
 
 ## Interpretation and the Role of the Paraxial Approximation
 
