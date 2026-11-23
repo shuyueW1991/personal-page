@@ -3,15 +3,110 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Preliminary Mathematical Exegesis of Diffusion Models — 王舒悦</title>
+  <title>A Preliminary Mathematical Exegesis of Diffusion Models — Shuyue Wang</title>
   <link rel="canonical" href="https://shuyuew1991.github.io/personal-page/exegesis.html">
+  <meta name="description" content="A rigorous, intuition-first book on diffusion models: high-dimensional data, the ELBO, score-based SDEs, Fokker–Planck, and implementation. By Shuyue Wang.">
   <meta property="og:url" content="https://shuyuew1991.github.io/personal-page/exegesis.html">
-  <meta name="description" content="A Preliminary Mathematical Exegesis of Diffusion Models. Preface, four chapters, four plates.">
+  <meta property="og:title" content="A Preliminary Mathematical Exegesis of Diffusion Models">
+  <meta property="og:description" content="A rigorous, intuition-first book on diffusion models: high-dimensional data, the ELBO, score-based SDEs, Fokker–Planck, and implementation. By Shuyue Wang.">
+  <meta property="og:type" content="book">
+  <meta property="og:image" content="https://shuyuew1991.github.io/personal-page/assets/og-book.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Preliminary Mathematical Exegesis of Diffusion Models">
+  <meta name="twitter:description" content="A rigorous, intuition-first book on diffusion models: high-dimensional data, the ELBO, score-based SDEs, Fokker–Planck, and implementation.">
+  <meta name="twitter:image" content="https://shuyuew1991.github.io/personal-page/assets/og-book.jpg">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="personal.css">
   <link rel="stylesheet" href="exegesis.css">
   <link rel="stylesheet" href="comments.css">
   <link rel="stylesheet" href="stats.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Book",
+        "@id": "https://shuyuew1991.github.io/personal-page/exegesis.html#book",
+        "name": "A Preliminary Mathematical Exegesis of Diffusion Models",
+        "alternateName": "Gaining Clarity From True Understanding",
+        "url": "https://shuyuew1991.github.io/personal-page/exegesis.html",
+        "image": "https://shuyuew1991.github.io/personal-page/assets/og-book.jpg",
+        "inLanguage": "en",
+        "bookFormat": "https://schema.org/EBook",
+        "author": {
+          "@type": "Person",
+          "name": "Shuyue Wang",
+          "alternateName": "王舒悦",
+          "url": "https://shuyuew1991.github.io/personal-page/",
+          "sameAs": [
+            "https://orcid.org/0000-0001-8452-5602",
+            "https://www.linkedin.com/in/shuyuew1991/",
+            "https://github.com/shuyueW1991"
+          ]
+        },
+        "about": [
+          { "@type": "Thing", "name": "Diffusion models" },
+          { "@type": "Thing", "name": "Generative AI" },
+          { "@type": "Thing", "name": "Evidence lower bound" },
+          { "@type": "Thing", "name": "Score-based generative modeling" },
+          { "@type": "Thing", "name": "Stochastic differential equations" }
+        ],
+        "abstract": "A mathematical, intuition-first treatment of diffusion models, from the high-dimensional structure of natural images to the ELBO, score-based SDEs, Fokker–Planck dynamics, and implementation.",
+        "copyrightHolder": { "@type": "Person", "name": "Shuyue Wang" },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Shuyue Wang. All rights reserved.",
+        "dateModified": "2026-11-23",
+        "hasPart": [
+          { "@type": "Chapter", "name": "Preface", "position": 0 },
+          { "@type": "Chapter", "name": "The High-Dimensional Structure of True Data", "position": 1, "url": "https://shuyuew1991.github.io/personal-page/exegesis-sample.html" },
+          { "@type": "Chapter", "name": "The ELBO Paradigm", "position": 2 },
+          { "@type": "Chapter", "name": "Dissecting the ELBO", "position": 3 },
+          { "@type": "Chapter", "name": "Implementation on Machine", "position": 4 }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://shuyuew1991.github.io/personal-page/" },
+          { "@type": "ListItem", "position": 2, "name": "Instrumentality", "item": "https://shuyuew1991.github.io/personal-page/instrumentality.html" },
+          { "@type": "ListItem", "position": 3, "name": "A Preliminary Mathematical Exegesis of Diffusion Models", "item": "https://shuyuew1991.github.io/personal-page/exegesis.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Who is this book for?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Graduate students, engineers, and researchers who want the mathematics behind diffusion models to click. It assumes basic probability, linear algebra, and calculus; it does not assume a background in diffusion models." }
+          },
+          {
+            "@type": "Question",
+            "name": "How is it different from other diffusion tutorials?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It follows one continuous derivation instead of collecting tricks. Each deus ex machina assumption is stated and justified, and the goal is to show why each step is needed, not just what the update rule is." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the book finished?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It is a living draft. The preface and Chapters I–III are complete; Chapter IV is being expanded. Buyers receive updates to the same email." }
+          },
+          {
+            "@type": "Question",
+            "name": "What do I get, and how is it delivered?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A PDF of the current draft, sent to the email used at Stripe checkout, usually within 24 hours. The EPUB is a free update when it is ready. The supporter bundle also includes future updates and the code bundle when it is released." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I pay with Alipay?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Stripe checkout can show Alipay where the Stripe account supports it, alongside cards. If Alipay does not appear at checkout, contact me and I will arrange another route." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -21,8 +116,24 @@
   </header>
 
   <main id="main" class="book-shell">
-    <h1 class="book-title" lang="en">A Preliminary Mathematical Exegesis of Diffusion Models</h1>
-    <p class="book-sub">Gaining Clarity From True Understanding</p>
+    <header class="book-head">
+      <h1 class="book-title" lang="en">A Preliminary Mathematical Exegesis of Diffusion Models</h1>
+      <p class="book-sub">Gaining Clarity From True Understanding</p>
+      <p class="book-byline" lang="en">
+        Shuyue Wang <span lang="zh-Hans">王舒悦</span> ·
+        <a href="https://orcid.org/0000-0001-8452-5602" rel="noopener">ORCID</a> ·
+        2026 · working draft
+      </p>
+      <p class="book-lede" lang="en">
+        A short, mathematically serious book about how diffusion models actually work:
+        why natural images occupy a vanishing fraction of pixel space, how the ELBO
+        becomes a tractable objective, and how denoising turns into score estimation.
+      </p>
+      <p class="book-actions">
+        <a class="book-button" href="exegesis-sample.html" lang="en">Read the free sample ↗</a>
+        <a class="book-textlink" href="#buy" lang="en">Get the full book</a>
+      </p>
+    </header>
 
     <div class="book-plates"><figure class="book-plate">
   <img src="assets/plate-01.jpg" alt="Looking Up: a person stands at an opening in a stone wall, looking at the stars.">
@@ -38,27 +149,174 @@
   <figcaption><span>IV</span><span>Harvest</span></figcaption>
 </figure></div>
 
-    <div class="book-preface" lang="en">
-      <p>Generative AI has transformed countless aspects of our world. Among its many techniques, the diffusion model stands out as a groundbreaking framework—powering innovations like Stable Diffusion, whose magic captivates anyone (myself included) who remembers a time before the AI revolution.</p>
-      <p>For learners like me, most tutorials and code snippets in blogs and papers provide only fragmented insights—forcing us to piece together scattered, incomplete explanations. I’ve tried to write it like something where ideas build naturally.</p>
-    </div>
+    <section class="book-section" aria-labelledby="book-about">
+      <h2 id="book-about">About the book</h2>
+      <div class="book-preface" lang="en">
+        <p>Generative AI has transformed countless aspects of our world. Among its many techniques, the diffusion model stands out as a groundbreaking framework—powering innovations like Stable Diffusion, whose magic captivates anyone (myself included) who remembers a time before the AI revolution.</p>
+        <p>For learners like me, most tutorials and code snippets in blogs and papers provide only fragmented insights—forcing us to piece together scattered, incomplete explanations. I’ve tried to write it like something where ideas build naturally.</p>
+      </div>
+      <ul class="book-facts" lang="en">
+        <li><span>Format</span>PDF now; EPUB when ready. The free sample is HTML with typeset math.</li>
+        <li><span>Length</span>Preface + four chapters; a working draft that grows with updates.</li>
+        <li><span>Audience</span>Graduate students, engineers, and researchers who want the “why”, not only the update rule.</li>
+        <li><span>Prerequisites</span>Basic probability, linear algebra, and calculus. No diffusion background assumed.</li>
+      </ul>
+    </section>
 
-    <ol class="book-chapters"><li>
+    <section class="book-section" id="contents" aria-labelledby="book-contents">
+      <h2 id="book-contents">Contents</h2>
+      <ol class="book-chapters"><li>
   <span class="book-ch-no">00</span>
-  <span class="book-ch-title" lang="en">Preface</span>
+  <div class="book-ch-body">
+    <h3 class="book-ch-title" lang="en">Preface</h3>
+    <p class="book-ch-summary" lang="en">Why the book exists, and how to read it. The gap between “I can run the code” and “I can derive the objective”; the few deliberate <em>deus ex machina</em> assumptions that make the derivation possible.</p>
+    <p class="book-ch-tag" lang="en"><a href="exegesis-sample.html">Free sample</a></p>
+  </div>
 </li><li>
   <span class="book-ch-no">I</span>
-  <span class="book-ch-title" lang="en">The High-Dimensional Structure of True Data</span>
+  <div class="book-ch-body">
+    <h3 class="book-ch-title" lang="en">The High-Dimensional Structure of True Data</h3>
+    <p class="book-ch-summary" lang="en">Natural images are a vanishingly small subset of all pixel arrays, so a Gaussian fit collapses into blur. The chapter builds the geometric picture: <em>p</em><sub>data</sub>, the concentration of high-dimensional noise, the thin shell, and the measure-theoretic foundations needed later.</p>
+    <p class="book-ch-tag" lang="en"><a href="exegesis-sample.html">Free sample</a></p>
+  </div>
 </li><li>
   <span class="book-ch-no">II</span>
-  <span class="book-ch-title" lang="en">The ELBO Paradigm</span>
+  <div class="book-ch-body">
+    <h3 class="book-ch-title" lang="en">The ELBO Paradigm</h3>
+    <p class="book-ch-summary" lang="en">Latent variables enter as the first modeling device. Through the cave analogy, the chapter separates the observed image from its hidden causes, derives the ELBO, and reads the KL gap as the price of using a proxy objective instead of the intractable likelihood.</p>
+  </div>
 </li><li>
   <span class="book-ch-no">III</span>
-  <span class="book-ch-title" lang="en">Dissecting the ELBO</span>
+  <div class="book-ch-body">
+    <h3 class="book-ch-title" lang="en">Dissecting the ELBO</h3>
+    <p class="book-ch-summary" lang="en">The longest chapter turns the ELBO into diffusion. Multiple latents, a Gaussian noising encoder, the central limit theorem, Tweedie’s formula, the score function, Fisher divergence, the Fokker–Planck equation, and score matching are assembled into one chain: denoising is score estimation.</p>
+  </div>
 </li><li>
   <span class="book-ch-no">IV</span>
-  <span class="book-ch-title" lang="en">Implementation on Machine</span>
+  <div class="book-ch-body">
+    <h3 class="book-ch-title" lang="en">Implementation on Machine</h3>
+    <p class="book-ch-summary" lang="en">From the reverse SDE to a discrete update: the forward schedule, <em>ᾱ</em>, the ε-prediction loss, and the DDPM-style sampling step. This chapter is being expanded with a walk through a real latent-diffusion codebase.</p>
+  </div>
 </li></ol>
+    </section>
+
+    <section class="book-section" aria-labelledby="book-learn">
+      <h2 id="book-learn">What you’ll learn</h2>
+      <ul class="book-learn" lang="en">
+        <li>Why natural images are rare in pixel space, and why that rules out a naive Gaussian model.</li>
+        <li>How to derive the ELBO from scratch and explain the KL gap without hand-waving.</li>
+        <li>Why the forward process ends in a Gaussian, and what the central limit theorem has to do with it.</li>
+        <li>How Tweedie’s formula connects denoising to the score function.</li>
+        <li>How the Fokker–Planck equation turns a distribution transition into a tractable training objective.</li>
+        <li>How to discretize the reverse SDE into a DDPM-style sampler.</li>
+      </ul>
+    </section>
+
+    <section class="book-section book-buy" id="buy" aria-labelledby="book-buy-title">
+      <h2 id="book-buy-title">Get the full book</h2>
+      <p class="book-buy-lede" lang="en">
+        The free sample stops after Chapter I. The full PDF continues through
+        the ELBO, the score-based SDE view, and the implementation. This is a
+        living draft: buyers get the updates.
+      </p>
+
+      <div class="book-offers">
+        <article class="book-offer" data-book-card="pdf">
+          <p class="book-offer-kicker">PDF</p>
+          <p class="book-offer-price">$12 <span>one-time</span></p>
+          <ul lang="en">
+            <li>Full book: Preface + Chapters I–IV</li>
+            <li>PDF, typeset math</li>
+            <li>Updates to the same email; EPUB when ready</li>
+            <li>Alipay or card at Stripe checkout</li>
+          </ul>
+          <a class="book-button book-buy-button" data-book-buy="pdf" href="#buy" hidden>Buy the PDF</a>
+          <p class="book-pending" data-book-pending="pdf" hidden>Payment link coming soon.</p>
+        </article>
+
+        <article class="book-offer" data-book-card="bundle">
+          <p class="book-offer-kicker">Supporter bundle</p>
+          <p class="book-offer-price">$29 <span>one-time</span></p>
+          <ul lang="en">
+            <li>Everything in the PDF</li>
+            <li>All future updates</li>
+            <li>Code bundle when it is released</li>
+            <li>Alipay or card at Stripe checkout</li>
+          </ul>
+          <a class="book-button book-buy-button" data-book-buy="bundle" href="#buy" hidden>Buy the bundle</a>
+          <p class="book-pending" data-book-pending="bundle" hidden>Payment link coming soon.</p>
+        </article>
+      </div>
+
+      <noscript><p class="book-paynote">Checkout needs JavaScript. <a href="contact.html">Contact me</a> to buy.</p></noscript>
+      <p class="book-paynote" lang="en">
+        Checkout is hosted by Stripe. Card details never touch this site. Alipay
+        appears at checkout where the Stripe account supports it; if it does not
+        appear, <a href="contact.html">contact me</a> and I will arrange another route.
+      </p>
+      <p class="book-paynote" lang="en">
+        Delivery: the download link is sent to the email used at checkout, usually
+        within 24 hours. If the file does not arrive or is broken, reply to the
+        Stripe receipt and I will fix it or refund it.
+      </p>
+      <p class="book-paynote" lang="en">
+        Prices are in USD. Alipay customers see the converted amount at checkout.
+        The code bundle is in progress; the supporter bundle includes it when it ships.
+      </p>
+    </section>
+
+    <section class="book-section book-faq" id="faq" aria-labelledby="book-faq-title">
+      <h2 id="book-faq-title">FAQ</h2>
+      <details>
+        <summary>Who is this book for?</summary>
+        <p>Graduate students, engineers, and researchers who want the mathematics behind diffusion models to click. It assumes basic probability, linear algebra, and calculus; it does not assume a background in diffusion models.</p>
+      </details>
+      <details>
+        <summary>How is it different from other diffusion tutorials?</summary>
+        <p>It follows one continuous derivation instead of collecting tricks. Each <em>deus ex machina</em> assumption is stated and justified, and the goal is to show why each step is needed, not just what the update rule is.</p>
+      </details>
+      <details>
+        <summary>Is the book finished?</summary>
+        <p>It is a living draft. The preface and Chapters I–III are complete; Chapter IV is being expanded. Buyers receive updates to the same email.</p>
+      </details>
+      <details>
+        <summary>What do I get, and how is it delivered?</summary>
+        <p>A PDF of the current draft, sent to the email used at Stripe checkout, usually within 24 hours. The EPUB is a free update when it is ready. The supporter bundle also includes future updates and the code bundle when it is released.</p>
+      </details>
+      <details>
+        <summary>Can I pay with Alipay?</summary>
+        <p>Stripe checkout can show Alipay where the Stripe account supports it, alongside cards. If Alipay does not appear at checkout, contact me and I will arrange another route.</p>
+      </details>
+    </section>
+
+    <section class="book-section" id="cite" aria-labelledby="book-cite-title">
+      <h2 id="book-cite-title">Cite this book</h2>
+      <p lang="en">If you use the book in teaching or research, cite the working draft:</p>
+      <pre class="book-cite" lang="en"><code>@book{wang2026diffusion,
+  author    = {Wang, Shuyue},
+  title     = {A Preliminary Mathematical Exegesis of Diffusion Models},
+  subtitle  = {Gaining Clarity From True Understanding},
+  year      = {2026},
+  note      = {Working draft},
+  url       = {https://shuyuew1991.github.io/personal-page/exegesis.html}
+}</code></pre>
+      <p class="book-cite-plain" lang="en">Wang, Shuyue. <em>A Preliminary Mathematical Exegesis of Diffusion Models</em>. Working draft, 2026. https://shuyuew1991.github.io/personal-page/exegesis.html</p>
+    </section>
+
+    <section class="book-section book-author" aria-labelledby="book-author-title">
+      <h2 id="book-author-title">About the author</h2>
+      <p lang="en">
+        Shuyue Wang <span lang="zh-Hans">王舒悦</span> writes about AI, optics, and fiction.
+        She has published on machine learning and engineering; this book grew out of a
+        lecture on diffusion models and a long set of notes on the mathematics of
+        generative models.
+      </p>
+      <p class="book-author-links" lang="en">
+        <a href="papers.html">Publications</a> ·
+        <a href="https://orcid.org/0000-0001-8452-5602" rel="noopener">ORCID</a> ·
+        <a href="contact.html">Contact</a>
+      </p>
+    </section>
 
     <section class="comments" id="comments" aria-labelledby="comments-title">
       <div class="comments-head">
@@ -79,5 +337,6 @@
   </footer>
   <script src="stats.js" defer></script>
   <script src="comments.js" defer></script>
+  <script src="payments.js" defer></script>
 </body>
 </html>

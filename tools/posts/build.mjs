@@ -307,7 +307,7 @@ function restoreMath(html, mathMap, { wrap }) {
   for (const [key, info] of mathMap) {
     const rendered = wrap
       ? info.display
-        ? `<div class="math-display">${info.html}</div>`
+        ? `<span class="math-display">${info.html}</span>`
         : `<span class="math-inline">${info.html}</span>`
       : info.html;
     out = out.split(key).join(rendered);

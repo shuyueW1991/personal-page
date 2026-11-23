@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  <link rel="canonical" href="{{CANONICAL}}">
+  <meta property="og:url" content="{{CANONICAL}}">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://shuyuew1991.github.io/personal-page/assets/og-book.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESCRIPTION}}">
+  <meta name="twitter:image" content="https://shuyuew1991.github.io/personal-page/assets/og-book.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="personal.css">
+  <link rel="stylesheet" href="exegesis.css">
+  <link rel="stylesheet" href="book-sample.css">
+{{KATEX}}
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body class="book-sample-page">
+  <a class="skip" href="#main">Skip to text</a>
+
+  <header class="page-top">
+    <a class="back" href="exegesis.html">← the book</a>
+    <span class="label">book · free sample</span>
+  </header>
+
+  <main id="main" class="book-sample-shell">
+    <header class="book-sample-head">
+      <p class="book-sample-kicker" lang="en">A free sample</p>
+      <h1 lang="en">{{HEADING}}</h1>
+      {{DECK}}
+      <p class="book-sample-meta" lang="en">
+        From <a href="exegesis.html">A Preliminary Mathematical Exegesis of Diffusion Models</a> · Shuyue Wang
+      </p>
+    </header>
+
+    <article class="book-sample-body" lang="en">
+{{BODY}}
+    </article>
+
+    <aside class="book-sample-cta" aria-labelledby="sample-cta-title">
+      <p class="book-sample-cta-kicker">The full book</p>
+      <h2 id="sample-cta-title">Chapters II–IV, the PDF, and updates</h2>
+      <p>
+        The sample stops before the ELBO, the score-based SDE view, and the implementation.
+        The full PDF continues from here; buyers also get the code bundle and the
+        living-draft updates, plus the EPUB when it is ready.
+      </p>
+      <p><a class="book-button" href="exegesis.html#buy">Get the full book ↗</a></p>
+      <p class="book-sample-note">
+        Or <a href="exegesis.html#comments">leave a comment</a> ·
+        <a href="exegesis.html#cite">cite the book</a>
+      </p>
+    </aside>
+  </main>
+
+  <footer class="page-foot">
+    <span>© 2026 <span lang="zh-Hans">王舒悦</span></span>
+    <div class="links"><a href="exegesis.html" lang="en">the book</a><a href="contact.html" lang="en">contact</a></div>
+  </footer>
+
+  <script src="stats.js" defer></script>
+</body>
+</html>

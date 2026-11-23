@@ -3,7 +3,7 @@
 仓库公开 = 站点公开。这是 GitHub Pages 免费版的前提，改不了。
 
 所以这里划的线不是"文件加密"，而是**分清哪些东西本来就不该进公开仓库**：
-公开的是"读过就能抄"的正文；不公开的是稿件、批注、中间版本和生成物。
+公开的是样章和"读过就能抄"的正文；不公开的是完整书稿、批注、中间版本和生成物。
 
 ## 仓库里有什么
 
@@ -12,6 +12,7 @@
 | `prototypes/v2/b-desk/*.html`、`*.css`、`cover.js`、`stats.js`、`comments.js`、`post.js`、`inbox.js`、`favicon.svg`、`assets/` | 上线页面、样式、脚本、图标与图版（含 GoatCounter 的 count.js、KaTeX 的 CSS 与字体） |
 | `vitrine/instrumentality/` | 注记的 Markdown 原稿、图版源文件（SVG）和生成图版用的 `.py`；构建时只把被 Markdown 引用的图片复制进 `_site/assets/posts/` |
 | `tools/posts/` | 注记生成器与页面模板；`node_modules/` 不入库 |
+| `tools/book/sample.md`、`tools/book/sample-template.html` | **公开的免费样章**：序言 + 第一章；完整书稿仍不进仓库 |
 | `build.py` | 白名单装配 `_site/` |
 | `tools/stats_snapshot.py` | 取 GoatCounter 汇总，写 `_site/stats.json` |
 | `.github/workflows/pages.yml` | 构建 + 部署 |
@@ -21,16 +22,26 @@
 | 排除 | 为什么 |
 |---|---|
 | `vitrine/novel*/` | 小说各稿 docx/pdf、评论、语段库 |
-| `vitrine/exegesis_of_diffusion/` | 书稿全文 md 与图版原图 |
+| `vitrine/exegesis_of_diffusion/` | 书稿全文 md 与图版原图（**除了 `tools/book/sample.md` 里公开的序言 + 第一章**） |
 | `*.docx *.doc *.pdf *.xlsx *.pdf …` | 按扩展名兜底，挪到哪儿都拦 |
 | `_site/` | 构建产物，由 CI 现场生成 |
 
 `.gitignore` 只影响 git，**不会删本地文件**，稿子照常放在原处。
 
+## 书的公开范围
+
+`exegesis.html` 是落地页，`exegesis-sample.html` 是免费样章（序言 + 第一章）。样章的源文件是 `tools/book/sample.md`，会进仓库、会上线；其余章节仍在 `vitrine/exegesis_of_diffusion/`，被 `.gitignore` 排除。
+
+- 想改样章：改 `tools/book/sample.md`，不要动书稿目录；`python3 build.py` 会重新排版。
+- 想加公开章节：把内容追加进 `sample.md`，同时确认 `exegesis.html` 的目录/购买文案仍准确。
+- 书稿全文、后续章节、代码包不要放进 `tools/book/` 或任何会被 `build.py` 复制的位置。
+- `prototypes/v2/b-desk/payments.js` 只放公开的 Stripe Payment Link；`sk_...`、`whsec_...` 只放服务端环境变量，永远不进仓库。
+- PDF 草案用 `tools/book/build-pdf.py` 生成到 `dist/`；`*.pdf` 已被 `.gitignore` 排除。不要把它上传到仓库或 `_site/`。
+
 ## 三道闸
 
 1. **`.gitignore` 按扩展名兜底** —— 不依赖目录名，以后把稿子挪到 `drafts/` 也拦得住。
-2. **`build.py` 白名单** —— 只复制点名的那几个文件；另有 `FORBIDDEN` 正则，稿件和 `.py` 永远进不了 `_site/`。
+2. **`build.py` 白名单** —— 只复制点名的那几个文件；另有 `FORBIDDEN` 正则，完整书稿和 `.py` 永远进不了 `_site/`；样章由 `tools/book/` 生成。
 3. **CI 再查一遍** —— workflow 里 `find _site -iname '*.docx' …`，命中就构建失败。
 
 ## 评论

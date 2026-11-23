@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """把 prototypes/v2/b-desk 里真正上线的页面装配成 _site/。
 
-白名单复制：站点里永远不出现稿件、生成脚本、设计截图。
+白名单复制：站点里不会出现完整书稿、生成脚本、设计截图；公开样章见 tools/book/sample.md。
 本地的 `python3 build.py` 和 GitHub Actions 走的是同一个函数，
 所以"我本机看到的"和"线上看到的"是同一份东西。
 
@@ -50,6 +50,7 @@ STATIC_PAGES = [
     "essay.html",
     "quiet-tool.html",
     "notes.html",
+    "thanks.html",
     "stats.html",
 ]
 
@@ -66,6 +67,7 @@ STYLES = [
     "papers.css",
     "section.css",
     "exegesis.css",
+    "book-sample.css",
     "style.css",
     "notes.css",
     "post.css",
@@ -80,6 +82,7 @@ EXTRAS = [
     "comments.js",
     "post.js",
     "inbox.js",
+    "payments.js",
     "favicon.svg",
     # Google Search Console 的所有权验证文件：文件名和内容都不能改。
     "googlefa66aa447ffb8c98.html",
@@ -94,12 +97,17 @@ REQUIRED_ASSETS = [
 ]
 
 # 统计页和待看评论页不放进 sitemap，也不让搜索引擎收录。
-NOINDEX = {"stats.html", "inbox.html"}
+NOINDEX = {"stats.html", "inbox.html", "thanks.html"}
 
 # 注记源目录与生成器。构建时由 build.py 调用 Node 生成整页。
 POSTS_DIR = ROOT / "vitrine" / "instrumentality"
 POSTS_TOOL = ROOT / "tools" / "posts" / "build.mjs"
 POSTS_DEPS = ROOT / "tools" / "posts" / "node_modules" / "katex"
+
+# 书的免费样章（序言 + 第一章）。源文件在 tools/book/sample.md，
+# 和注记共用同一个 KaTeX 生成器，只是换一套 template。
+BOOK_DIR = ROOT / "tools" / "book"
+BOOK_TEMPLATE = BOOK_DIR / "sample-template.html"
 
 # instrumentality.html 里由生成器填充的两段内容。
 NOTES_COUNT_START = "<!-- notes:count:start -->"
@@ -116,7 +124,7 @@ STATS_PLACEHOLDER = {
     "generated": None,
 }
 
-# 万一百名单写错，这一层会拦住：稿件和脚本永远不进 _site。
+# 万一百名单写错，这一层会拦住：完整书稿和脚本永远不进 _site（公开样章是白名单内容）。
 FORBIDDEN = re.compile(
     r"\.(docx?|pdf|xlsx?|pages|key|epub|indd|rtf|py|pyc|doc)$", re.IGNORECASE
 )
@@ -196,6 +204,37 @@ def run_post_builder(out: Path, manifest: Path) -> list[dict]:
     result = subprocess.run(command, cwd=ROOT, check=False)
     if result.returncode != 0:
         raise RuntimeError("注记生成失败（见上面的报错），本次构建中止")
+    return json.loads(manifest.read_text(encoding="utf-8")).get("posts", [])
+
+
+def run_book_builder(out: Path, manifest: Path) -> list[dict]:
+    """调用同一个 KaTeX 生成器，把 tools/book/ 下的样章排成整页。"""
+    node = shutil.which("node")
+    if not node:
+        raise RuntimeError("找不到 node。样章生成需要 Node.js 18+，请先安装 Node。")
+    if not POSTS_DEPS.is_dir():
+        raise RuntimeError("缺少样章生成依赖。先在 tools/posts 下运行：npm ci")
+    if not BOOK_TEMPLATE.is_file():
+        raise RuntimeError(f"缺少样章模板：{BOOK_TEMPLATE.relative_to(ROOT)}")
+
+    command = [
+        node,
+        str(POSTS_TOOL),
+        "--src",
+        str(BOOK_DIR),
+        "--out",
+        str(out),
+        "--site-url",
+        SITE_URL,
+        "--template",
+        str(BOOK_TEMPLATE),
+        "--manifest",
+        str(manifest),
+    ]
+    print("样章：", flush=True)
+    result = subprocess.run(command, cwd=ROOT, check=False)
+    if result.returncode != 0:
+        raise RuntimeError("样章生成失败（见上面的报错），本次构建中止")
     return json.loads(manifest.read_text(encoding="utf-8")).get("posts", [])
 
 
@@ -335,18 +374,23 @@ def build_into(out: Path, check_only: bool) -> int:
     with tempfile.TemporaryDirectory(prefix="personal-page-posts-") as manifest_dir:
         try:
             posts = run_post_builder(out, Path(manifest_dir) / "posts.json")
+            book_posts = run_book_builder(out, Path(manifest_dir) / "book.json")
             inject_notes(out / "instrumentality.html", posts)
             write_post_titles(out, posts)
         except RuntimeError as error:
             print(f"✗ {error}", file=sys.stderr)
             return 1
 
-    pages = STATIC_PAGES + [f"{post['slug']}.html" for post in posts]
+    pages = (
+        STATIC_PAGES
+        + [f"{post['slug']}.html" for post in posts]
+        + [f"{post['slug']}.html" for post in book_posts]
+    )
     write_generated(out, pages)
 
     problems = validate_site(out, pages)
 
-    # 兜底：生成结果里不允许出现稿件或脚本。
+    # 兜底：生成结果里不允许出现完整书稿或脚本。
     for path in out.rglob("*"):
         if path.is_file() and FORBIDDEN.search(path.name):
             problems.append(f"_site 里出现了不该上线的文件：{path.relative_to(out)}")
@@ -356,7 +400,7 @@ def build_into(out: Path, check_only: bool) -> int:
         return 1
 
     if check_only:
-        print(f"✓ 检查通过（{len(posts)} 篇注记）")
+        print(f"✓ 检查通过（{len(posts)} 篇注记，{len(book_posts)} 篇样章）")
         return 0
 
     total = sum(p.stat().st_size for p in out.rglob("*") if p.is_file())
@@ -365,6 +409,7 @@ def build_into(out: Path, check_only: bool) -> int:
     for name in pages:
         print(f"  · {name}")
     print(f"  · 注记 {len(posts)} 篇由 vitrine/instrumentality/ 生成")
+    print(f"  · 样章 {len(book_posts)} 篇由 tools/book/ 生成")
     return 0
 
 
@@ -387,6 +432,12 @@ def build(check_only: bool = False) -> int:
         problems.append(f"缺注记目录：{POSTS_DIR.relative_to(ROOT)}")
     if not POSTS_TOOL.is_file():
         problems.append(f"缺注记生成器：{POSTS_TOOL.relative_to(ROOT)}")
+    if not BOOK_DIR.is_dir():
+        problems.append(f"缺样章目录：{BOOK_DIR.relative_to(ROOT)}")
+    if not BOOK_TEMPLATE.is_file():
+        problems.append(f"缺样章模板：{BOOK_TEMPLATE.relative_to(ROOT)}")
+    if not (BOOK_DIR / "sample.md").is_file():
+        problems.append("缺样章源文件：tools/book/sample.md")
     if shutil.which("node") is None:
         problems.append("找不到 node：注记生成需要 Node.js 18+")
     elif not POSTS_DEPS.is_dir():

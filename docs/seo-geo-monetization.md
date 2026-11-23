@@ -4,9 +4,17 @@
 >
 > 这是一份工作底稿，不是法律意见。平台费率、可售品类、税务和出版资质以各平台/专业人士的当前口径为准。
 
+## 决策记录（2026-11-23）
+
+- **书稿**：选 B。公开 `Preface` + `Chapter I` 样章；其余章节留到付费 PDF（EPUB 准备好后作为更新）。样章源文件在 `tools/book/sample.md`。
+- **小说**：保留全文，做免费名片；加虚构声明/内容警告/元数据，文末软链到书。
+- **支付**：Stripe Payment Link（一次性）+ Alipay via Stripe；个人支付宝收款码暂不放进商品流程。live 的 Product/Price/Payment Link 已建，Alipay 在默认配置里 `available: on`，结账页已确认显示银行卡 + 支付宝。
+- **交付**：先 Payment Link + 邮件手动发 PDF（24h 内）；自动化（Worker/webhook）后补。
+- **已落地**：`exegesis.html` 落地页、`exegesis-sample.html` 样章、`payments.js` 配置、`thanks.html` 确认页、`Book`/`FAQ`/`Breadcrumb` schema、OG 图、小说 metadata。
+
 ## 0. 一句话结论
 
-- **书页现在不到 200 个词，四章正文没有上线。** 这是 SEO/GEO 的第一瓶颈；标签可以优化，但没有可索引的内容，排名和 AI 引用都无从谈起。
+- **改造前书页不到 200 个词，四章正文没有上线。** 这是 SEO/GEO 的第一瓶颈；本轮已补落地页和序言+第一章样章，后续章节仍靠付费 PDF，SEO 的深度取决于还愿意公开多少。
 - **商业化不要做“站内硬 paywall”。** GitHub Pages 是静态公开站，正文挡不住；正确姿势是“免费 HTML 做入口，付费 PDF/代码/课程/企业培训放托管平台”。
 - **假评论、假争执不做。** 它同时踩虚假宣传、平台条款和学术信誉三条线；用真实早期读者、公开勘误、读者来信、真实争论题替代。
 
@@ -191,7 +199,7 @@ GEO（Generative Engine Optimization）目前没有统一标准。能稳定起�
 | A. 全书 HTML 公开 | 最强 | 书稿全文公开，PDF 付费理由变弱 | 只在“书是引流品，钱在培训/课程”时选 |
 | B. 序言 + 1 章样章 | 强 | 保留大部分正文；样章可引流 | **最平衡，推荐** |
 | C. 每章 300–500 词摘要 | 中 | 不暴露正文；能覆盖长尾词 | 不想上线正文时的最低方案 |
-| D. 只有现在的 188 词 | 很弱 | 最安全 | 不适合把 SEO 当目标 |
+| D. 只有落地页、没有样章 | 很弱 | 最安全 | 不适合把 SEO 当目标 |
 
 如果选 B，建议公开 `Preface` + `Chapter I`，并在样章末尾放“完整版 PDF / 后续章节”的 CTA。样章本身要能独立回答几个问题，不然 AI 不会引用。
 
@@ -398,7 +406,7 @@ GEO（Generative Engine Optimization）目前没有统一标准。能稳定起�
 
 - Zenodo DOI；Google Scholar 主页；`sameAs` 补全。
 - 自定义域名决策/迁移。
-- PDF/EPUB 制作；Leanpub/Gumroad 上架；定价测试。
+- PDF 制作；EPUB 后补；Leanpub/Gumroad 上架；定价测试。
 - 2–3 篇外链文章/知乎/Medium；1 次读书会或直播。
 
 **第 3 个月**

@@ -3,7 +3,7 @@
 王舒悦（Shuyue Wang）的个人网站：近黑书封式的索引首页，四个入口；内页是纸底阅读版，`contact` 页集中 LinkedIn、GitHub 与驻足过的城市。
 
 - 线上站点：<https://shuyuew1991.github.io/personal-page/>
-- 稿件、批注、中间版本和书稿全文**不在这个仓库里**，规则见 [PUBLISHING.md](PUBLISHING.md)。
+- 稿件、批注、中间版本和书稿全文**不在这个仓库里**；公开样章（序言 + 第一章）在 `tools/book/sample.md`，规则见 [PUBLISHING.md](PUBLISHING.md)。
 
 ## 结构
 
@@ -11,6 +11,9 @@
 build.py                       白名单装配 _site/，CI 也用同一个脚本
 tools/posts/build.mjs           构建时把 Markdown 注记排成整页（KaTeX 预渲染 + 图版桌面）
 tools/posts/note-template.html  注记页外壳：阅读桌、页边批注、评论、上下篇
+tools/book/sample.md            书的免费样章源（序言 + 第一章）；build.py 用同一个 KaTeX 生成器排版
+tools/book/sample-template.html 样章页外壳（和注记页不同，没有阅读桌）
+tools/book/build-pdf.py        本地把完整书稿排成 dist/*.pdf（读 gitignore 的书稿；不进 CI）
 tools/stats_snapshot.py        CI 里把 GoatCounter 汇总成 _site/stats.json
 prototypes/v2/b-desk/          上线页面：封面首页 + contact + 分类页 + inbox + stats
 prototypes/v2/b-desk/assets/   图版与 KaTeX；count.js 是 GoatCounter 官方脚本（ISC）
@@ -31,7 +34,7 @@ python3 build.py                              # 生成 _site/
 cd _site && python3 -m http.server 8123
 ```
 
-`build.py --check` 只做校验：白名单文件齐全、注记能生成、页面引用的本地资源都存在、每页 canonical 正确、每页都挂上了统计。它会在临时目录里完整构建一遍，不碰 `_site/`；真正构建时还会再扫一遍 `_site/`，确认里面没有稿件。
+`build.py --check` 只做校验：白名单文件齐全、注记和样章能生成、页面引用的本地资源都存在、每页 canonical 正确、每页都挂上了统计。它会在临时目录里完整构建一遍，不碰 `_site/`；真正构建时还会再扫一遍 `_site/`，确认里面没有完整书稿。
 
 `build.py` 会在 `_site/stats.json` 写一个 `enabled: false` 的占位。没有真实快照时，统计页只显示占位、不显示数字——这是正常的，不是缓存问题。
 
@@ -92,6 +95,29 @@ front matter 都可选：
 - 不登录也能读；发言要 GitHub 账号。issue 是公开的，别在评论里留隐私
 - 首页页脚的 `comments` 入口进 `inbox.html`：只列未看过的页边批注，点一行跳到对应段落，勾掉即从本机队列移除；同一 issue 之后有新回复会重新出现。页码对应的标题来自构建生成的 `post-titles.js`，新注记不用手改 `inbox.js`
 - `inbox.html` 是 `noindex`，不进 sitemap；队列状态只存在浏览器 `localStorage`
+
+## 书与样章
+
+`exegesis.html` 是书的落地页：免费样章入口、章节目录、FAQ、引用格式和购买区。`exegesis-sample.html` 是免费样章（序言 + 第一章），源文件在 `tools/book/sample.md`，由 `build.py` 调 `tools/posts/build.mjs` 排版，模板是 `tools/book/sample-template.html`。完整书稿仍在 `vitrine/exegesis_of_diffusion/`，被 `.gitignore` 排除；只有样章进仓库。
+
+购买区在 `exegesis.html#buy`，价格、交付和退款说明都写在页面上；按钮读 `prototypes/v2/b-desk/payments.js` 里的 `window.BOOK_PAYMENT_LINKS`。链接为空时按钮隐藏，显示 `Payment link coming soon`，所以可以先上线页面再补链接。
+
+`thanks.html` 是 Stripe 付款后的静态确认页，`noindex`，不进 sitemap；它不验证付款，下载链接由邮件发出。
+
+### 接 Stripe（一次性）
+
+1. Stripe Dashboard → Product catalog：新建书的产品，建两个 one-time price（PDF、supporter bundle）。
+2. Settings → Payment methods → Alipay：账户所在地/币种支持的话打开；不支持就走国内平台，不要硬接。
+3. Payment links：每个 price 建一个链接，Collect email 打开，success URL 填 `https://shuyuew1991.github.io/personal-page/thanks.html`。Payment Link 没有单独的 cancel URL；买家取消会回到链接页。
+4. 把两个链接粘进 `payments.js` 的 `pdf` / `bundle`；页面上的 $12 / $29 要和 Stripe 的 price 一致，改价时两边一起改。
+5. `sk_...`、`whsec_...` 只放服务端环境变量；`payments.js` 只放公开的 Payment Link。
+
+当前 live 配置（2026-11-23）：
+
+- Product：`prod_VgIcbdBMpl2zte`
+- Price：`price_1Uew1UGA5UrdluwQ7EyhsfS4`（$12 PDF）、`price_1Uew1WGA5UrdluwQABvQABBN`（$29 supporter bundle）
+- Payment Links：见 `payments.js` 的 `pdf` / `bundle`
+- Alipay 已在默认 payment method configuration 里 `available: on`；结账页会同时显示银行卡和支付宝
 
 ## 访客统计
 

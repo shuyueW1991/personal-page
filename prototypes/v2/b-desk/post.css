@@ -921,6 +921,7 @@
 .body .katex { font-size: 1.08em; }
 
 .math-display {
+  display: block;
   margin: 2em 0;
   overflow-x: auto;
   overflow-y: hidden;
