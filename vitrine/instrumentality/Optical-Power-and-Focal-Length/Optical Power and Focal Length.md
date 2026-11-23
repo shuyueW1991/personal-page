@@ -78,6 +78,14 @@ These are ordinary angle bookkeeping: the angle a ray makes with the normal is i
 
 **Figure 2.** Local geometry at the point $P$ where the ray meets the surface (angles exaggerated for legibility; not to scale). The dashed line through $P$ and the center of curvature $C$ is the surface normal—and also a radius, so $PC=R$. Its tilt from the axis has magnitude $|\alpha|$, with $\sin|\alpha|=y/R$ exactly and $|\alpha|\approx y/R$ paraxially; for $R>0$ the signed angle is $\alpha=-y/R$. All angles are measured from the axis, so the angles of incidence and refraction are $i=u-\alpha$ and $i'=u'-\alpha$. Angles are signed as in the text: positive is counterclockwise, the rotation from the $+z$ axis toward $+y$. Here $u=+6^{\circ}$ and $\alpha=-30^{\circ}$ (exact for the sphere; paraxially $\alpha\approx -y/R$), so $i=u-\alpha=36^{\circ}$; with $n=1$ and $n'=1.5$, the paraxial check $n i = n' i'$ gives $i'=24^{\circ}$ and hence $u'=i'+\alpha=-6^{\circ}$. In the small-angle limit Snell's law $n\sin i=n'\sin i'$ becomes $n i=n'i'$; substituting the angle relations then yields the ray equation $n'u'=nu-\Phi y$, whose term $-\Phi y$ is the surface's kick.
 
+**Signs via magnitudes.** Whether $\alpha$, $i'$, and $u'$ are positive or negative is easy to misjudge on sight; the figure offers a safer, magnitude-first route. In the configuration drawn, the refracted ray and the normal both tilt downward, so the magnitudes on that side of the axis combine by addition: $|\alpha| = |i'| + |u'| = 24^\circ + 6^\circ = 30^\circ$. A single direction check then fixes every sign at once—$\alpha < 0$ (the normal tilts downward, toward $-y$), $u' < 0$ (the refracted ray also aims downward), $i' > 0$—so the magnitude statement becomes
+
+$$
+-\alpha = i' - u',
+$$
+
+which is nothing but the bookkeeping relation $i' = u' - \alpha$, recovered here without carrying signs through the algebra.
+
 In the paraxial approximation, $\sin \theta \approx \theta$, so Snell’s law becomes
 
 $$
