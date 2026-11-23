@@ -52,11 +52,11 @@ $$
 
 together with the geometry of a spherical surface, in the limit of small angles. Consider a paraxial ray that strikes the surface at height $y$ above the axis. Let
 
-- $u$ be the angle of the incident ray with the optical axis,
-- $u'$ be the angle of the refracted ray with the axis,
-- $\alpha$ be the angle of the surface normal with the axis.
+- $u$ be the signed angle of the incident ray with the optical axis,
+- $u'$ be the signed angle of the refracted ray with the axis,
+- $\alpha$ be the signed angle of the surface normal with the axis.
 
-All three are signed angles measured from the $+z$ axis (the optical axis, with light traveling left to right); positive means the direction is rotated toward $+y$. The normal is taken in the direction that points into the second medium: for a surface with $R>0$, that is the direction from the hit point toward the center of curvature $C$ (for $R<0$ it points away from $C$).
+All three are signed angles, each measured from the direction of the $+z$ axis (the optical axis; light travels left to right, toward $+z$). The sign is the sense of the rotation that carries the axis direction onto the ray direction: positive when that rotation is the one taking $+z$ toward $+y$—counterclockwise in the plane of the diagram, with the axis drawn horizontal and $y$ upward—and negative when it is the opposite rotation, toward $-y$. A direction tilted upward therefore carries a positive angle and one tilted downward a negative angle. The normal is taken in the direction that points into the second medium: for a surface with $R>0$, from the hit point toward the center of curvature $C$ (for $R<0$, away from $C$); at a hit point above the axis that direction tilts downward, so $\alpha<0$.
 
 For a spherical surface near the vertex, the normal angle is approximately
 
@@ -64,7 +64,7 @@ $$
 \alpha \approx -\frac{y}{R}.
 $$
 
-For the sphere the exact relation is $\sin\alpha = -y/R$; the paraxial approximation replaces the sine by its argument. The minus sign says that, for $R>0$, the normal at a point above the axis tilts downward toward the axis (and upward for a point below it).
+For the sphere the exact relation is $\sin\alpha = -y/R$; the paraxial approximation replaces the sine by its argument. The minus sign says that, for $R>0$, the normal at a point above the axis tilts downward toward the axis (and upward for a point below it)—a clockwise rotation from $+z$, hence a negative angle in the convention above.
 
 The angles of incidence and refraction relative to the normal are then
 
@@ -76,7 +76,7 @@ These are ordinary angle bookkeeping: the angle a ray makes with the normal is i
 
 ![Local ray geometry at the refracting surface.](./images/optical_power_angles.svg)
 
-**Figure 2.** Local geometry at the point $P$ where the ray meets the surface (angles exaggerated for legibility; not to scale). The dashed line through $P$ and the center of curvature $C$ is the surface normal—and also a radius, so $PC=R$. Its tilt from the axis has magnitude $|\alpha|$, with $\sin|\alpha|=y/R$ exactly and $|\alpha|\approx y/R$ paraxially; for $R>0$ the signed angle is $\alpha=-y/R$. All angles are measured from the axis, so the angles of incidence and refraction are $i=u-\alpha$ and $i'=u'-\alpha$. In the small-angle limit Snell’s law $n\sin i=n'\sin i'$ becomes $n i=n'i'$; substituting the angle relations then yields the ray equation $n'u'=nu-\Phi y$, whose term $-\Phi y$ is the surface’s kick.
+**Figure 2.** Local geometry at the point $P$ where the ray meets the surface (angles exaggerated for legibility; not to scale). The dashed line through $P$ and the center of curvature $C$ is the surface normal—and also a radius, so $PC=R$. Its tilt from the axis has magnitude $|\alpha|$, with $\sin|\alpha|=y/R$ exactly and $|\alpha|\approx y/R$ paraxially; for $R>0$ the signed angle is $\alpha=-y/R$. All angles are measured from the axis, so the angles of incidence and refraction are $i=u-\alpha$ and $i'=u'-\alpha$. Angles are signed as in the text: positive is counterclockwise, the rotation from the $+z$ axis toward $+y$. Here $u=+6^{\circ}$ and $\alpha=-30^{\circ}$ (exact for the sphere; paraxially $\alpha\approx -y/R$), so $i=u-\alpha=36^{\circ}$; with $n=1$ and $n'=1.5$, the paraxial check $n i = n' i'$ gives $i'=24^{\circ}$ and hence $u'=i'+\alpha=-6^{\circ}$. In the small-angle limit Snell's law $n\sin i=n'\sin i'$ becomes $n i=n'i'$; substituting the angle relations then yields the ray equation $n'u'=nu-\Phi y$, whose term $-\Phi y$ is the surface's kick.
 
 In the paraxial approximation, $\sin \theta \approx \theta$, so Snell’s law becomes
 

@@ -235,11 +235,35 @@ def figure2(path_svg):
 
     ax.plot(P[0], P[1], "o", ms=6.5, color=INK, mec="white", mew=1.4, zorder=9)
 
-    ax.text(-0.55, 1.947, r"$u$", fontsize=11, color=BLUE, ha="center", va="center")
-    ax.text(-1.03, 2.33, r"$i$", fontsize=14, color=BLUE, ha="center", va="center")
-    ax.text(1.70, 1.938, r"$u'$", fontsize=11, color=RED, ha="center", va="center")
-    ax.text(1.88, 1.56, r"$i'$", fontsize=14, color=RED, ha="center", va="center")
-    ax.text(2.63, 0.42, r"$|\alpha|$", fontsize=14, color=GRAY, ha="center", va="center")
+    # angle labels carry their signed values, so the sign convention
+    # (positive = counterclockwise from +z toward +y) can be read off in place
+    ax.text(-0.82, 1.70, r"$u=+6^{\circ}$", fontsize=11, color=BLUE, ha="center", va="center")
+    ax.text(-1.14, 2.30, r"$i=36^{\circ}$", fontsize=14, color=BLUE, ha="center", va="center")
+    ax.text(1.42, 1.64, r"$u'=-6^{\circ}$", fontsize=11, color=RED, ha="left", va="center")
+    ax.text(1.95, 1.50, r"$i'=24^{\circ}$", fontsize=14, color=RED, ha="left", va="center")
+    ax.text(3.40, 0.62, r"$\alpha=-30^{\circ}$", fontsize=14, color=GRAY, ha="center", va="center")
+
+    # sign-convention indicator: +z and +y axes with the positive (counterclockwise) sense
+    ox, oy, s = -1.48, 2.62, 0.34
+    ax.annotate("", xy=(ox + s, oy), xytext=(ox, oy),
+                arrowprops=dict(arrowstyle="-|>", color=DIM, lw=1.2,
+                                mutation_scale=10, shrinkA=0, shrinkB=0), zorder=6)
+    ax.annotate("", xy=(ox, oy + s), xytext=(ox, oy),
+                arrowprops=dict(arrowstyle="-|>", color=DIM, lw=1.2,
+                                mutation_scale=10, shrinkA=0, shrinkB=0), zorder=6)
+    ax.text(ox + s + 0.05, oy, r"$+z$", fontsize=10, color=GRAY,
+            ha="left", va="center", zorder=7)
+    ax.text(ox + 0.05, oy + s + 0.02, r"$+y$", fontsize=10, color=GRAY,
+            ha="left", va="bottom", zorder=7)
+    ax.add_patch(Arc((ox, oy), 2 * 0.19, 2 * 0.19, theta1=3, theta2=87,
+                     color=BLUE, lw=1.3, zorder=7))
+    th = np.radians(45)
+    mid = np.array([ox, oy]) + 0.19 * np.array([np.cos(th), np.sin(th)])
+    ax.annotate("", xy=mid, xytext=mid - 0.11 * np.array([-np.sin(th), np.cos(th)]),
+                arrowprops=dict(arrowstyle="-|>", color=BLUE, lw=0,
+                                mutation_scale=9, shrinkA=0, shrinkB=0), zorder=8)
+    ax.text(ox, oy - 0.14, "positive", fontsize=9, color=GRAY,
+            ha="center", va="top", zorder=7)
 
     ax.text(0.80, 2.20, r"$P$", fontsize=14, color=INK, ha="left", va="center")
     ax.text(4.12, -0.28, r"$C$", fontsize=14, color=INK, ha="center", va="center")
